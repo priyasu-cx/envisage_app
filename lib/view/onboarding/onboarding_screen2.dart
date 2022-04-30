@@ -1,10 +1,10 @@
 import 'package:envisage_app/utils/colors.dart';
 import 'package:envisage_app/view/authentication/sign_in.dart';
-import 'package:envisage_app/view/onboarding/onboarding_screen2.dart';
+import 'package:envisage_app/view/onboarding/onboarding_screen3.dart';
 import 'package:flutter/material.dart';
 
-class OnboardingScreen1 extends StatelessWidget {
-  const OnboardingScreen1({Key? key}) : super(key: key);
+class OnboardingScreen2 extends StatelessWidget {
+  const OnboardingScreen2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class OnboardingScreen1 extends StatelessWidget {
           children: [
             Container(
               padding: EdgeInsets.fromLTRB(0, _screenHeight * 0.07, 0, 0),
-              child: Image.asset("assets/onboarding/onboarding_screen1.png"),
+              child: Image.asset("assets/onboarding/onboarding_screen2.png"),
             ),
             Align(
               alignment: Alignment.bottomCenter,
@@ -43,7 +43,7 @@ class OnboardingScreen1 extends StatelessWidget {
                         _screenWidth * 0.02,
                       ),
                       child: Text(
-                        " Explore Upcoming and Nearby Events ",
+                        " Web Have Modern Events Calendar Feature",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
@@ -83,7 +83,7 @@ class OnboardingScreen1 extends StatelessWidget {
                         ),
                         Center(
                           child: Image.asset(
-                            "assets/onboarding/dots_screen1.png",
+                            "assets/onboarding/dots_screen2.png",
                             width: 40,
                           ),
                         ),
@@ -92,7 +92,7 @@ class OnboardingScreen1 extends StatelessWidget {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => OnboardingScreen2()));
+                                    builder: (context) => OnboardingScreen3()));
                           },
                           child: Text(
                             "Next",

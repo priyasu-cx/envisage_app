@@ -26,5 +26,5 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  testScreen() => OnboardingScreen1();
+  testScreen() => SplashScreen();
 }
