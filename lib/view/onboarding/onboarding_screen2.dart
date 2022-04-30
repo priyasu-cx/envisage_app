@@ -17,14 +17,14 @@ class OnboardingScreen2 extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              padding: EdgeInsets.fromLTRB(0, _screenHeight * 0.07, 0, 0),
+              padding: EdgeInsets.fromLTRB(0, _screenHeight * 0.08, 0, 0),
               child: Image.asset("assets/onboarding/onboarding_screen2.png"),
             ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
                 width: double.infinity,
-                height: _screenHeight * 0.33,
+                height: _screenHeight * 0.35,
                 decoration: const BoxDecoration(
                   color: primaryHighlightColor,
                   borderRadius: BorderRadius.only(
