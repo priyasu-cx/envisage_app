@@ -42,7 +42,7 @@ class OnboardingScreen1 extends StatelessWidget {
                         _screenWidth * 0.06,
                         _screenWidth * 0.02,
                       ),
-                      child: Text(
+                      child: const Text(
                         " Explore Upcoming and Nearby Events ",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -52,7 +52,7 @@ class OnboardingScreen1 extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Text(
+                    const Text(
                       " In publishing and graphic design, Lorem is a placeholder text commonly ",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -71,7 +71,7 @@ class OnboardingScreen1 extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) => SignIn()));
                           },
-                          child: Text(
+                          child: const Text(
                             "Skip",
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -94,7 +94,7 @@ class OnboardingScreen1 extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) => OnboardingScreen2()));
                           },
-                          child: Text(
+                          child: const Text(
                             "Next",
                             textAlign: TextAlign.center,
                             style: TextStyle(

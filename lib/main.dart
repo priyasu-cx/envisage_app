@@ -1,9 +1,11 @@
-import 'package:envisage_app/view/onboarding/onboarding_screen1.dart';
-import 'package:envisage_app/view/splash_screen.dart';
+import 'package:envisage_app/view/authentication/sign_in.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+Future<void> main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -26,5 +28,5 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  testScreen() => SplashScreen();
+  testScreen() => SignIn();
 }
