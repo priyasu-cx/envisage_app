@@ -148,7 +148,7 @@ class _SignInState extends State<SignIn> {
       borderRadius: BorderRadius.circular(8),
       child: MaterialButton(
         onPressed: () {
-          signIn(emailController, passwordController);
+          _signIn(emailController, passwordController);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -387,7 +387,7 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-  void signIn(TextEditingController emailController,
+  void _signIn(TextEditingController emailController,
       TextEditingController passwordController) async {
     if (_formKey.currentState!.validate()) {
       print("Validated");

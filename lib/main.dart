@@ -1,4 +1,4 @@
-import 'package:envisage_app/view/splash_screen.dart';
+import 'package:envisage_app/view/authentication/details_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,5 +28,5 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  testScreen() => SplashScreen();
+  testScreen() => DetailsPage();
 }

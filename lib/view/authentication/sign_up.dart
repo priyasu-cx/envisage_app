@@ -231,8 +231,8 @@ class _SignUpState extends State<SignUp> {
       borderRadius: BorderRadius.circular(8),
       child: MaterialButton(
         onPressed: () {
-          signUp(emailController, passwordController, confirmPasswordController,
-              refferalController);
+          _signUp(emailController, passwordController,
+              confirmPasswordController, refferalController);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -430,7 +430,7 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  void signUp(
+  void _signUp(
     TextEditingController emailController,
     TextEditingController passwordController,
     TextEditingController confirmPasswordController,

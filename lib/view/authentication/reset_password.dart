@@ -77,7 +77,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       borderRadius: BorderRadius.circular(8),
       child: MaterialButton(
         onPressed: () {
-          resetPassword(emailController);
+          _resetPassword(emailController);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -170,7 +170,7 @@ class _ResetPasswordState extends State<ResetPassword> {
     );
   }
 
-  void resetPassword(TextEditingController emailController) async {
+  void _resetPassword(TextEditingController emailController) async {
     if (_formKey.currentState!.validate()) {
       print("Validated");
     }
