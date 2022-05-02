@@ -26,7 +26,7 @@ class _SignInState extends State<SignIn> {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
 
-    bool isObscure = true;
+    bool _isObscure = true;
 
     // email field
     final emailField = TextFormField(
@@ -82,7 +82,7 @@ class _SignInState extends State<SignIn> {
     final passwordField = TextFormField(
       autofocus: false,
       controller: passwordController,
-      obscureText: isObscure,
+      obscureText: _isObscure,
       validator: (value) {
         RegExp regex = new RegExp(r'^.{6,}$');
         if (value!.isEmpty) {
@@ -101,16 +101,18 @@ class _SignInState extends State<SignIn> {
           IconlyLight.lock,
           color: Colors.white30,
         ),
-        suffixIcon: IconButton(
-          onPressed: () {
-            isObscure = !isObscure;
-            setState(() {});
-          },
-          icon: Icon(
-            isObscure ? IconlyLight.hide : IconlyLight.show,
-            color: Colors.white30,
-          ),
-        ),
+        // suffixIcon: IconButton(
+        //   icon: Icon(
+        //     _isObscure ? IconlyLight.hide : IconlyLight.show,
+        //     // _isObscure ? Icons.visibility : Icons.visibility_off,
+        //     color: Colors.white30,
+        //   ),
+        //   onPressed: () {
+        //     setState(() {
+        //       _isObscure = !_isObscure;
+        //     });
+        //   },
+        // ),
         contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
         hintText: "Your Password",
         hintStyle: TextStyle(
@@ -138,59 +140,244 @@ class _SignInState extends State<SignIn> {
       ),
     );
 
-    return Scaffold(
-      body: Container(
-        color: primaryBackgroundColor,
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    // Login Button
+    final SignInButton = Material(
+      color: primaryHighlightColor,
+      borderRadius: BorderRadius.circular(8),
+      child: MaterialButton(
+        onPressed: () {},
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(
-                _width * 0.27,
-                _height * 0.075,
-                _width * 0.27,
-                _height * 0.025,
-              ),
-              child: Image.asset("assets/envisage_logo.png"),
-            ),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: _width * 0.077,
-                ),
-                child: const Text(
-                  "Sign In",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 24,
-                    color: Colors.white,
-                  ),
+              padding: EdgeInsets.symmetric(horizontal: _width * 0.168),
+              child: Text(
+                " SIGN IN ",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: _height * 0.0251,
-                      horizontal: _width * 0.074,
-                    ),
-                    child: emailField,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: _width * 0.074,
-                    ),
-                    child: passwordField,
-                  ),
-                ],
+            Align(
+              alignment: Alignment.centerRight,
+              child: Image.asset(
+                "assets/icons/forward_arrow_circle.png",
+                height: 30,
+                width: 30,
               ),
             ),
           ],
+        ),
+        // padding: EdgeInsets.symmetric(),
+        minWidth: _width * 0.72,
+      ),
+    );
+
+    // Google Login button
+    final GoogleSignInButton = Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(8),
+      child: MaterialButton(
+        onPressed: () {},
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Image.asset(
+              "assets/icons/google_logo.png",
+              height: 26,
+              width: 26,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: _width * 0.0773),
+              child: Text(
+                "Login with Google",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    // Facebook Login Button
+    // Google Login button
+    final FacebookSignInButton = Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(8),
+      child: MaterialButton(
+        onPressed: () {},
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Image.asset(
+              "assets/icons/facebook_logo.png",
+              height: 26,
+              width: 26,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: _width * 0.05),
+              child: Text(
+                "Login with Facebook",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    return Scaffold(
+      backgroundColor: primaryBackgroundColor,
+      body: Container(
+        // color: primaryBackgroundColor,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(
+                  _width * 0.27,
+                  _height * 0.075,
+                  _width * 0.27,
+                  _height * 0.025,
+                ),
+                child: Image.asset("assets/envisage_logo.png"),
+              ),
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: _width * 0.077,
+                  ),
+                  child: const Text(
+                    "Sign In",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 24,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: _height * 0.0251,
+                        horizontal: _width * 0.074,
+                      ),
+                      child: emailField,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: _width * 0.074,
+                      ),
+                      child: passwordField,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: _width * 0.074,
+                        vertical: _height * 0.02,
+                      ),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: GestureDetector(
+                          child: Text(
+                            "Forgot Password?",
+                            // textAlign: TextAlign.right,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
+                          ),
+                          onTap: () {
+                            print("tapped");
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: _width * 0.138,
+                        vertical: _height * 0.04,
+                      ),
+                      child: SignInButton,
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                child: Column(
+                  children: [
+                    Text(
+                      " OR ",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: _height * 0.0114,
+                        horizontal: _width * 0.138,
+                      ),
+                      child: GoogleSignInButton,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: _height * 0.0114,
+                        horizontal: _width * 0.138,
+                      ),
+                      child: FacebookSignInButton,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: _height * 0.0217,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Text(
+                      " Don't have an account? ",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        print("sign up");
+                      },
+                      child: const Text(
+                        "Sign Up",
+                        style: TextStyle(
+                          color: primaryHighlightColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(),
+            ],
+          ),
         ),
       ),
     );
