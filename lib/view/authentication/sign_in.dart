@@ -1,4 +1,6 @@
 import 'package:envisage_app/utils/colors.dart';
+import 'package:envisage_app/view/authentication/reset_password.dart';
+import 'package:envisage_app/view/authentication/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
@@ -103,7 +105,7 @@ class _SignInState extends State<SignIn> {
         ),
         // suffixIcon: IconButton(
         //   icon: Icon(
-        //     _isObscure ? IconlyLight.hide : IconlyLight.show,
+        //     _isObscure == true ? IconlyLight.hide : IconlyLight.show,
         //     // _isObscure ? Icons.visibility : Icons.visibility_off,
         //     color: Colors.white30,
         //   ),
@@ -145,7 +147,9 @@ class _SignInState extends State<SignIn> {
       color: primaryHighlightColor,
       borderRadius: BorderRadius.circular(8),
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: () {
+          signIn(emailController, passwordController);
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -205,7 +209,6 @@ class _SignInState extends State<SignIn> {
     );
 
     // Facebook Login Button
-    // Google Login button
     final FacebookSignInButton = Material(
       color: Colors.white,
       borderRadius: BorderRadius.circular(8),
@@ -237,10 +240,9 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
       backgroundColor: primaryBackgroundColor,
       body: Container(
-        // color: primaryBackgroundColor,
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Padding(
                 padding: EdgeInsets.fromLTRB(
@@ -303,7 +305,8 @@ class _SignInState extends State<SignIn> {
                             ),
                           ),
                           onTap: () {
-                            print("tapped");
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ResetPassword()));
                           },
                         ),
                       ),
@@ -361,7 +364,8 @@ class _SignInState extends State<SignIn> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        print("sign up");
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => SignUp()));
                       },
                       child: const Text(
                         "Sign Up",
@@ -381,5 +385,12 @@ class _SignInState extends State<SignIn> {
         ),
       ),
     );
+  }
+
+  void signIn(TextEditingController emailController,
+      TextEditingController passwordController) async {
+    if (_formKey.currentState!.validate()) {
+      print("Validated");
+    }
   }
 }
