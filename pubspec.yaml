@@ -42,6 +42,16 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: 
+
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/envisage_logo.png"
+  remove_alpha_ios: true
+  adaptive_icon_background: "#120D26"
+  adaptive_icon_foreground: "assets/ic_launcher_adaptive_fore.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

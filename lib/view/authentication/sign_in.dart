@@ -3,6 +3,7 @@ import 'package:envisage_app/view/authentication/reset_password.dart';
 import 'package:envisage_app/view/authentication/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconly/iconly.dart';
 
 class SignIn extends StatefulWidget {
@@ -21,7 +22,7 @@ class _SignInState extends State<SignIn> {
   final TextEditingController passwordController = TextEditingController();
 
   // Firebase Auth
-  // final _auth = FirebaseAuth.instance;
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -390,7 +391,18 @@ class _SignInState extends State<SignIn> {
   void _signIn(TextEditingController emailController,
       TextEditingController passwordController) async {
     if (_formKey.currentState!.validate()) {
-      print("Validated");
+      await _auth
+          .signInWithEmailAndPassword(
+              email: emailController.text, password: passwordController.text)
+          .then((uid) => {
+                Fluttertoast.showToast(msg: "Login Successful"),
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => (),
+                ))
+              })
+          .catchError((error) {
+        Fluttertoast.showToast(msg: error!.message);
+      });
     }
   }
 }
