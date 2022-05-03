@@ -1,6 +1,10 @@
+import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/utils/colors.dart';
+import 'package:envisage_app/view/authentication/details_page.dart';
 import 'package:envisage_app/view/authentication/sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconly/iconly.dart';
 
 class SignUp extends StatefulWidget {
@@ -20,6 +24,9 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
   final TextEditingController refferalController = TextEditingController();
+
+  // Firebase Auth
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -81,12 +88,12 @@ class _SignUpState extends State<SignUp> {
       autofocus: false,
       controller: passwordController,
       obscureText: true,
-      validator: (value) {
+      validator: (passwdvalue) {
         RegExp regex = new RegExp(r'^.{6,}$');
-        if (value!.isEmpty) {
+        if (passwdvalue!.isEmpty) {
           return ("Password is required for login");
         }
-        if (!regex.hasMatch(value)) {
+        if (!regex.hasMatch(passwdvalue)) {
           return ("Please enter valid password (Min. 6 character)");
         }
       },
@@ -132,7 +139,7 @@ class _SignUpState extends State<SignUp> {
       controller: confirmPasswordController,
       obscureText: true,
       validator: (confirmValue) {
-        if (confirmValue != null) {
+        if (confirmValue == "") {
           return ("Password is required to confirm");
         }
         if (confirmPasswordController.text != passwordController.text) {
@@ -182,7 +189,9 @@ class _SignUpState extends State<SignUp> {
       controller: refferalController,
       keyboardType: TextInputType.name,
       validator: (value) {
-        if (!RegExp(
+        if (value == "") {
+          return null;
+        } else if (!RegExp(
                 "/^22EVG+[A-Z]+[A-Z]+[A-Z]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]\$")
             .hasMatch(value!)) {
           return ("Please enter a valid Refferal Code");
@@ -266,7 +275,9 @@ class _SignUpState extends State<SignUp> {
       color: Colors.white,
       borderRadius: BorderRadius.circular(8),
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: () {
+          _signUpWithGoogle(context);
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -295,7 +306,9 @@ class _SignUpState extends State<SignUp> {
       color: Colors.white,
       borderRadius: BorderRadius.circular(8),
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: () {
+          _signUpWithFacebook(context);
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -437,7 +450,51 @@ class _SignUpState extends State<SignUp> {
     TextEditingController refferalController,
   ) async {
     if (_formKey.currentState!.validate()) {
-      print("Validated");
+      AuthenticationService _authController = AuthenticationService();
+      String status = await _authController.signUpFirebase(
+          emailController: emailController,
+          passwordController: passwordController);
+
+      if (status == "success") {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => DetailsPage()));
+      } else {
+        Fluttertoast.showToast(msg: status);
+      }
+    }
+  }
+
+  void _signUpWithGoogle(BuildContext context) async {
+    String? status = await AuthenticationService().signInWithGoogle(context);
+    // print(status);
+    if (status == null) {
+      Fluttertoast.showToast(msg: " Sone Internal Error Occured :( ");
+    }
+    if (status == "signup") {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => DetailsPage()));
+    } else if (status == "login") {
+      //
+      // Change for Home Page
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => DetailsPage()));
+    }
+  }
+
+  void _signUpWithFacebook(BuildContext context) async {
+    String? status = await AuthenticationService().signInWithFacebook(context);
+    print(status);
+    if (status == null) {
+      Fluttertoast.showToast(msg: " Sone Internal Error Occured :( ");
+    }
+    if (status == "signup") {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => DetailsPage()));
+    } else if (status == "login") {
+      //
+      // Change for Home Page
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => DetailsPage()));
     }
   }
 }

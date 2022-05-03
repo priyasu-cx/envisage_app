@@ -117,19 +117,23 @@ class _DetailsPageState extends State<DetailsPage> {
       ),
     );
 
-    // Full Name Field
+    // Phone Field
     final phoneField = TextFormField(
       autofocus: false,
       keyboardType: TextInputType.phone,
-      controller: fullNameController,
+      controller: phoneController,
       validator: (value) {
+        RegExp regex = new RegExp(r'^(\+\d{1,3}[- ]?)?\d{10}$');
         if (value!.isEmpty) {
           return ("Please enter your Phone");
+        }
+        if (!regex.hasMatch(value)) {
+          return ("Please enter valid Phone Number");
         }
         return null;
       },
       onSaved: (value) {
-        fullNameController.text = value!;
+        phoneController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -170,6 +174,7 @@ class _DetailsPageState extends State<DetailsPage> {
       autofocus: false,
       elevation: 0,
       autovalidateMode: AutovalidateMode.onUserInteraction,
+      menuMaxHeight: _height * 0.4,
       icon: Icon(
         IconlyLight.arrow_down_2,
         color: Colors.white30,
@@ -182,7 +187,7 @@ class _DetailsPageState extends State<DetailsPage> {
       },
       decoration: InputDecoration(
         prefixIcon: Icon(
-          IconlyLight.call,
+          IconlyLight.user,
           color: Colors.white30,
         ),
         contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
@@ -336,6 +341,7 @@ class _DetailsPageState extends State<DetailsPage> {
       autofocus: false,
       elevation: 0,
       autovalidateMode: AutovalidateMode.onUserInteraction,
+      menuMaxHeight: _height * 0.4,
       icon: Icon(
         IconlyLight.arrow_down_2,
         color: Colors.white30,
