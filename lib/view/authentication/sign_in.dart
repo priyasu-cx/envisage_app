@@ -1,9 +1,11 @@
 import 'package:envisage_app/utils/colors.dart';
+
 import 'package:envisage_app/view/authentication/reset_password.dart';
 import 'package:envisage_app/view/authentication/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -385,6 +387,7 @@ class _SignInState extends State<SignIn> {
         ),
       ),
     );
+
   }
 
   void _signIn(TextEditingController emailController,
@@ -394,3 +397,5 @@ class _SignInState extends State<SignIn> {
     }
   }
 }
+
+
