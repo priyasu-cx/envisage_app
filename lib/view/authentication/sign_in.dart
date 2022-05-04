@@ -1,5 +1,8 @@
 import 'package:envisage_app/utils/colors.dart';
 import 'package:envisage_app/view/footer.dart';
+import 'package:envisage_app/view/homepage.dart';
+//import 'package:envisage_app/view/footer.dart';
+import 'package:envisage_app/view/screen.dart';
 //import 'package:envisage_app/view/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +19,7 @@ class SignIn extends StatelessWidget {
             child: TextButton(
               child: Text('Homepage', style: TextStyle(fontSize: 20.0),),
               onPressed: (){
-                Get.to(()=>footer());
+                Get.to(()=>style());
                 //Get.to(()=>LoginView());
               },
             ),

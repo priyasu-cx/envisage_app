@@ -1,7 +1,9 @@
 import 'package:envisage_app/view/homepage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:iconly/iconly.dart';
+import 'package:get/get.dart';
 
 class footer extends StatefulWidget {
   const footer({Key? key}) : super(key: key);
@@ -21,10 +23,55 @@ class _footerState extends State<footer> {
   ];
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = homepage();
+  double xOffset = 0;
+  double yOffset = 0;
+  double scaleFactor = 1;
 
+  bool isDrawerOpen = false;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AnimatedContainer(
+      transform: Matrix4.translationValues(xOffset, yOffset, 0)..scale(scaleFactor),
+      duration: Duration(milliseconds: 250),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(isDrawerOpen?40:0.0),
+      ),
+      child: Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: PreferredSize(child:SafeArea(
+          child: Container(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  isDrawerOpen? IconButton(icon: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+                    onPressed: (){
+                      setState(() {
+                        //print("Hello World");
+                        xOffset = 0;
+                        yOffset = 0;
+                        scaleFactor = 1;
+                        isDrawerOpen = false;
+                      });
+                    },):
+                  IconButton(icon: Icon(Icons.menu, color: Colors.white),
+                    onPressed: (){
+                      setState(() {
+                        //print("Hello World");
+                        xOffset = Get.width*0.65;
+                        yOffset = Get.height*0.1;
+                        scaleFactor = 0.8;
+                        isDrawerOpen = true;
+                      });
+                    },
+                  ),
+                  Icon(IconlyBold.notification,color: Colors.white,),
+                ]
+              )
+            )
+          )
+        ),preferredSize: Size.fromHeight(Get.height*0.1),),
 
       body: PageStorage(
         child: currentScreen,
@@ -160,6 +207,8 @@ class _footerState extends State<footer> {
           )
         )
       ),
-    );
+    ),);
   }
 }
+
+
