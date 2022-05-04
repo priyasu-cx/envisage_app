@@ -28,7 +28,8 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.all(89),
+              padding:
+                  EdgeInsets.all((MediaQuery.of(context).size.width * 0.23)),
               child: Center(
                 child: Image.asset("assets/envisage_logo.png"),
               ),
