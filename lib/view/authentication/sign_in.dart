@@ -1,9 +1,16 @@
+import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/utils/colors.dart';
+import 'package:envisage_app/view/footer.dart';
+//import 'package:envisage_app/view/homepage.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import 'package:envisage_app/view/authentication/details_page.dart';
 import 'package:envisage_app/view/authentication/reset_password.dart';
 import 'package:envisage_app/view/authentication/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconly/iconly.dart';
 
 
@@ -23,7 +30,7 @@ class _SignInState extends State<SignIn> {
   final TextEditingController passwordController = TextEditingController();
 
   // Firebase Auth
-  // final _auth = FirebaseAuth.instance;
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -186,7 +193,9 @@ class _SignInState extends State<SignIn> {
       color: Colors.white,
       borderRadius: BorderRadius.circular(8),
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: () {
+          _signInWithGoogle(context);
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -215,7 +224,9 @@ class _SignInState extends State<SignIn> {
       color: Colors.white,
       borderRadius: BorderRadius.circular(8),
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: () {
+          _signInWithFacebook(context);
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -246,13 +257,9 @@ class _SignInState extends State<SignIn> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(
-                  _width * 0.27,
-                  _height * 0.075,
-                  _width * 0.27,
-                  _height * 0.025,
-                ),
+              Container(
+                padding: EdgeInsets.fromLTRB(_width * 0.27, _height * 0.09,
+                    _width * 0.27, _height * 0.03),
                 child: Image.asset("assets/envisage_logo.png"),
               ),
               Container(
@@ -292,12 +299,12 @@ class _SignInState extends State<SignIn> {
                     Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: _width * 0.074,
-                        vertical: _height * 0.02,
+                        vertical: _height * 0.01,
                       ),
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: GestureDetector(
-                          child: Text(
+                          child: const Text(
                             "Forgot Password?",
                             // textAlign: TextAlign.right,
                             style: TextStyle(
@@ -326,7 +333,7 @@ class _SignInState extends State<SignIn> {
               Container(
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       " OR ",
                       style: TextStyle(
                         color: Colors.white,
@@ -337,14 +344,14 @@ class _SignInState extends State<SignIn> {
                     Padding(
                       padding: EdgeInsets.symmetric(
                         vertical: _height * 0.0114,
-                        horizontal: _width * 0.138,
+                        horizontal: _width * 0.077,
                       ),
                       child: GoogleSignInButton,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
                         vertical: _height * 0.0114,
-                        horizontal: _width * 0.138,
+                        horizontal: _width * 0.077,
                       ),
                       child: FacebookSignInButton,
                     ),
@@ -387,13 +394,55 @@ class _SignInState extends State<SignIn> {
         ),
       ),
     );
-
   }
 
   void _signIn(TextEditingController emailController,
       TextEditingController passwordController) async {
     if (_formKey.currentState!.validate()) {
-      print("Validated");
+      AuthenticationService _authController = AuthenticationService();
+      String status = await _authController.signInFirebase(
+          email: emailController, password: passwordController);
+
+      if (status == "success") {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => DetailsPage()));
+      } else {
+        Fluttertoast.showToast(msg: status);
+      }
+    }
+  }
+
+  void _signInWithGoogle(BuildContext context) async {
+    String? status = await AuthenticationService().signInWithGoogle(context);
+    // print(status);
+    if (status == null) {
+      Fluttertoast.showToast(msg: " Sone Internal Error Occured :( ");
+    }
+    if (status == "signup") {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => DetailsPage()));
+    } else if (status == "login") {
+      //
+      // Change for Home Page
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => DetailsPage()));
+    }
+  }
+
+  void _signInWithFacebook(BuildContext context) async {
+    String? status = await AuthenticationService().signInWithFacebook(context);
+    print(status);
+    if (status == null) {
+      Fluttertoast.showToast(msg: " Sone Internal Error Occured :( ");
+    }
+    if (status == "signup") {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => DetailsPage()));
+    } else if (status == "login") {
+      //
+      // Change for Home Page
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => DetailsPage()));
     }
   }
 }

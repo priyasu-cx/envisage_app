@@ -1,6 +1,10 @@
+import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/utils/colors.dart';
+import 'package:envisage_app/view/authentication/details_page.dart';
 import 'package:envisage_app/view/authentication/sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconly/iconly.dart';
 
 class SignUp extends StatefulWidget {
@@ -19,7 +23,9 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
-  final TextEditingController refferalController = TextEditingController();
+
+  // Firebase Auth
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -81,12 +87,12 @@ class _SignUpState extends State<SignUp> {
       autofocus: false,
       controller: passwordController,
       obscureText: true,
-      validator: (value) {
+      validator: (passwdvalue) {
         RegExp regex = new RegExp(r'^.{6,}$');
-        if (value!.isEmpty) {
+        if (passwdvalue!.isEmpty) {
           return ("Password is required for login");
         }
-        if (!regex.hasMatch(value)) {
+        if (!regex.hasMatch(passwdvalue)) {
           return ("Please enter valid password (Min. 6 character)");
         }
       },
@@ -132,7 +138,7 @@ class _SignUpState extends State<SignUp> {
       controller: confirmPasswordController,
       obscureText: true,
       validator: (confirmValue) {
-        if (confirmValue != null) {
+        if (confirmValue == "") {
           return ("Password is required to confirm");
         }
         if (confirmPasswordController.text != passwordController.text) {
@@ -176,63 +182,14 @@ class _SignUpState extends State<SignUp> {
       ),
     );
 
-    // Refferal Field
-    final refferalField = TextFormField(
-      autofocus: false,
-      controller: refferalController,
-      keyboardType: TextInputType.name,
-      validator: (value) {
-        if (!RegExp(
-                "/^22EVG+[A-Z]+[A-Z]+[A-Z]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]\$")
-            .hasMatch(value!)) {
-          return ("Please enter a valid Refferal Code");
-        }
-        return null;
-      },
-      onSaved: (value) {
-        refferalController.text = value!;
-      },
-      textInputAction: TextInputAction.done,
-      decoration: InputDecoration(
-        prefixIcon: Icon(
-          IconlyLight.ticket,
-          color: Colors.white30,
-        ),
-        contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-        hintText: "Refferal Code",
-        hintStyle: TextStyle(
-          color: Colors.white30,
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-            color: Colors.white,
-            width: 1,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-            color: Colors.white,
-            width: 1,
-          ),
-        ),
-      ),
-      style: TextStyle(
-        color: Colors.white,
-      ),
-    );
-
     // Sign Up button
     final SignUpButton = Material(
       color: primaryHighlightColor,
       borderRadius: BorderRadius.circular(8),
       child: MaterialButton(
         onPressed: () {
-          _signUp(emailController, passwordController,
-              confirmPasswordController, refferalController);
+          _signUp(
+              emailController, passwordController, confirmPasswordController);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -266,7 +223,9 @@ class _SignUpState extends State<SignUp> {
       color: Colors.white,
       borderRadius: BorderRadius.circular(8),
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: () {
+          _signUpWithGoogle(context);
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -295,7 +254,9 @@ class _SignUpState extends State<SignUp> {
       color: Colors.white,
       borderRadius: BorderRadius.circular(8),
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: () {
+          _signUpWithFacebook(context);
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -330,13 +291,15 @@ class _SignUpState extends State<SignUp> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                  height: _height * 0.119,
+                  padding: EdgeInsets.fromLTRB(_width * 0.193, _height * 0.09,
+                      _width * 0.193, _height * 0.01),
+                  child: Image.asset("assets/envisage_logo.png"),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: _height * 0.025),
                   child: Container(
                     alignment: Alignment.centerLeft,
-                    child: Text(
+                    child: const Text(
                       " Sign up ",
                       style: TextStyle(
                         fontSize: 24,
@@ -353,43 +316,37 @@ class _SignUpState extends State<SignUp> {
                 ),
                 confirmPasswordField,
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: _height * 0.025),
-                  child: refferalField,
-                ),
-                Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: _width * 0.061,
                     vertical: _height * 0.0381,
                   ),
                   child: SignUpButton,
                 ),
-                Container(
-                  child: Column(
-                    children: [
-                      Text(
-                        " OR ",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
+                Column(
+                  children: [
+                    const Text(
+                      " OR ",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: _height * 0.0114,
-                          // horizontal: _width * 0.138,
-                        ),
-                        child: GoogleSignInButton,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: _height * 0.0114,
+                        // horizontal: _width * 0.138,
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: _height * 0.0114,
-                          // horizontal: _width * 0.138,
-                        ),
-                        child: FacebookSignInButton,
+                      child: GoogleSignInButton,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: _height * 0.0114,
+                        // horizontal: _width * 0.138,
                       ),
-                    ],
-                  ),
+                      child: FacebookSignInButton,
+                    ),
+                  ],
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -434,10 +391,53 @@ class _SignUpState extends State<SignUp> {
     TextEditingController emailController,
     TextEditingController passwordController,
     TextEditingController confirmPasswordController,
-    TextEditingController refferalController,
   ) async {
     if (_formKey.currentState!.validate()) {
-      print("Validated");
+      AuthenticationService _authController = AuthenticationService();
+      String status = await _authController.signUpFirebase(
+          emailController: emailController,
+          passwordController: passwordController);
+
+      if (status == "success") {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => DetailsPage()));
+      } else {
+        Fluttertoast.showToast(msg: status);
+      }
+    }
+  }
+
+  void _signUpWithGoogle(BuildContext context) async {
+    String? status = await AuthenticationService().signInWithGoogle(context);
+    // print(status);
+    if (status == null) {
+      Fluttertoast.showToast(msg: " Sone Internal Error Occured :( ");
+    }
+    if (status == "signup") {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => DetailsPage()));
+    } else if (status == "login") {
+      //
+      // Change for Home Page
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => DetailsPage()));
+    }
+  }
+
+  void _signUpWithFacebook(BuildContext context) async {
+    String? status = await AuthenticationService().signInWithFacebook(context);
+    print(status);
+    if (status == null) {
+      Fluttertoast.showToast(msg: " Sone Internal Error Occured :( ");
+    }
+    if (status == "signup") {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => DetailsPage()));
+    } else if (status == "login") {
+      //
+      // Change for Home Page
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => DetailsPage()));
     }
   }
 }

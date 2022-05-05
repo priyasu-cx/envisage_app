@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "596995894219",
+    "project_id": "envisage-22",
+    "storage_bucket": "envisage-22.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596995894219:android:c6647f495c0459bd12244e",
+        "android_client_info": {
+          "package_name": "com.example.envisage_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596995894219-ami1dh93ae8hnb7dhmikm19ppf2bvcso.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.envisage_app",
+            "certificate_hash": "632968b3a4337f694b83cbee3a961647d265db46"
+          }
+        },
+        {
+          "client_id": "596995894219-q5hfq41ntohesisbv880fa765gpor872.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHY5PgnRG3i_T0aSnMKPjrUl2quOnzs2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596995894219-q5hfq41ntohesisbv880fa765gpor872.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

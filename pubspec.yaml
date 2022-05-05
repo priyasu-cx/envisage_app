@@ -33,18 +33,29 @@ dependencies:
   firebase_core: ^1.15.0
   flutter:
     sdk: flutter
+  flutter_facebook_auth: ^4.3.0
   fluttertoast: ^8.0.9
   font_awesome_flutter: ^10.1.0
   google_fonts: ^2.3.2
-
   get:
 
   iconly:
+  google_sign_in: ^5.3.0
+  provider: ^6.0.2
 
 dev_dependencies:
+  flutter_launcher_icons: null
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/envisage_logo.png"
+  remove_alpha_ios: true
+  adaptive_icon_background: "#120D26"
+  adaptive_icon_foreground: "assets/ic_launcher_adaptive_fore.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -62,7 +73,6 @@ flutter:
     - assets/splash_screen/
     - assets/onboarding/
     - assets/icons/
-
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
