@@ -1,10 +1,7 @@
-<<<<<<< HEAD
- //import 'package:envisage_app/view/homepage.dart';
-//import 'package:envisage_app/view/onboarding/onboarding_screen1.dart';
-=======
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
->>>>>>> ea381379d5d3d147586af824eb52b7c8da5c3a22
 import 'package:envisage_app/view/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:envisage_app/view/authentication/details_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

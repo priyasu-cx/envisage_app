@@ -1,6 +1,5 @@
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/utils/colors.dart';
-
 import 'package:envisage_app/view/footer.dart';
 //import 'package:envisage_app/view/homepage.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +34,6 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
 
