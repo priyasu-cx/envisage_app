@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:envisage_app/model/user_details.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:envisage_app/view/authentication/details_page.dart';
 import 'package:envisage_app/view/onboarding/onboarding_screen1.dart';
@@ -43,6 +45,25 @@ class ScreenLoader extends StatelessWidget {
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FacebookAuth _facebookAuth = FacebookAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<String> fetchUid() async {
+    return _firebaseAuth.currentUser!.uid.toString();
+  }
+
+  Future<String?> addDetailsSignUp(UserDetails userDetails) async {
+    try {
+      User currentUser = _firebaseAuth.currentUser!;
+
+      await _firestore
+          .collection("users")
+          .doc(currentUser.uid)
+          .set(userDetails.toJson());
+    } catch (error) {
+      return error.toString();
+    }
+    return "success";
+  }
 
   Future<String?> signInWithGoogle(BuildContext context) async {
     try {
@@ -133,6 +154,17 @@ class AuthenticationService {
         return (error.message);
       });
       Fluttertoast.showToast(msg: " Sign Up Successful ");
+    }).catchError((error) {
+      return (error.message);
+    });
+    return ("success");
+  }
+
+  Future<String> resetPassword(TextEditingController emailController) async {
+    await _firebaseAuth
+        .sendPasswordResetEmail(email: emailController.text)
+        .then((_) {
+      Fluttertoast.showToast(msg: " Reset Password link sent! ");
     }).catchError((error) {
       return (error.message);
     });

@@ -1,5 +1,8 @@
+import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/utils/colors.dart';
+import 'package:envisage_app/view/authentication/sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconly/iconly.dart';
 
 class ResetPassword extends StatefulWidget {
@@ -170,9 +173,19 @@ class _ResetPasswordState extends State<ResetPassword> {
     );
   }
 
-  void _resetPassword(TextEditingController emailController) async {
+  void _resetPassword(
+    TextEditingController emailController,
+  ) async {
     if (_formKey.currentState!.validate()) {
-      print("Validated");
+      AuthenticationService _authController = AuthenticationService();
+      String status = await _authController.resetPassword(emailController);
+
+      if (status == "success") {
+        Navigator.of(context)
+            .pushReplacement(MaterialPageRoute(builder: (context) => SignIn()));
+      } else {
+        Fluttertoast.showToast(msg: status);
+      }
     }
   }
 }

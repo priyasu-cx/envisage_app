@@ -1,5 +1,10 @@
+import 'package:envisage_app/controller/authentication/authentication_service.dart';
+import 'package:envisage_app/model/user_details.dart';
 import 'package:envisage_app/utils/colors.dart';
+import 'package:envisage_app/utils/helper.dart';
+import 'package:envisage_app/view/homepage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconly/iconly.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -18,6 +23,7 @@ class _DetailsPageState extends State<DetailsPage> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController collegeController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
+  final TextEditingController refferalController = TextEditingController();
   String? gender;
   String? state;
 
@@ -90,7 +96,7 @@ class _DetailsPageState extends State<DetailsPage> {
           IconlyLight.profile,
           color: Colors.white30,
         ),
-        contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 0, 15),
         hintText: " Full Name ",
         hintStyle: TextStyle(
           color: Colors.white30,
@@ -141,7 +147,7 @@ class _DetailsPageState extends State<DetailsPage> {
           IconlyLight.call,
           color: Colors.white30,
         ),
-        contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 0, 15),
         hintText: " Phone Number ",
         hintStyle: TextStyle(
           color: Colors.white30,
@@ -190,7 +196,7 @@ class _DetailsPageState extends State<DetailsPage> {
           IconlyLight.user,
           color: Colors.white30,
         ),
-        contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 0, 15),
         hintText: " Phone Number ",
         hintStyle: TextStyle(
           color: Colors.white30,
@@ -261,7 +267,7 @@ class _DetailsPageState extends State<DetailsPage> {
           IconlyLight.work,
           color: Colors.white30,
         ),
-        contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 0, 15),
         hintText: " College ",
         hintStyle: TextStyle(
           color: Colors.white30,
@@ -308,7 +314,7 @@ class _DetailsPageState extends State<DetailsPage> {
           IconlyLight.location,
           color: Colors.white30,
         ),
-        contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 0, 15),
         hintText: " City ",
         hintStyle: TextStyle(
           color: Colors.white30,
@@ -357,7 +363,7 @@ class _DetailsPageState extends State<DetailsPage> {
           IconlyLight.discovery,
           color: Colors.white30,
         ),
-        contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 0, 15),
         hintText: " State ",
         hintStyle: TextStyle(
           color: Colors.white30,
@@ -408,6 +414,57 @@ class _DetailsPageState extends State<DetailsPage> {
           .toList(),
     );
 
+    // Refferal Field
+    final refferalField = TextFormField(
+      autofocus: false,
+      controller: refferalController,
+      keyboardType: TextInputType.name,
+      validator: (value) {
+        if (value == "") {
+          return null;
+        } else if (!RegExp(
+                "/^22EVG+[A-Z]+[A-Z]+[A-Z]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]\$")
+            .hasMatch(value!)) {
+          return ("Please enter a valid Refferal Code");
+        }
+        return null;
+      },
+      onSaved: (value) {
+        refferalController.text = value!;
+      },
+      textInputAction: TextInputAction.done,
+      decoration: InputDecoration(
+        prefixIcon: Icon(
+          IconlyLight.ticket,
+          color: Colors.white30,
+        ),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 0, 15),
+        hintText: "Refferal Code",
+        hintStyle: TextStyle(
+          color: Colors.white30,
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: Colors.white,
+            width: 1,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: Colors.white,
+            width: 1,
+          ),
+        ),
+      ),
+      style: TextStyle(
+        color: Colors.white,
+      ),
+    );
+
     // Continue button
     final continueButton = Material(
       color: primaryHighlightColor,
@@ -415,7 +472,7 @@ class _DetailsPageState extends State<DetailsPage> {
       child: MaterialButton(
         onPressed: () {
           _details(fullNameController, phoneController, collegeController,
-              cityController);
+              cityController, refferalController);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -452,9 +509,10 @@ class _DetailsPageState extends State<DetailsPage> {
           key: _formKey,
           child: SingleChildScrollView(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                  height: _height * 0.118,
+                  height: _height * 0.12,
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
@@ -468,36 +526,37 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 ),
                 Container(
-                  height: _height * 0.045,
+                  height: _height * 0.04,
                 ),
                 fullNameField,
                 Container(
-                  height: _height * 0.024,
+                  height: _height * 0.02,
                 ),
                 phoneField,
                 Container(
-                  height: _height * 0.024,
+                  height: _height * 0.02,
                 ),
                 genderField,
                 Container(
-                  height: _height * 0.024,
+                  height: _height * 0.02,
                 ),
                 collegeField,
                 Container(
-                  height: _height * 0.024,
+                  height: _height * 0.02,
                 ),
                 cityField,
                 Container(
-                  height: _height * 0.024,
+                  height: _height * 0.02,
                 ),
                 stateField,
                 Container(
-                  height: _height * 0.12,
+                  height: _height * 0.02,
+                ),
+                refferalField,
+                Container(
+                  height: _height * 0.06,
                 ),
                 continueButton,
-                Container(
-                  height: _height * 0.024,
-                ),
               ],
             ),
           ),
@@ -511,9 +570,32 @@ class _DetailsPageState extends State<DetailsPage> {
     TextEditingController phoneController,
     TextEditingController collegeController,
     TextEditingController cityController,
+    TextEditingController refferalController,
   ) async {
     if (_formKey.currentState!.validate()) {
       print("Validated");
+      String _uid = await AuthenticationService().fetchUid();
+      UserDetails _userDetails = UserDetails(
+        uid: _uid,
+        fullName: fullNameController.text,
+        phone: phoneController.text,
+        gender: gender!,
+        college: collegeController.text,
+        city: cityController.text,
+        refferalCode: refferalController.text,
+        evgId: getId(),
+        photoUrl: null,
+      );
+
+      String? status =
+          await AuthenticationService().addDetailsSignUp(_userDetails);
+
+      if (status == "success") {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => HomePage()));
+      } else {
+        Fluttertoast.showToast(msg: status!);
+      }
     }
   }
 }

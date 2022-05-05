@@ -23,7 +23,6 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
-  final TextEditingController refferalController = TextEditingController();
 
   // Firebase Auth
   final _auth = FirebaseAuth.instance;
@@ -183,65 +182,14 @@ class _SignUpState extends State<SignUp> {
       ),
     );
 
-    // Refferal Field
-    final refferalField = TextFormField(
-      autofocus: false,
-      controller: refferalController,
-      keyboardType: TextInputType.name,
-      validator: (value) {
-        if (value == "") {
-          return null;
-        } else if (!RegExp(
-                "/^22EVG+[A-Z]+[A-Z]+[A-Z]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]\$")
-            .hasMatch(value!)) {
-          return ("Please enter a valid Refferal Code");
-        }
-        return null;
-      },
-      onSaved: (value) {
-        refferalController.text = value!;
-      },
-      textInputAction: TextInputAction.done,
-      decoration: InputDecoration(
-        prefixIcon: Icon(
-          IconlyLight.ticket,
-          color: Colors.white30,
-        ),
-        contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-        hintText: "Refferal Code",
-        hintStyle: TextStyle(
-          color: Colors.white30,
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-            color: Colors.white,
-            width: 1,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-            color: Colors.white,
-            width: 1,
-          ),
-        ),
-      ),
-      style: TextStyle(
-        color: Colors.white,
-      ),
-    );
-
     // Sign Up button
     final SignUpButton = Material(
       color: primaryHighlightColor,
       borderRadius: BorderRadius.circular(8),
       child: MaterialButton(
         onPressed: () {
-          _signUp(emailController, passwordController,
-              confirmPasswordController, refferalController);
+          _signUp(
+              emailController, passwordController, confirmPasswordController);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -343,13 +291,15 @@ class _SignUpState extends State<SignUp> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                  height: _height * 0.119,
+                  padding: EdgeInsets.fromLTRB(_width * 0.193, _height * 0.09,
+                      _width * 0.193, _height * 0.01),
+                  child: Image.asset("assets/envisage_logo.png"),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: _height * 0.025),
                   child: Container(
                     alignment: Alignment.centerLeft,
-                    child: Text(
+                    child: const Text(
                       " Sign up ",
                       style: TextStyle(
                         fontSize: 24,
@@ -366,43 +316,37 @@ class _SignUpState extends State<SignUp> {
                 ),
                 confirmPasswordField,
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: _height * 0.025),
-                  child: refferalField,
-                ),
-                Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: _width * 0.061,
                     vertical: _height * 0.0381,
                   ),
                   child: SignUpButton,
                 ),
-                Container(
-                  child: Column(
-                    children: [
-                      Text(
-                        " OR ",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
+                Column(
+                  children: [
+                    const Text(
+                      " OR ",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: _height * 0.0114,
-                          // horizontal: _width * 0.138,
-                        ),
-                        child: GoogleSignInButton,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: _height * 0.0114,
+                        // horizontal: _width * 0.138,
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: _height * 0.0114,
-                          // horizontal: _width * 0.138,
-                        ),
-                        child: FacebookSignInButton,
+                      child: GoogleSignInButton,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: _height * 0.0114,
+                        // horizontal: _width * 0.138,
                       ),
-                    ],
-                  ),
+                      child: FacebookSignInButton,
+                    ),
+                  ],
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -447,7 +391,6 @@ class _SignUpState extends State<SignUp> {
     TextEditingController emailController,
     TextEditingController passwordController,
     TextEditingController confirmPasswordController,
-    TextEditingController refferalController,
   ) async {
     if (_formKey.currentState!.validate()) {
       AuthenticationService _authController = AuthenticationService();
