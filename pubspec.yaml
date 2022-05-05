@@ -37,8 +37,10 @@ dependencies:
   fluttertoast: ^8.0.9
   font_awesome_flutter: ^10.1.0
   google_fonts: ^2.3.2
+  get:
+
+  iconly:
   google_sign_in: ^5.3.0
-  iconly: null
   provider: ^6.0.2
 
 dev_dependencies:
