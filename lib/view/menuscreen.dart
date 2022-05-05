@@ -1,9 +1,11 @@
 import 'package:envisage_app/utils/config.dart';
-import 'package:envisage_app/view/Profile/profile.dart';
+import 'package:envisage_app/view/menu_pages//profile.dart';
+import 'package:envisage_app/view/menu_pages/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:envisage_app/utils/colors.dart';
 //import 'package:pet_ui/configuration.dart';
 import 'package:get/get.dart';
+import 'package:iconly/iconly.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override
@@ -38,38 +40,150 @@ class _DrawerScreenState extends State<DrawerScreen> {
             ),
           ),
           SizedBox(height: Get.height*0.06,),
-          // Row(
-          //   children: [
-          //   Text(
-          //     'My Profile',
-          //     style: TextStyle(
-          //       letterSpacing: 3,
-          //       fontSize: 19,
-          //       fontWeight: FontWeight.w500,
-          //       color: Colors.white,
+          // Column(
+          //   children: drawerItems.map((element)=>Padding(
+          //     padding: EdgeInsets.only(left: Get.width*0.015, bottom: Get.width*0.01),
+          //     child: Row(
+          //       children:[
+          //         Icon(element['icon'],color: Colors.white, size:30),
+          //         SizedBox(width: 10,),
+          //         MaterialButton(
+          //           child:
+          //         Text(element['title'],style: TextStyle(
+          //           color: Colors.white,
+          //           fontWeight: FontWeight.w500,
+          //           fontSize: 18,
+          //         )),onPressed: (){Get.to(()=>profile());}),
+          //       ],
           //     ),
-          //   ),
-          //   ],),
+          //   )).toList(),
+          // ),
           Column(
-            children: drawerItems.map((element)=>Padding(
+            children: [Padding(
               padding: EdgeInsets.only(left: Get.width*0.015, bottom: Get.width*0.01),
               child: Row(
                 children:[
-                  Icon(element['icon'],color: Colors.white, size:30),
+                  Icon(IconlyBold.profile,color: Colors.white, size:30),
                   SizedBox(width: 10,),
                   MaterialButton(
-                    child:
-                  Text(element['title'],style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18,
-                  )),onPressed: (){Get.to(()=>profile());}),
+                      child:
+                      Text("Profile",style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                      )),onPressed: (){Get.to(()=>profile());}),
                 ],
               ),
-            )).toList(),
+            ),],
           ),
-
-
+          Column(
+            children: [Padding(
+              padding: EdgeInsets.only(left: Get.width*0.015, bottom: Get.width*0.01),
+              child: Row(
+                children:[
+                  Icon(IconlyBold.buy,color: Colors.white, size:30),
+                  SizedBox(width: 10,),
+                  MaterialButton(
+                      child:
+                      Text("Cart",style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                      )),onPressed: (){Get.to(()=>cart());}),
+                ],
+              ),
+            ),],
+          ),
+          Column(
+            children: [Padding(
+              padding: EdgeInsets.only(left: Get.width*0.015, bottom: Get.width*0.01),
+              child: Row(
+                children:[
+                  Icon(IconlyBold.calendar,color: Colors.white, size:30),
+                  SizedBox(width: 10,),
+                  MaterialButton(
+                      child:
+                      Text("Registered Events",style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                      )),onPressed: (){Get.to(()=>profile());}),
+                ],
+              ),
+            ),],
+          ),
+          Column(
+            children: [Padding(
+              padding: EdgeInsets.only(left: Get.width*0.015, bottom: Get.width*0.01),
+              child: Row(
+                children:[
+                  Icon(IconlyBold.heart,color: Colors.white, size:30),
+                  SizedBox(width: 10,),
+                  MaterialButton(
+                      child:
+                      Text("Sponsors",style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                      )),onPressed: (){Get.to(()=>profile());}),
+                ],
+              ),
+            ),],
+          ),
+          Column(
+            children: [Padding(
+              padding: EdgeInsets.only(left: Get.width*0.015, bottom: Get.width*0.01),
+              child: Row(
+                children:[
+                  Icon(IconlyBold.message,color: Colors.white, size:30),
+                  SizedBox(width: 10,),
+                  MaterialButton(
+                      child:
+                      Text("Contact Us",style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                      )),onPressed: (){Get.to(()=>profile());}),
+                ],
+              ),
+            ),],
+          ),
+          Column(
+            children: [Padding(
+              padding: EdgeInsets.only(left: Get.width*0.015, bottom: Get.width*0.01),
+              child: Row(
+                children:[
+                  Icon(IconlyBold.info_square,color: Colors.white, size:30),
+                  SizedBox(width: 10,),
+                  MaterialButton(
+                      child:
+                      Text("Help & FAQ",style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                      )),onPressed: (){Get.to(()=>profile());}),
+                ],
+              ),
+            ),],
+          ),
+          Column(
+            children: [Padding(
+              padding: EdgeInsets.only(left: Get.width*0.015, bottom: Get.width*0.01),
+              child: Row(
+                children:[
+                  Icon(IconlyBold.logout,color: Colors.white, size:30),
+                  SizedBox(width: 10,),
+                  MaterialButton(
+                      child:
+                      Text("Sign Out",style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                      )),onPressed: (){Get.to(()=>profile());}),
+                ],
+              ),
+            ),],
+          ),
         ],
       ),
 
