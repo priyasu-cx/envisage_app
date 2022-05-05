@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="app_name">Envisage</string>
+    <string name="facebook_app_id">713340533430981</string>
+    <string name="fb_login_protocol_scheme">fb713340533430981</string>
+    <string name="facebook_client_token">55b13627b90bf081a7f7242fdf538e79</string>
+</resources>

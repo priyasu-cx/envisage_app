@@ -1,3 +1,4 @@
+import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:envisage_app/view/onboarding/onboarding_screen1.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (_) => OnboardingScreen1(),
+        builder: (_) => ScreenLoader(),
       ));
     });
   }
@@ -28,7 +29,8 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.all(89),
+              padding:
+                  EdgeInsets.all((MediaQuery.of(context).size.width * 0.23)),
               child: Center(
                 child: Image.asset("assets/envisage_logo.png"),
               ),
