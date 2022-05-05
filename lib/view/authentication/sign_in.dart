@@ -257,20 +257,9 @@ class _SignInState extends State<SignIn> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              // Padding(
-              //   padding: EdgeInsets.fromLTRB(
-              //     _width * 0.27,
-              //     _height * 0.075,
-              //     _width * 0.27,
-              //     _height * 0.025,
-              //   ),
-              //   child: Image.asset("assets/envisage_logo.png"),
-              // ),
               Container(
                 padding: EdgeInsets.fromLTRB(_width * 0.27, _height * 0.09,
                     _width * 0.27, _height * 0.03),
-                // height: _height * 0.075,
-                // width: _width * 0.27,
                 child: Image.asset("assets/envisage_logo.png"),
               ),
               Container(
