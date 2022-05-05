@@ -1,4 +1,4 @@
-import 'package:envisage_app/view/Profile/profile.dart';
+import 'package:envisage_app/view/menu_pages//profile.dart';
 import 'package:envisage_app/view/authentication/sign_in.dart';
 import 'package:envisage_app/view/screen.dart';
 import 'package:flutter/material.dart';

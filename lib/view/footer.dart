@@ -10,6 +10,7 @@ class footer extends StatefulWidget {
 
   @override
   State<footer> createState() => _footerState();
+
 }
 
 class _footerState extends State<footer> {
@@ -27,16 +28,48 @@ class _footerState extends State<footer> {
   double yOffset = 0;
   double scaleFactor = 1;
 
+  Future<bool> _onBackPressed() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text('Exit From The App'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              child: Text('No'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+              child: Text('Yes'),
+            ),
+          ],
+        );
+      },
+    ).then((value) => value ?? false);
+  }
+
   bool isDrawerOpen = false;
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child:
+      AnimatedContainer(
       transform: Matrix4.translationValues(xOffset, yOffset, 0)..scale(scaleFactor),
       duration: Duration(milliseconds: 250),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(isDrawerOpen?40:0.0),
-      ),
-      child: Scaffold(
+      // decoration: BoxDecoration(
+      //   color: Colors.grey[200],
+      //   //border: Border.all(color: Colors.white, width: 3),
+      //   borderRadius: BorderRadius.circular(50),
+      // ),
+      child:
+      Scaffold(
+
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(child:SafeArea(
           child: Container(
@@ -59,14 +92,14 @@ class _footerState extends State<footer> {
                     onPressed: (){
                       setState(() {
                         //print("Hello World");
-                        xOffset = Get.width*0.65;
+                        xOffset = Get.width*0.7;
                         yOffset = Get.height*0.1;
                         scaleFactor = 0.8;
                         isDrawerOpen = true;
                       });
                     },
                   ),
-                  Icon(IconlyBold.notification,color: Colors.white,),
+                  IconButton(onPressed: (){},icon: Icon(IconlyBold.notification,color: Colors.white,),),
                 ]
               )
             )
@@ -78,6 +111,7 @@ class _footerState extends State<footer> {
         bucket: bucket,
       ),
       floatingActionButton: FloatingActionButton(
+
         backgroundColor: primaryHighlightColor,
         child: Icon(IconlyLight.category,color:Colors.white,),
         onPressed: (){},
@@ -207,8 +241,9 @@ class _footerState extends State<footer> {
           )
         )
       ),
-    ),);
+    ),),);
   }
 }
+
 
 
