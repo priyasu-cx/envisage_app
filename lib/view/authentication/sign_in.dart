@@ -1,18 +1,13 @@
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/utils/colors.dart';
-import 'package:envisage_app/view/footer.dart';
-//import 'package:envisage_app/view/homepage.dart';
+import 'package:envisage_app/view/screen.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 import 'package:envisage_app/view/authentication/details_page.dart';
 import 'package:envisage_app/view/authentication/reset_password.dart';
 import 'package:envisage_app/view/authentication/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconly/iconly.dart';
-
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -434,8 +429,8 @@ class _SignInState extends State<SignIn> {
           email: emailController, password: passwordController);
 
       if (status == "success") {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => DetailsPage()));
+        Navigator.of(context)
+            .pushReplacement(MaterialPageRoute(builder: (context) => style()));
       } else {
         Fluttertoast.showToast(msg: status);
       }
@@ -454,8 +449,8 @@ class _SignInState extends State<SignIn> {
     } else if (status == "login") {
       //
       // Change for Home Page
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => DetailsPage()));
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => style()));
     }
   }
 
@@ -471,10 +466,8 @@ class _SignInState extends State<SignIn> {
     } else if (status == "login") {
       //
       // Change for Home Page
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => DetailsPage()));
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => style()));
     }
   }
 }
-
-

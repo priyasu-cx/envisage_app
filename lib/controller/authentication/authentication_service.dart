@@ -3,6 +3,7 @@ import 'package:envisage_app/model/user_details.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:envisage_app/view/authentication/details_page.dart';
 import 'package:envisage_app/view/onboarding/onboarding_screen1.dart';
+import 'package:envisage_app/view/screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -24,7 +25,7 @@ class ScreenLoader extends StatelessWidget {
             //
             // Change with HomePage
 
-            return DetailsPage();
+            return style();
           } else if (snapshot.hasError) {
             Fluttertoast.showToast(msg: " Some Internal Error Occured :( ");
           }
