@@ -68,6 +68,7 @@ class AuthenticationService {
   Future<String?> signInWithGoogle(BuildContext context) async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      print("google user found");
 
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
