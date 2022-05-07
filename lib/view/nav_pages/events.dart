@@ -12,7 +12,8 @@ class events extends StatefulWidget {
 }
 
 class _eventsState extends State<events> {
-
+  int up_Listcount = 2;
+  int past_Listcount=7;
   @override
   void initState() {
     //EventData _data = new EventData();
@@ -68,6 +69,7 @@ class _eventsState extends State<events> {
             ),
           ),padding: EdgeInsets.only(left: Get.width*0.1)),
           SizedBox(height: Get.height*0.02),
+          up_Listcount>0?
           Container(
               child: SingleChildScrollView(
                 child: Column(
@@ -76,7 +78,7 @@ class _eventsState extends State<events> {
                     SizedBox(
                       height: Get.height*0.33,
                       child: ListView.builder(
-                          itemCount:  5,
+                          itemCount:  up_Listcount,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index)=> Container(
                         decoration: BoxDecoration(
@@ -92,7 +94,7 @@ class _eventsState extends State<events> {
                           children: [
                             //SizedBox(height: Get.height*0.01,),
                             Container(
-                              padding: EdgeInsets.all(10),
+                              padding: EdgeInsets.symmetric(horizontal: 10),
                               //width:Get.height*0.28,
                                 child: Image.asset("assets/Events/event.png",fit: BoxFit.fitWidth,),
                             ),
@@ -145,7 +147,9 @@ class _eventsState extends State<events> {
                       ),
                       ]),
                     ),
-              ),
+              ):Container(height: Get.height*0.33, child: Center(
+            child: Text("No Upcoming Events", style: TextStyle(color: grey, fontSize: 15, fontWeight: FontWeight.w400),)
+          )),
           SizedBox(height: Get.height*0.05),
           Padding(padding: EdgeInsets.only(left: Get.width*0.1),child:Text(
             "Past Events",
@@ -156,6 +160,7 @@ class _eventsState extends State<events> {
               color: Colors.white,
             ),),
           ),
+          past_Listcount>0?
           Container(
             padding: EdgeInsets.only(top: Get.height*0.02),
             child: SingleChildScrollView(
@@ -165,7 +170,7 @@ class _eventsState extends State<events> {
                     SizedBox(
                       height: Get.height*0.33,
                       child: ListView.builder(
-                        itemCount:  5,
+                        itemCount:  past_Listcount,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index)=> Container(
                           decoration: BoxDecoration(
@@ -181,7 +186,7 @@ class _eventsState extends State<events> {
                               children: [
                                 //SizedBox(height: Get.height*0.01,),
                                 Container(
-                                  padding: EdgeInsets.all(10),
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
                                   //width:Get.height*0.28,
                                   child: Image.asset("assets/Events/event.png",fit: BoxFit.fitWidth,),
                                 ),
@@ -234,7 +239,9 @@ class _eventsState extends State<events> {
                     ),
                   ]),
             ),
-          ),
+          ):Container(height: Get.height*0.33, child: Center(
+              child: Text("No Upcoming Events", style: TextStyle(color: grey, fontSize: 15, fontWeight: FontWeight.w400),)
+          )),
           //SizedBox(height: Get.height*0.05),
         ]
       )
