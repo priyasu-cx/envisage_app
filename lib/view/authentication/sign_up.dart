@@ -436,7 +436,6 @@ class _SignUpState extends State<SignUp> {
           MaterialPageRoute(builder: (context) => DetailsPage()));
     } else if (status == "login") {
       //
-      // Change for Home Page
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => style()));
     }
