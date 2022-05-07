@@ -89,7 +89,7 @@ class _homepageState extends State<homepage> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(Get.width*0.1, Get.height*0.02, 0, Get.height*0.05),
+                margin: EdgeInsets.fromLTRB(0, Get.height*0.02, 0, Get.height*0.05),
                 child: SingleChildScrollView(
                   child: Column(
                       mainAxisSize: MainAxisSize.min,
