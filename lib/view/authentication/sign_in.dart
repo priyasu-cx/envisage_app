@@ -1,6 +1,7 @@
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:envisage_app/view/footer.dart';
+import 'package:envisage_app/view/screen.dart';
 //import 'package:envisage_app/view/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -405,7 +406,7 @@ class _SignInState extends State<SignIn> {
 
       if (status == "success") {
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => DetailsPage()));
+            MaterialPageRoute(builder: (context) => style()));
       } else {
         Fluttertoast.showToast(msg: status);
       }
@@ -425,7 +426,7 @@ class _SignInState extends State<SignIn> {
       //
       // Change for Home Page
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => DetailsPage()));
+          MaterialPageRoute(builder: (context) => style()));
     }
   }
 
@@ -442,7 +443,7 @@ class _SignInState extends State<SignIn> {
       //
       // Change for Home Page
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => DetailsPage()));
+          MaterialPageRoute(builder: (context) => style()));
     }
   }
 }
