@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:envisage_app/utils/colors.dart';
@@ -28,7 +27,7 @@ class _eventsState extends State<events> {
       appBar: PreferredSize(child:SafeArea(
           child: Container(
               child: Padding(
-                  padding: const EdgeInsets.all(20),
+                  padding: EdgeInsets.all(Get.height*0.01),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -52,14 +51,14 @@ class _eventsState extends State<events> {
               )
           )
       ),preferredSize: Size.fromHeight(Get.height*0.1),),
-      body:Padding(
-      padding: EdgeInsets.fromLTRB(Get.width*0.1,Get.height*0.01,0,Get.height*0.05),
+      body:SingleChildScrollView(child: Padding(
+      padding: EdgeInsets.fromLTRB(0,Get.height*0.01,0,Get.height*0.05),
       //padding: EdgeInsets.all(0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: Get.height*0.13),
-          Text(
+          Padding(child:Text(
             "Upcoming Events",
             textAlign: TextAlign.left,
             style: TextStyle(
@@ -67,7 +66,7 @@ class _eventsState extends State<events> {
               fontSize: 20,
               color: Colors.white,
             ),
-          ),
+          ),padding: EdgeInsets.only(left: Get.width*0.1)),
           SizedBox(height: Get.height*0.02),
           Container(
               child: SingleChildScrollView(
@@ -147,15 +146,15 @@ class _eventsState extends State<events> {
                       ]),
                     ),
               ),
-          SizedBox(height: Get.height*0.02),
-          Text(
+          SizedBox(height: Get.height*0.05),
+          Padding(padding: EdgeInsets.only(left: Get.width*0.1),child:Text(
             "Past Events",
             textAlign: TextAlign.left,
             style: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 20,
               color: Colors.white,
-            ),
+            ),),
           ),
           Container(
             padding: EdgeInsets.only(top: Get.height*0.02),
@@ -239,7 +238,7 @@ class _eventsState extends State<events> {
           //SizedBox(height: Get.height*0.05),
         ]
       )
-    ),);
+    ),),);
   }
 }
 
