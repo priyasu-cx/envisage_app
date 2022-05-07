@@ -79,6 +79,15 @@ class AuthenticationService {
     return "success";
   }
 
+  Future<String> signOut() async {
+    try {
+      _firebaseAuth.signOut();
+    } on FirebaseAuthException catch (error) {
+      return (error.message.toString());
+    }
+    return "success";
+  }
+
   Future<String?> signInWithGoogle(BuildContext context) async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
