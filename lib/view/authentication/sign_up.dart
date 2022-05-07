@@ -2,6 +2,7 @@ import 'package:envisage_app/controller/authentication/authentication_service.da
 import 'package:envisage_app/utils/colors.dart';
 import 'package:envisage_app/view/authentication/details_page.dart';
 import 'package:envisage_app/view/authentication/sign_in.dart';
+import 'package:envisage_app/view/screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -420,7 +421,7 @@ class _SignUpState extends State<SignUp> {
       //
       // Change for Home Page
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => DetailsPage()));
+          MaterialPageRoute(builder: (context) => style()));
     }
   }
 
@@ -437,7 +438,7 @@ class _SignUpState extends State<SignUp> {
       //
       // Change for Home Page
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => DetailsPage()));
+          MaterialPageRoute(builder: (context) => style()));
     }
   }
 }
