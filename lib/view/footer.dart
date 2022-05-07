@@ -1,4 +1,5 @@
 import 'package:envisage_app/view/homepage.dart';
+import 'package:envisage_app/view/nav_pages/events.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:envisage_app/utils/colors.dart';
@@ -114,7 +115,9 @@ class _footerState extends State<footer> {
 
         backgroundColor: primaryHighlightColor,
         child: Icon(IconlyLight.category,color:Colors.white,),
-        onPressed: (){},
+        onPressed: (){
+          Get.to(()=>events());
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
