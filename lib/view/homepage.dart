@@ -88,6 +88,85 @@ class _homepageState extends State<homepage> {
                   ),
                 ),
               ),
+              Container(
+                margin: EdgeInsets.fromLTRB(Get.width*0.1, Get.height*0.02, 0, Get.height*0.05),
+                child: SingleChildScrollView(
+                  child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          height: Get.height*0.33,
+                          child: ListView.builder(
+                            itemCount:  5,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index)=> Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Colors.white,
+                              ),
+                              height:Get.height*0.33,
+                              width:Get.height*0.3,
+                              margin: EdgeInsets.only(right: 20),
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    //SizedBox(height: Get.height*0.01,),
+                                    Container(
+                                      padding: EdgeInsets.all(10),
+                                      //width:Get.height*0.28,
+                                      child: Image.asset("assets/Events/event.png",fit: BoxFit.fitWidth,),
+                                    ),
+                                    //SizedBox(height: Get.height*0.0,),
+                                    Container(
+                                      child: Text(
+                                        "Hackathon",
+                                        //data[0].id.toString(),
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 18,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                      padding: EdgeInsets.only(left:Get.width*0.05),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        "Wed, Apr 28 •5:30 PM",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12,
+                                          color: primaryHighlightColor,
+                                        ),
+                                      ),
+                                      padding: EdgeInsets.only(left:Get.width*0.05),
+                                    ),
+                                    //SizedBox(height: Get.height*0.02),
+                                    Row(
+                                        children: [
+                                          SizedBox(width: Get.width*0.04),
+                                          Icon(Icons.location_on_rounded, color: grey,),
+                                          Text(
+                                            "Kolkata, West Bengal",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: grey,
+                                            ),
+                                          ),
+                                        ]
+                                    )
+                                  ]
+                              ),
+                            ),),
+
+                        ),
+                      ]),
+                ),
+              ),
             ]
           ),
         ),

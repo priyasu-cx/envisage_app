@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconly/iconly.dart';
 
+import '../screen.dart';
+
 class DetailsPage extends StatefulWidget {
   const DetailsPage({Key? key}) : super(key: key);
 
@@ -592,8 +594,9 @@ class _DetailsPageState extends State<DetailsPage> {
           await AuthenticationService().addDetailsSignUp(_userDetails);
 
       if (status == "success") {
-        Navigator.of(context)
-            .pushReplacement(MaterialPageRoute(builder: (context) => style()));
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => style()));
+
       } else {
         Fluttertoast.showToast(msg: status!);
       }
