@@ -576,13 +576,16 @@ class _DetailsPageState extends State<DetailsPage> {
     if (_formKey.currentState!.validate()) {
       print("Validated");
       String _uid = await AuthenticationService().fetchUid();
+      String _email = await AuthenticationService().fetchEmail();
       UserDetails _userDetails = UserDetails(
         uid: _uid,
+        email: _email,
         fullName: fullNameController.text,
         phone: phoneController.text,
         gender: gender!,
         college: collegeController.text,
         city: cityController.text,
+        state: state!,
         refferalCode: refferalController.text,
         evgId: getId(),
         photoUrl: null,

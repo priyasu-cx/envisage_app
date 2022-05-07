@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:envisage_app/view/homepage.dart';
-import 'package:envisage_app/view/menu_pages//profile.dart';
+import 'package:envisage_app/view/menu_pages/profile_page.dart';
 import 'package:envisage_app/view/menu_pages/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:envisage_app/utils/colors.dart';
@@ -193,7 +193,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               fontSize: 18,
                             )),
                         onPressed: () {
-                          Get.to(() => profile());
+                          Get.to(() => ProfilePage());
                         }),
                   ],
                 ),
@@ -245,7 +245,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               fontSize: 18,
                             )),
                         onPressed: () {
-                          Get.to(() => profile());
+                          Get.to(() => ProfilePage());
                         }),
                   ],
                 ),
@@ -271,7 +271,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               fontSize: 18,
                             )),
                         onPressed: () {
-                          Get.to(() => profile());
+                          Get.to(() => ProfilePage());
                         }),
                   ],
                 ),
@@ -297,7 +297,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               fontSize: 18,
                             )),
                         onPressed: () {
-                          Get.to(() => profile());
+                          Get.to(() => ProfilePage());
                         }),
                   ],
                 ),
@@ -323,7 +323,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               fontSize: 18,
                             )),
                         onPressed: () {
-                          Get.to(() => profile());
+                          Get.to(() => ProfilePage());
                         }),
                   ],
                 ),
@@ -349,7 +349,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               fontSize: 18,
                             )),
                         onPressed: () {
-                          Get.to(() => profile());
+                          Get.to(() => ProfilePage());
                         }),
                   ],
                 ),

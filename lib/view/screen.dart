@@ -8,14 +8,12 @@ class style extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-        Stack(
-          children: <Widget>[
-            DrawerScreen(),
-            footer(),
-            //DrawerScreen(),
-          ],
-        )
-    );
+        body: Stack(
+      children: <Widget>[
+        DrawerScreen(),
+        footer(),
+        //DrawerScreen(),
+      ],
+    ));
   }
 }

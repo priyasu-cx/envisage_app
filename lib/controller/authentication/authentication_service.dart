@@ -52,6 +52,19 @@ class AuthenticationService {
     return _firebaseAuth.currentUser!.uid.toString();
   }
 
+  Future<String> fetchEmail() async {
+    return _firebaseAuth.currentUser!.email.toString();
+  }
+
+  Future<UserDetails> fetchUserDetails() async {
+    User currentUser = _firebaseAuth.currentUser!;
+
+    DocumentSnapshot snap =
+        await _firestore.collection("users").doc(currentUser.uid).get();
+
+    return UserDetails.fromSnap(snap);
+  }
+
   Future<String?> addDetailsSignUp(UserDetails userDetails) async {
     try {
       User currentUser = _firebaseAuth.currentUser!;

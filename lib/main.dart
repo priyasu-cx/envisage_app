@@ -1,10 +1,9 @@
-import 'package:envisage_app/view/menu_dashbaord.dart';
+import 'package:envisage_app/view/menu_pages/profile_page.dart';
 import 'package:envisage_app/view/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'view/splash_screen.dart';
 
 Future<void> main() async {
