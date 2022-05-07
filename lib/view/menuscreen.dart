@@ -2,14 +2,12 @@ import 'dart:ui';
 
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/view/authentication/sign_in.dart';
-import 'package:envisage_app/view/homepage.dart';
 import 'package:envisage_app/view/menu_pages/profile_page.dart';
 import 'package:envisage_app/view/menu_pages/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 import 'package:iconly/iconly.dart';
 
 // class DrawerScreen extends StatefulWidget {
