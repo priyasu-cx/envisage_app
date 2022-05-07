@@ -54,7 +54,7 @@ class UserDetails {
       city: snapshot["city"],
       state: snapshot["state"],
       evgId: snapshot["evgId"],
-      photoUrl: snapshot["photoUrl"]!,
+      photoUrl: snapshot["photoUrl"],
     );
   }
 }

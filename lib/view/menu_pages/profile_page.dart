@@ -13,17 +13,19 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   var userData;
+  bool isloaded = false;
 
   @override
   void initState() {
-    super.initState();
     getData();
+    super.initState();
   }
 
   void getData() async {
     UserDetails user = await AuthenticationService().fetchUserDetails();
     setState(() {
       userData = user;
+      isloaded = true;
     });
   }
 
@@ -32,140 +34,150 @@ class _ProfilePageState extends State<ProfilePage> {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      backgroundColor: primaryBackgroundColor,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: const Icon(
-            IconlyLight.arrow_left,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: _width * 0.077),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  top: _height * 0.02,
-                  bottom: _height * 0.03,
-                ),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: CircleAvatar(
-                    radius: _height * 0.09,
-                    backgroundColor: primaryHighlightColor.withAlpha(50),
-                    backgroundImage:
-                        AssetImage("assets/ic_launcher_adaptive_fore.png"),
-                  ),
-                ),
+    return !isloaded
+        ? Scaffold(
+            backgroundColor: primaryBackgroundColor,
+            body: Center(
+              child: CircularProgressIndicator(
+                color: Colors.white,
               ),
-              Center(
-                child: Text(
-                  userData.fullName,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  ),
+            ),
+          )
+        : Scaffold(
+            // extendBodyBehindAppBar: true,
+            backgroundColor: primaryBackgroundColor,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              leading: IconButton(
+                icon: const Icon(
+                  IconlyLight.arrow_left,
+                  color: Colors.white,
                 ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: _height * 0.02,
-                  bottom: _height * 0.06,
-                ),
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: _width * 0.0813,
-                    vertical: 10,
-                  ),
-                  child: Text(
-                    userData.evgId,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
+            ),
+            body: Container(
+              padding: EdgeInsets.symmetric(horizontal: _width * 0.077),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: _height * 0.02,
+                        bottom: _height * 0.03,
+                      ),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: CircleAvatar(
+                          radius: _height * 0.09,
+                          backgroundColor: primaryHighlightColor.withAlpha(50),
+                          backgroundImage: AssetImage(
+                              "assets/ic_launcher_adaptive_fore.png"),
+                        ),
+                      ),
                     ),
-                  ),
-                  decoration: BoxDecoration(
-                    color: primaryHighlightColor,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
+                    Center(
+                      child: Text(
+                        userData.fullName!,
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                  ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: _height * 0.02,
+                        bottom: _height * 0.06,
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: _width * 0.0813,
+                          vertical: 10,
+                        ),
+                        child: Text(
+                          userData.evgId,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                        decoration: const BoxDecoration(
+                          color: primaryHighlightColor,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "  ABOUT  ",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.transparent,
+                          decoration: TextDecoration.underline,
+                          decorationColor: primaryHighlightColor,
+                          shadows: [
+                            Shadow(
+                              offset: Offset(0, -15),
+                              color: primaryHighlightColor,
+                            )
+                          ],
+                          decorationThickness: 2,
+                        ),
+                      ),
+                    ),
+                    profileData(
+                      _height,
+                      "Email",
+                      userData.email,
+                      IconlyLight.message,
+                    ),
+                    profileData(
+                      _height,
+                      "Phone",
+                      userData.phone,
+                      IconlyLight.call,
+                    ),
+                    profileData(
+                      _height,
+                      "Gender",
+                      userData.gender,
+                      IconlyLight.user,
+                    ),
+                    profileData(
+                      _height,
+                      "College",
+                      userData.college,
+                      IconlyLight.work,
+                    ),
+                    profileData(
+                      _height,
+                      "City",
+                      userData.city,
+                      IconlyLight.location,
+                    ),
+                    profileData(
+                      _height,
+                      "State",
+                      userData.state,
+                      IconlyLight.discovery,
+                    ),
+                    SizedBox(
+                      height: _height * 0.03,
+                    ),
+                  ],
                 ),
               ),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "  ABOUT  ",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.transparent,
-                    decoration: TextDecoration.underline,
-                    decorationColor: primaryHighlightColor,
-                    shadows: [
-                      Shadow(
-                        offset: Offset(0, -15),
-                        color: primaryHighlightColor,
-                      )
-                    ],
-                    decorationThickness: 2,
-                  ),
-                ),
-              ),
-              profileData(
-                _height,
-                "Email",
-                userData.email,
-                IconlyLight.message,
-              ),
-              profileData(
-                _height,
-                "Phone",
-                userData.phone,
-                IconlyLight.call,
-              ),
-              profileData(
-                _height,
-                "Gender",
-                userData.gender,
-                IconlyLight.user,
-              ),
-              profileData(
-                _height,
-                "College",
-                userData.college,
-                IconlyLight.work,
-              ),
-              profileData(
-                _height,
-                "City",
-                userData.city,
-                IconlyLight.location,
-              ),
-              profileData(
-                _height,
-                "State",
-                userData.state,
-                IconlyLight.discovery,
-              ),
-              SizedBox(
-                height: _height * 0.03,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
   }
 
   Container profileData(
@@ -193,7 +205,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   child: Text(
                     title,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white30,
                       fontSize: 15,
                     ),
@@ -204,7 +216,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           Text(
             value,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 18,
             ),

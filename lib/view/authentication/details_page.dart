@@ -478,7 +478,7 @@ class _DetailsPageState extends State<DetailsPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text(
+            const Text(
               " CONTINUE ",
               style: TextStyle(
                 color: Colors.white,
@@ -517,7 +517,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: Text(
+                  child: const Text(
                     " Add Details ",
                     style: TextStyle(
                       fontSize: 24,
@@ -574,7 +574,6 @@ class _DetailsPageState extends State<DetailsPage> {
     TextEditingController refferalController,
   ) async {
     if (_formKey.currentState!.validate()) {
-      print("Validated");
       String _uid = await AuthenticationService().fetchUid();
       String _email = await AuthenticationService().fetchEmail();
       UserDetails _userDetails = UserDetails(
