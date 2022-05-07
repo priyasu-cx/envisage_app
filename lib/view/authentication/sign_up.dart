@@ -412,7 +412,7 @@ class _SignUpState extends State<SignUp> {
     String? status = await AuthenticationService().signInWithGoogle(context);
     // print(status);
     if (status == null) {
-      Fluttertoast.showToast(msg: " Sone Internal Error Occured :( ");
+      Fluttertoast.showToast(msg: " Some Internal Error Occured :( ");
     }
     if (status == "signup") {
       Navigator.of(context).pushReplacement(
@@ -420,8 +420,8 @@ class _SignUpState extends State<SignUp> {
     } else if (status == "login") {
       //
       // Change for Home Page
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => style()));
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => style()));
     }
   }
 
@@ -429,15 +429,15 @@ class _SignUpState extends State<SignUp> {
     String? status = await AuthenticationService().signInWithFacebook(context);
     print(status);
     if (status == null) {
-      Fluttertoast.showToast(msg: " Sone Internal Error Occured :( ");
+      Fluttertoast.showToast(msg: " Some Internal Error Occured :( ");
     }
     if (status == "signup") {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => DetailsPage()));
     } else if (status == "login") {
       //
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => style()));
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => style()));
     }
   }
 }
