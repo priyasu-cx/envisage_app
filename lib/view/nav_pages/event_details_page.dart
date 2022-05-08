@@ -1,167 +1,205 @@
+import 'package:envisage_app/controller/authentication/authentication_service.dart';
+import 'package:envisage_app/model/events_details.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
 class EventDetailsPage extends StatefulWidget {
+  final bool isUpcoming;
+  final int eventIndex;
+
   const EventDetailsPage({
     Key? key,
     required this.isUpcoming,
-    required this.index,
+    required this.eventIndex,
   }) : super(key: key);
 
-  final bool isUpcoming;
-  final int index;
-
   @override
-  State<EventDetailsPage> createState() => _EventDetailsPageState();
+  State<EventDetailsPage> createState() =>
+      _EventDetailsPageState(isUpcoming, eventIndex);
 }
 
 class _EventDetailsPageState extends State<EventDetailsPage> {
+  final bool isUpcoming;
+  final int eventIndex;
+
+  _EventDetailsPageState(
+    this.isUpcoming,
+    this.eventIndex,
+  );
+  late EventDetails event;
+  bool isLoaded = false;
+
+  void getData() async {
+    List<EventDetails> upcoming =
+        await AuthenticationService().fetchEventDetails(isUpcoming);
+
+    setState(() {
+      event = upcoming[eventIndex];
+    });
+  }
+
+  @override
+  void initState() {
+    getData();
+    isLoaded = true;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      backgroundColor: primaryBackgroundColor,
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: Icon(
-            IconlyLight.arrow_left,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        title: Text(
-          "Event Details",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w300,
-          ),
-        ),
-      ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return !isLoaded
+        ? const Scaffold(
+            backgroundColor: primaryBackgroundColor,
+            body: Center(
+              child: CircularProgressIndicator(
+                color: Colors.white,
+              ),
+            ),
+          )
+        : Scaffold(
+            backgroundColor: primaryBackgroundColor,
+            extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              leading: IconButton(
+                icon: Icon(
+                  IconlyLight.arrow_left,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              title: Text(
+                "Event Details",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+            body: Stack(
               children: [
-                Image.asset("assets/Events/event_details_page.png"),
-                Padding(
-                  padding: EdgeInsets.only(
-                    top: _height * 0.0246,
-                    left: _width * 0.077,
-                    bottom: _height * 0.05,
+                SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset("assets/Events/event_details_page.png"),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: _height * 0.0246,
+                          left: _width * 0.077,
+                          bottom: _height * 0.05,
+                        ),
+                        child: Text(
+                          event.name,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 30,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: _height * 0.03,
+                        ),
+                        child: EventDetailsWidget(
+                          _width,
+                          IconlyBold.calendar,
+                          event.date,
+                          "Date",
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: _height * 0.03,
+                        ),
+                        child: EventDetailsWidget(
+                          _width,
+                          IconlyBold.location,
+                          event.location,
+                          "Location",
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: _height * 0.08,
+                        ),
+                        child: OrganizerDetailWidget(
+                          _width,
+                          "assets/Events/organizer.png",
+                          event.lead,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: _width * 0.077,
+                          bottom: _height * 0.03,
+                        ),
+                        child: Text(
+                          "About Event",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: _width * 0.077,
+                          right: _width * 0.077,
+                          bottom: _height * 0.1,
+                        ),
+                        child: Text(
+                          "Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef  3f3 f 4f3 f3f 3f 3f 3f3 f3 f3f 3f 3f3 f3 f3 f3f3 f 3f3 f3 fr  time. Food from local food trucks will be available for purchase.",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          textAlign: TextAlign.justify,
+                        ),
+                      ),
+                      Container(),
+                    ],
                   ),
-                  child: Text(
-                    "Hackathon",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 30,
-                      color: Colors.white,
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    width: _width,
+                    height: _height * 0.3,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.white, Colors.transparent],
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                      ),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    bottom: _height * 0.03,
-                  ),
-                  child: EventDetailsWidget(
-                    _width,
-                    IconlyBold.calendar,
-                    "14 December, 2022",
-                    "Tuesday, 4:00PM - 9:00PM",
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    bottom: _height * 0.03,
-                  ),
-                  child: EventDetailsWidget(
-                    _width,
-                    IconlyBold.location,
-                    "Gala Convention Center",
-                    "36 Guild Street London, UK ",
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    bottom: _height * 0.08,
-                  ),
-                  child: OrganizerDetailWidget(
-                    _width,
-                    "assets/Events/organizer.png",
-                    "Shubhayu Majumdar",
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: _width * 0.077,
-                    bottom: _height * 0.03,
-                  ),
-                  child: Text(
-                    "About Event",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 15,
+                      horizontal: _width * 0.077,
+                    ),
+                    child: ATCButton(
+                      _height,
+                      event.price,
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: _width * 0.077,
-                    right: _width * 0.077,
-                    bottom: _height * 0.1,
-                  ),
-                  child: Text(
-                    "Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef  3f3 f 4f3 f3f 3f 3f 3f3 f3 f3f 3f 3f3 f3 f3 f3f3 f 3f3 f3 fr  time. Food from local food trucks will be available for purchase.",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-                Container(),
               ],
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              width: _width,
-              height: _height * 0.3,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.white, Colors.transparent],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: 15,
-                horizontal: _width * 0.077,
-              ),
-              child: ATCButton(
-                _height,
-                100,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+          );
   }
 
   Material ATCButton(double _height, int _price) {

@@ -119,25 +119,25 @@ class _eventsState extends State<events> {
                             padding: EdgeInsets.only(left: Get.width * 0.1)),
                         SizedBox(height: Get.height * 0.02),
                         upcomingEventCount > 0
-                            ? GestureDetector(
-                                onTap: () {
-                                  Get.to(() => EventDetailsPage(
-                                      isUpcoming: true,
-                                      index:
-                                          1)); // ON TAP FUNCTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                                },
-                                child: Container(
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        SizedBox(
-                                          height: Get.height * 0.33,
-                                          child: ListView.builder(
-                                            itemCount: upcomingEventCount,
-                                            scrollDirection: Axis.horizontal,
-                                            itemBuilder: (context, index) =>
-                                                Container(
+                            ? Container(
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      SizedBox(
+                                        height: Get.height * 0.33,
+                                        child: ListView.builder(
+                                          itemCount: upcomingEventCount,
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (context, index) =>
+                                              GestureDetector(
+                                            onTap: () {
+                                              Get.to(() => EventDetailsPage(
+                                                    isUpcoming: true,
+                                                    eventIndex: index,
+                                                  )); // ON TAP FUNCTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                            },
+                                            child: Container(
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(15),
@@ -228,8 +228,8 @@ class _eventsState extends State<events> {
                                             ),
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               )
