@@ -176,7 +176,7 @@ class _homepageState extends State<homepage> {
                                   ),
                                   height: Get.height * 0.33,
                                   width: Get.height * 0.3,
-                                  margin: EdgeInsets.only(right: 20),
+                                  margin: EdgeInsets.symmetric(horizontal: 10),
                                   child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
