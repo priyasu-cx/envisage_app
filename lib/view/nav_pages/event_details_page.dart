@@ -112,12 +112,13 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                     bottom: _height * 0.1,
                   ),
                   child: Text(
-                    "Enjoy your favorite dishes and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase.",
+                    "Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef  3f3 f 4f3 f3f 3f 3f 3f3 f3 f3f 3f 3f3 f3 f3 f3f3 f 3f3 f3 fr  time. Food from local food trucks will be available for purchase.",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
                     ),
+                    textAlign: TextAlign.justify,
                   ),
                 ),
                 Container(),

@@ -135,7 +135,7 @@ class _homepageState extends State<homepage> {
                             Get.width * 0.01, Get.width * 0.1, 10),
                         //alignment: Alignment.,
                         child: Text(
-                          "Envisage is the official E-Summit of Techno Main Salt Lake. It is born out of the dreams and aspirations of the youth who have the zest and the zeal to take their future into their own hands. Supporting the growing startup culture in the country, we are promised to inculcate and identify the best ideas and b-plans. Envisage is the platform for budding entrepreneurs to showcase the power of their ",
+                          "Envisage is the official E-Summit of Techno Main Salt Lake, organized by IIC-TMSL. It is a product of creative and passionate minds that saw the need for the hour and worked hard with fervour and enthusiasm to make it a reality for all. It provides an excellent platform for promising minds to showcase their talents. The events are designed to test and encourage the participants' minds in a wide variety of fields, especially for someone curious as to how this world of Entrepreneurship works and what it takes to be an entrepreneur.",
                           textAlign: TextAlign.justify,
                           style: TextStyle(
                             fontWeight: FontWeight.w200,

@@ -135,7 +135,8 @@ class _eventsState extends State<events> {
                                             ),
                                             height: Get.height * 0.33,
                                             width: Get.height * 0.3,
-                                            margin: EdgeInsets.symmetric(horizontal: 10),
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: 10),
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
@@ -144,7 +145,8 @@ class _eventsState extends State<events> {
                                               children: [
                                                 //SizedBox(height: Get.height*0.01,),
                                                 Container(
-                                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 10),
                                                   //width:Get.height*0.28,
                                                   child: Image.asset(
                                                     "assets/Events/event.png", // IMAGE of the Event => CHANGE !!!!!!!!!!

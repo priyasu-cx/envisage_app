@@ -1,4 +1,3 @@
-import 'package:envisage_app/view/menu_pages/profile_page.dart';
 import 'package:envisage_app/view/nav_pages/event_details_page.dart';
 import 'package:envisage_app/view/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -36,5 +35,5 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  testPage() => SplashScreen();
+  testPage() => EventDetailsPage();
 }
