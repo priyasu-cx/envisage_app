@@ -80,7 +80,7 @@ class _footerState extends State<footer> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  isDrawerOpen? IconButton(icon: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+                  isDrawerOpen? IconButton(icon: Icon(IconlyLight.arrow_left, color: Colors.white),
                     onPressed: (){
                       setState(() {
                         //print("Hello World");
@@ -90,7 +90,7 @@ class _footerState extends State<footer> {
                         isDrawerOpen = false;
                       });
                     },):
-                  IconButton(icon: Icon(Icons.menu, color: Colors.white),
+                  IconButton(icon: Image.asset("assets/icons/menu_icon.png",),
                     onPressed: (){
                       setState(() {
                         //print("Hello World");
@@ -101,6 +101,7 @@ class _footerState extends State<footer> {
                       });
                     },
                   ),
+                  
                   IconButton(onPressed: (){},icon: Icon(IconlyBold.notification,color: Colors.white,),),
                 ]
               )
