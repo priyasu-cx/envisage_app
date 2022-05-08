@@ -432,9 +432,8 @@ class _SignInState extends State<SignIn> {
           email: emailController, password: passwordController);
 
       if (status == "success") {
-
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => style()));
+        Navigator.of(context)
+            .pushReplacement(MaterialPageRoute(builder: (context) => style()));
       } else {
         Fluttertoast.showToast(msg: status);
       }
@@ -445,7 +444,7 @@ class _SignInState extends State<SignIn> {
     String? status = await AuthenticationService().signInWithGoogle(context);
     // print(status);
     if (status == null) {
-      Fluttertoast.showToast(msg: " Sone Internal Error Occured :( ");
+      Fluttertoast.showToast(msg: " Some Internal Error Occured :( ");
     }
     if (status == "signup") {
       Navigator.of(context).pushReplacement(
@@ -453,8 +452,8 @@ class _SignInState extends State<SignIn> {
     } else if (status == "login") {
       //
       // Change for Home Page
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => style()));
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => style()));
     }
   }
 
@@ -462,7 +461,7 @@ class _SignInState extends State<SignIn> {
     String? status = await AuthenticationService().signInWithFacebook(context);
     print(status);
     if (status == null) {
-      Fluttertoast.showToast(msg: " Sone Internal Error Occured :( ");
+      Fluttertoast.showToast(msg: " Some Internal Error Occured :( ");
     }
     if (status == "signup") {
       Navigator.of(context).pushReplacement(
@@ -471,9 +470,8 @@ class _SignInState extends State<SignIn> {
       //
       // Change for Home Page
 
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => style()));
-
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => style()));
     }
   }
 }

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:envisage_app/model/events_details.dart';
 import 'package:envisage_app/model/user_details.dart';
 import 'package:envisage_app/utils/colors.dart';
-import 'package:envisage_app/view/authentication/details_page.dart';
 import 'package:envisage_app/view/onboarding/onboarding_screen1.dart';
 import 'package:envisage_app/view/screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,6 +48,21 @@ class AuthenticationService {
   final FacebookAuth _facebookAuth = FacebookAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  Future<List<EventDetails>> fetchEventDetails(bool upcoming) async {
+    var readEvents = upcoming
+        ? await _firestore.collection("events").get()
+        : await _firestore.collection("pastEvents").get();
+
+    List<EventDetails> eventsData =
+        List.from(readEvents.docs.map((doc) => EventDetails.fromJson(doc)));
+
+    return eventsData;
+  }
+
+  //
+  // -------------------- All User Functions ---------------------
+  //
+
   Future<String> fetchUid() async {
     return _firebaseAuth.currentUser!.uid.toString();
   }
@@ -90,15 +105,7 @@ class AuthenticationService {
 
   Future<String?> signInWithGoogle(BuildContext context) async {
     try {
-      // final googleSignIn = GoogleSignIn();
-      // GoogleSignInAccount? _user;
-
-      // GoogleSignInAccount get user() => _user!;
-
-      // final googleUser =   await googleSignIn.signIn();
-
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      print("google user found");
 
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
