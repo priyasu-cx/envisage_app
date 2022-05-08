@@ -24,7 +24,7 @@ class _homepageState extends State<homepage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Padding(padding: EdgeInsets.fromLTRB(Get.width*0.20, Get.width*0.23, Get.width*0.20,Get.width*0.02),
+              Padding(padding: EdgeInsets.fromLTRB(Get.width*0.20, Get.height*0.18, Get.width*0.20,Get.height*0.02),
                 child: Image.asset("assets/envisage_logo.png"),
               ),
               Container(
