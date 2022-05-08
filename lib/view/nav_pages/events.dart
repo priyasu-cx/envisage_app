@@ -60,12 +60,12 @@ class _eventsState extends State<events> {
               child: SafeArea(
                   child: Container(
                       child: Padding(
-                          padding: EdgeInsets.all(Get.height * 0.01),
+                          padding: EdgeInsets.all(0),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 IconButton(
-                                  icon: Icon(Icons.arrow_back_ios_new_rounded,
+                                  icon: Icon(IconlyLight.arrow_left,
                                       color: Colors.white),
                                   onPressed: () {
                                     setState(() {
@@ -80,13 +80,13 @@ class _eventsState extends State<events> {
                                     color: Colors.white,
                                     letterSpacing: 3,
                                     fontSize: 24,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w400,
                                   ),
                                 ),
                                 IconButton(
                                   onPressed: () {},
                                   icon: Icon(
-                                    IconlyBold.notification,
+                                    IconlyLight.notification,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -135,7 +135,7 @@ class _eventsState extends State<events> {
                                             ),
                                             height: Get.height * 0.33,
                                             width: Get.height * 0.3,
-                                            margin: EdgeInsets.only(right: 20),
+                                            margin: EdgeInsets.symmetric(horizontal: 10),
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
@@ -144,8 +144,7 @@ class _eventsState extends State<events> {
                                               children: [
                                                 //SizedBox(height: Get.height*0.01,),
                                                 Container(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 10),
+                                                  padding: EdgeInsets.symmetric(horizontal: 10),
                                                   //width:Get.height*0.28,
                                                   child: Image.asset(
                                                     "assets/Events/event.png", // IMAGE of the Event => CHANGE !!!!!!!!!!

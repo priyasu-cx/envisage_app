@@ -11,6 +11,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 
+
+
 class DrawerScreen extends StatefulWidget {
   @override
   _DrawerScreenState createState() => _DrawerScreenState();
@@ -31,21 +33,28 @@ class _DrawerScreenState extends State<DrawerScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          // CircleAvatar(
+          //   radius: Get.width * 0.1,
+          //   backgroundColor: Colors.black,
+          //   backgroundImage: AssetImage("assets/envisage_logo.png"),
+          //   onBackgroundImageError: null,
+          // ),
           CircleAvatar(
-            radius: Get.width * 0.1,
-            backgroundColor: Colors.black,
-            backgroundImage: AssetImage("assets/envisage_logo.png"),
-            onBackgroundImageError: null,
-          ),
+              radius: Get.width * 0.1,
+              backgroundColor: primaryBackgroundColor,
+              backgroundImage: AssetImage(
+                  "assets/ic_launcher_adaptive_fore.png"),
+            ),
+
           SizedBox(
             height: Get.height * 0.03,
           ),
           Text(
-            'Name Name',
+            'Priyasu Guin',
             style: TextStyle(
               letterSpacing: 3,
-              fontSize: 19,
-              fontWeight: FontWeight.w500,
+              fontSize: 21,
+              fontWeight: FontWeight.w600,
               color: Colors.white,
             ),
           ),
@@ -74,18 +83,18 @@ class _DrawerScreenState extends State<DrawerScreen> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                    left: Get.width * 0.015, bottom: Get.width * 0.01),
+                    left: Get.width * 0.01, bottom: Get.width * 0.01),
                 child: Row(
                   children: [
-                    Icon(IconlyBold.profile, color: Colors.white, size: 30),
+                    Icon(IconlyLight.profile, color: Colors.white, size: 30),
                     SizedBox(
-                      width: 10,
+                      width: 8,
                     ),
                     MaterialButton(
                         child: Text("Profile",
                             style: TextStyle(
                               color: Colors.white,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w300,
                               fontSize: 18,
                             )),
                         onPressed: () {
@@ -100,12 +109,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                    left: Get.width * 0.015, bottom: Get.width * 0.01),
+                    left: Get.width * 0.01, bottom: Get.width * 0.01),
                 child: Row(
                   children: [
-                    Icon(IconlyBold.buy, color: Colors.white, size: 30),
+                    Icon(IconlyLight.buy, color: Colors.white, size: 30),
                     SizedBox(
-                      width: 10,
+                      width: 0,
                     ),
                     MaterialButton(
                         child: Text("Cart",
@@ -126,12 +135,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                    left: Get.width * 0.015, bottom: Get.width * 0.01),
+                    left: Get.width * 0.01, bottom: Get.width * 0.01),
                 child: Row(
                   children: [
-                    Icon(IconlyBold.calendar, color: Colors.white, size: 30),
+                    Icon(IconlyLight.calendar, color: Colors.white, size: 30),
                     SizedBox(
-                      width: 10,
+                      width: 8,
                     ),
                     MaterialButton(
                         child: Text("Registered Events",
@@ -152,12 +161,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                    left: Get.width * 0.015, bottom: Get.width * 0.01),
+                    left: Get.width * 0.01, bottom: Get.width * 0.01),
                 child: Row(
                   children: [
-                    Icon(IconlyBold.heart, color: Colors.white, size: 30),
+                    Icon(IconlyLight.heart, color: Colors.white, size: 30),
                     SizedBox(
-                      width: 10,
+                      width: 8,
                     ),
                     MaterialButton(
                         child: Text("Sponsors",
@@ -178,12 +187,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                    left: Get.width * 0.015, bottom: Get.width * 0.01),
+                    left: Get.width * 0.01, bottom: Get.width * 0.01),
                 child: Row(
                   children: [
-                    Icon(IconlyBold.message, color: Colors.white, size: 30),
+                    Icon(IconlyLight.message, color: Colors.white, size: 30),
                     SizedBox(
-                      width: 10,
+                      width: 8,
                     ),
                     MaterialButton(
                         child: Text("Contact Us",
@@ -204,12 +213,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                    left: Get.width * 0.015, bottom: Get.width * 0.01),
+                    left: Get.width * 0.01, bottom: Get.width * 0.01),
                 child: Row(
                   children: [
-                    Icon(IconlyBold.info_square, color: Colors.white, size: 30),
+                    Icon(IconlyLight.info_square, color: Colors.white, size: 30),
                     SizedBox(
-                      width: 10,
+                      width: 8,
                     ),
                     MaterialButton(
                         child: Text("Help & FAQ",
@@ -230,12 +239,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                    left: Get.width * 0.015, bottom: Get.width * 0.01),
+                    left: Get.width * 0.01, bottom: Get.width * 0.01),
                 child: Row(
                   children: [
-                    Icon(IconlyBold.logout, color: Colors.white, size: 30),
+                    Icon(IconlyLight.logout, color: Colors.white, size: 30),
                     SizedBox(
-                      width: 10,
+                      width: 8,
                     ),
                     MaterialButton(
                       child: Text("Sign Out",
