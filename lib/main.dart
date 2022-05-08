@@ -35,5 +35,5 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  testPage() => EventDetailsPage();
+  testPage() => SplashScreen();
 }

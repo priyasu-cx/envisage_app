@@ -48,8 +48,8 @@ class AuthenticationService {
   final FacebookAuth _facebookAuth = FacebookAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<List<EventDetails>> fetchEventDetails(bool upcoming) async {
-    var readEvents = upcoming
+  Future<List<EventDetails>> fetchEventDetails(bool isUpcoming) async {
+    var readEvents = isUpcoming
         ? await _firestore.collection("events").get()
         : await _firestore.collection("pastEvents").get();
 

@@ -3,7 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
 class EventDetailsPage extends StatefulWidget {
-  const EventDetailsPage({Key? key}) : super(key: key);
+  const EventDetailsPage({
+    Key? key,
+    required this.isUpcoming,
+    required this.index,
+  }) : super(key: key);
+
+  final bool isUpcoming;
+  final int index;
 
   @override
   State<EventDetailsPage> createState() => _EventDetailsPageState();
