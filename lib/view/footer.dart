@@ -94,9 +94,10 @@ class _footerState extends State<footer> {
                                       },
                                     )
                                   : IconButton(
-                                      icon: Image.asset(
-                                        "assets/icons/menu_icon.png",
-                                      ),
+                                      // icon: Image.asset(
+                                      //   "assets/icons/menu_icon.png",
+                                      // ),
+                                      icon: Icon(Icons.menu,color:Colors.white),
                                       onPressed: () {
                                         setState(() {
                                           //print("Hello World");

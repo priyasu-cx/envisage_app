@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/model/events_details.dart';
+import 'package:envisage_app/view/nav_pages/event_details_page.dart';
+import 'package:envisage_app/view/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:envisage_app/utils/colors.dart';
@@ -60,7 +62,7 @@ class _eventsState extends State<events> {
               child: SafeArea(
                   child: Container(
                       child: Padding(
-                          padding: EdgeInsets.all(0),
+                          padding: EdgeInsets.symmetric(horizontal: Get.width*0.03),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
@@ -96,8 +98,7 @@ class _eventsState extends State<events> {
             ),
             body: SingleChildScrollView(
               child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                      0, Get.height * 0.01, 0, Get.height * 0.05),
+                  padding: EdgeInsets.fromLTRB(0, Get.height * 0.01, 0, Get.height * 0.05),
                   //padding: EdgeInsets.all(0),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +117,11 @@ class _eventsState extends State<events> {
                             padding: EdgeInsets.only(left: Get.width * 0.1)),
                         SizedBox(height: Get.height * 0.02),
                         upcomingEventCount > 0
-                            ? Container(
+                            ? GestureDetector(
+                          onTap: (){
+                            Get.to(()=>EventDetailsPage());
+                          },
+                        child: Container(
                                 child: SingleChildScrollView(
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
@@ -217,7 +222,7 @@ class _eventsState extends State<events> {
                                     ],
                                   ),
                                 ),
-                              )
+                              ),)
                             : Container(
                                 height: Get.height * 0.33,
                                 child: const Center(
@@ -263,8 +268,7 @@ class _eventsState extends State<events> {
                                               ),
                                               height: Get.height * 0.33,
                                               width: Get.height * 0.3,
-                                              margin:
-                                                  EdgeInsets.only(right: 20),
+                                              margin: EdgeInsets.symmetric(horizontal: 10),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
