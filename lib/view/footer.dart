@@ -1,4 +1,5 @@
 import 'package:envisage_app/view/homepage.dart';
+import 'package:envisage_app/view/nav_pages/etalk.dart';
 import 'package:envisage_app/view/nav_pages/events.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class _footerState extends State<footer> {
   int currentTab = 0;
   final List<Widget> screens = [
     homepage(),
-    homepage(),
+    Etalk(),
     homepage(),
     homepage(),
   ];
@@ -79,7 +80,7 @@ class _footerState extends State<footer> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  isDrawerOpen? IconButton(icon: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+                  isDrawerOpen? IconButton(icon: Icon(IconlyLight.arrow_left, color: Colors.white),
                     onPressed: (){
                       setState(() {
                         //print("Hello World");
@@ -89,7 +90,7 @@ class _footerState extends State<footer> {
                         isDrawerOpen = false;
                       });
                     },):
-                  IconButton(icon: Icon(Icons.menu, color: Colors.white),
+                  IconButton(icon: Image.asset("assets/icons/menu_icon.png",),
                     onPressed: (){
                       setState(() {
                         //print("Hello World");
@@ -100,6 +101,7 @@ class _footerState extends State<footer> {
                       });
                     },
                   ),
+                  
                   IconButton(onPressed: (){},icon: Icon(IconlyBold.notification,color: Colors.white,),),
                 ]
               )
@@ -162,7 +164,7 @@ class _footerState extends State<footer> {
                     minWidth: 40,
                     onPressed: (){
                       setState(() {
-                        currentScreen = homepage();
+                        currentScreen = Etalk();
                         currentTab = 1;
                       });
                     },
