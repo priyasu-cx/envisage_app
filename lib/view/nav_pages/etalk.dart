@@ -72,7 +72,7 @@ class Etalk extends StatelessWidget {
     /// lets add tween some some
     return TweenAnimationBuilder<double>(
       duration: Duration(milliseconds: 760 + index),
-      tween: Tween(begin: -1, end: 0.5),
+      tween: Tween(begin: -0.5, end: 0.5),
       builder: (context, value, child) => Transform.translate(
         offset: Offset(value * 200 - 100, 0),
         child: child,
