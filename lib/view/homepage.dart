@@ -36,6 +36,35 @@ class _homepageState extends State<homepage> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+        // appBar: AppBar(
+        //   title: Text('Home'),
+        // ),
+      backgroundColor: primaryBackgroundColor,
+      body: Container(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Padding(padding: EdgeInsets.fromLTRB(Get.width*0.20, Get.height*0.18, Get.width*0.20,Get.height*0.02),
+                child: Image.asset("assets/envisage_logo.png"),
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: Text(
+                  "May 23 - May 29",
+                  //textAlign: TextAlign.cen,
+                  style: TextStyle(
+                    letterSpacing: 4,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: Get.height*0.12,
+
     return !isLoaded
         ? Scaffold(
             backgroundColor: primaryBackgroundColor,

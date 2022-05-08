@@ -1,4 +1,5 @@
 import 'package:envisage_app/view/homepage.dart';
+import 'package:envisage_app/view/nav_pages/etalk.dart';
 import 'package:envisage_app/view/nav_pages/events.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class _footerState extends State<footer> {
   int currentTab = 0;
   final List<Widget> screens = [
     homepage(),
-    homepage(),
+    Etalk(),
     homepage(),
     homepage(),
   ];
@@ -162,7 +163,7 @@ class _footerState extends State<footer> {
                     minWidth: 40,
                     onPressed: (){
                       setState(() {
-                        currentScreen = homepage();
+                        currentScreen = Etalk();
                         currentTab = 1;
                       });
                     },
