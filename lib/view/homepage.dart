@@ -1,10 +1,11 @@
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/model/events_details.dart';
+import 'package:envisage_app/model/user_details.dart';
 import 'package:envisage_app/utils/colors.dart';
-import 'package:envisage_app/view/footer.dart';
+import 'package:envisage_app/utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class homepage extends StatefulWidget {
   const homepage({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _homepageState extends State<homepage> {
   @override
   void initState() {
     getData();
-    isLoaded = true;
+
     super.initState();
   }
 
@@ -31,6 +32,7 @@ class _homepageState extends State<homepage> {
     setState(() {
       upcomingEvents = upcoming;
       upcomingEventCount = upcoming.length;
+      isLoaded = true;
     });
   }
 

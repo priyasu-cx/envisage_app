@@ -27,8 +27,9 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
     this.isUpcoming,
     this.eventIndex,
   );
-  late EventDetails event;
-  bool isLoaded = false;
+
+  EventDetails? event;
+  bool isLoading = false;
 
   void getData() async {
     List<EventDetails> upcoming =
@@ -36,13 +37,13 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
 
     setState(() {
       event = upcoming[eventIndex];
+      isLoading = true;
     });
   }
 
   @override
   void initState() {
     getData();
-    isLoaded = true;
     super.initState();
   }
 
@@ -51,7 +52,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
 
-    return !isLoaded
+    return !isLoading
         ? const Scaffold(
             backgroundColor: primaryBackgroundColor,
             body: Center(
@@ -96,7 +97,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                           bottom: _height * 0.05,
                         ),
                         child: Text(
-                          event.name,
+                          event!.name,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 30,
@@ -111,7 +112,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                         child: EventDetailsWidget(
                           _width,
                           IconlyBold.calendar,
-                          event.date,
+                          event!.date,
                           "Date",
                         ),
                       ),
@@ -122,7 +123,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                         child: EventDetailsWidget(
                           _width,
                           IconlyBold.location,
-                          event.location,
+                          event!.location,
                           "Location",
                         ),
                       ),
@@ -133,7 +134,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                         child: OrganizerDetailWidget(
                           _width,
                           "assets/Events/organizer.png",
-                          event.lead,
+                          event!.lead,
                         ),
                       ),
                       Padding(
@@ -154,10 +155,10 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                         padding: EdgeInsets.only(
                           left: _width * 0.077,
                           right: _width * 0.077,
-                          bottom: _height * 0.1,
+                          bottom: _height * 0.13,
                         ),
                         child: Text(
-                          "Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef Enjoy your favorite dishes and a lovely your friends and family and have a great erjhb3f 3r 3r 3rf 3rf f 3f 33 f3ef 3ef  3f3 f 4f3 f3f 3f 3f 3f3 f3 f3f 3f 3f3 f3 f3 f3f3 f 3f3 f3 fr  time. Food from local food trucks will be available for purchase.",
+                          event!.about,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 15,
@@ -166,7 +167,9 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                           textAlign: TextAlign.justify,
                         ),
                       ),
-                      Container(),
+                      SizedBox(
+                        height: 10,
+                      ),
                     ],
                   ),
                 ),
@@ -193,7 +196,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                     ),
                     child: ATCButton(
                       _height,
-                      event.price,
+                      event!.price,
                     ),
                   ),
                 ),
