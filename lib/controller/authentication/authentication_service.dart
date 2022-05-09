@@ -167,13 +167,14 @@ class AuthenticationService {
     required TextEditingController email,
     required TextEditingController password,
   }) async {
-    await _firebaseAuth
-        .signInWithEmailAndPassword(email: email.text, password: password.text)
-        .then((_) {
-      Fluttertoast.showToast(msg: " Login Successful ");
-    }).catchError((error) {
-      return (error.message);
-    });
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+          email: email.text, password: password.text);
+    } on FirebaseAuthException catch (error) {
+      return (error.message.toString());
+    }
+
+    Fluttertoast.showToast(msg: " Login Successful ");
     return ("success");
   }
 
