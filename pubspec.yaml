@@ -41,7 +41,11 @@ dependencies:
   google_sign_in: null
   iconly: null
   provider: ^6.0.2
+<<<<<<< HEAD
   shared_preferences: ^2.0.13
+=======
+  flutter_staggered_grid_view: ^0.4.0
+>>>>>>> e53eddc4727f558a13ca2b1f67cac39e452842b3
 
 dev_dependencies:
   flutter_launcher_icons: null
