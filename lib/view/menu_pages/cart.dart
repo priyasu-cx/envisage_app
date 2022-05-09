@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import 'package:envisage_app/controller/cart/cart_controller.dart';
-=======
-import 'package:envisage_app/view/notification.dart';
->>>>>>> a4b1bf376d15fb9bed81f0b20d452c585ec8c6e4
 import 'package:flutter/material.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:iconly/iconly.dart';
@@ -26,7 +22,6 @@ class _CartPageState extends State<CartPage> {
 
     return Scaffold(
       backgroundColor: primaryBackgroundColor,
-<<<<<<< HEAD
       // extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -49,149 +44,6 @@ class _CartPageState extends State<CartPage> {
         child: Stack(
           children: [
             Column(
-=======
-      extendBodyBehindAppBar: true,
-      appBar: PreferredSize(
-        child: SafeArea(
-            child: Container(
-                child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: Get.width * 0.03),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          IconButton(
-                            icon: Icon(IconlyLight.arrow_left,
-                                color: Colors.white),
-                            onPressed: () {
-                              setState(() {
-                                //print("Hello World");
-                                Get.back();
-                              });
-                            },
-                          ),
-                          Text(
-                            "Cart",
-                            style: TextStyle(
-                              color: Colors.white,
-                              letterSpacing: 3,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {Get.to(() => NotificationPage());},
-                            icon: Icon(
-                              IconlyLight.notification,
-                              color: Colors.white,
-                            ),
-                          ),
-                          //IconButton(onPressed: (){},icon: Icon(IconlyBold.arrow_down_square,color: Colors.white,),),
-                        ])))),
-        preferredSize: Size.fromHeight(Get.height * 0.1),
-      ),
-
-      // body: Column(
-      //   children:[
-      //     SizedBox(height: Get.height*0.15),
-      //     Container(
-      //       child: Padding(
-      //         padding: EdgeInsets.all(0),
-      //         //padding: EdgeInsets.symmetric(horizontal: Get.width*0.02),
-      //         child: Column(
-      //           children: [
-      //             Container(
-      //               padding: EdgeInsets.symmetric(horizontal: Get.width*0.1 ),
-      //               // decoration: BoxDecoration(
-      //               //   color: menu,
-      //               //   //borderRadius: BorderRadius.circular(10),
-      //               // ),
-      //               color: menu,
-      //               height: Get.height*0.09,
-      //               child: Column(
-      //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //                 children: [
-      //                   // Column(
-      //                   //   children: [
-      //                   //     IconButton(onPressed: (){}, icon: Icon(Icons.cancel_rounded, color: primaryHighlightColor)),
-      //                   //   ]
-      //                   // ),
-      //
-      //                   Row(
-      //                     children: [
-      //                       Text("Hackathon", style: TextStyle(
-      //                         color: Colors.white,
-      //                         fontSize: 17,
-      //                         fontWeight: FontWeight.w500,
-      //                       ),),],),
-      //                   Row(
-      //                     children: [
-      //                       //Icon(Icons.)
-      //                       Text("\u{20B9} 100", style: TextStyle(
-      //                         color: Colors.white54,
-      //                         fontSize: 15,
-      //                         fontWeight: FontWeight.w500,
-      //                       ),),
-      //                     ],
-      //                   )
-      //
-      //                 ]
-      //               ),
-      //             )
-      //           ]
-      //         )
-      //       )
-      //     )
-      //   ]
-      // )
-
-      body: Column(
-        children: [
-          SizedBox(height: Get.height*0.15),
-          Card(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: Get.width*0.08 ),
-              height: Get.height*0.09,
-              color: menu,
-              child: Row(
-                children: [
-                  Container(
-                    width: Get.width*0.5,
-                    alignment: Alignment.centerLeft,
-                    child: ListTile(
-                              title: Text("Hackathon", style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w500,
-                                      ),),
-                              subtitle: Text("\u{20B9} 100", style: TextStyle(
-                                        color: Colors.white54,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                      ),),
-                            )
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(onPressed: (){}, icon: Icon(Icons.cancel_outlined, color:primaryHighlightColor, size: Get.width*0.07,)),
-                      ],
-                    )
-                  )
-                      ],
-                    )
-                  )
-              ),
-
-          //Checking options
-          SizedBox(height: Get.height*0.01),
-          //Sub Total
-          Container(
-              padding: EdgeInsets.symmetric(horizontal: Get.width*0.125, vertical: Get.height*0.01 ),
-            child: Row(
->>>>>>> a4b1bf376d15fb9bed81f0b20d452c585ec8c6e4
               children: [
                 Text(
                   "DATA",
