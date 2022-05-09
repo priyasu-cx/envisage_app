@@ -41,6 +41,18 @@ class UserDetails {
         "photoUrl": photoUrl,
       };
 
+  static UserDetails fromJson(Map<String, dynamic> json) => UserDetails(
+        uid: json["uid"],
+        email: json["email"],
+        fullName: json["fullName"],
+        phone: json["phone"],
+        gender: json["gender"],
+        college: json["college"],
+        city: json["city"],
+        state: json["state"],
+        evgId: json["evgId"],
+      );
+
   static UserDetails fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
 

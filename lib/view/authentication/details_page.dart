@@ -7,6 +7,7 @@ import 'package:envisage_app/view/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconly/iconly.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screen.dart';
 
@@ -596,9 +597,11 @@ class _DetailsPageState extends State<DetailsPage> {
           await AuthenticationService().addDetailsSignUp(_userDetails);
 
       if (status == "success") {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => style()));
+        final inst = await SharedPreferences.getInstance();
+        inst.setString("name", _userDetails.fullName);
 
+        Navigator.of(context)
+            .pushReplacement(MaterialPageRoute(builder: (context) => style()));
       } else {
         Fluttertoast.showToast(msg: status!);
       }

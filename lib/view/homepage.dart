@@ -1,11 +1,8 @@
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/model/events_details.dart';
-import 'package:envisage_app/model/user_details.dart';
 import 'package:envisage_app/utils/colors.dart';
-import 'package:envisage_app/utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
 class homepage extends StatefulWidget {
   const homepage({Key? key}) : super(key: key);
@@ -29,6 +26,9 @@ class _homepageState extends State<homepage> {
   void getData() async {
     List<EventDetails> upcoming =
         await AuthenticationService().fetchEventDetails(true);
+    // if (!LocalService().isUserExist()) {
+    //   LocalService().setUser(await AuthenticationService().fetchUserDetails());
+    // }
     setState(() {
       upcomingEvents = upcoming;
       upcomingEventCount = upcoming.length;

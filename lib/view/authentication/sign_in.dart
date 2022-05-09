@@ -1,8 +1,5 @@
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/utils/colors.dart';
-
-import 'package:envisage_app/view/footer.dart';
-import 'package:envisage_app/view/screen.dart';
 import 'package:envisage_app/view/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:envisage_app/view/authentication/details_page.dart';
@@ -11,6 +8,7 @@ import 'package:envisage_app/view/authentication/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconly/iconly.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -432,6 +430,9 @@ class _SignInState extends State<SignIn> {
           email: emailController, password: passwordController);
 
       if (status == "success") {
+        final _user = await _authController.fetchUserDetails();
+        final inst = await SharedPreferences.getInstance();
+        inst.setString("name", _user.fullName);
         Navigator.of(context)
             .pushReplacement(MaterialPageRoute(builder: (context) => style()));
       } else {
@@ -450,6 +451,9 @@ class _SignInState extends State<SignIn> {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => DetailsPage()));
     } else if (status == "login") {
+      final _user = await AuthenticationService().fetchUserDetails();
+      final inst = await SharedPreferences.getInstance();
+      inst.setString("name", _user.fullName);
       //
       // Change for Home Page
       Navigator.of(context)
@@ -467,6 +471,9 @@ class _SignInState extends State<SignIn> {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => DetailsPage()));
     } else if (status == "login") {
+      final _user = await AuthenticationService().fetchUserDetails();
+      final inst = await SharedPreferences.getInstance();
+      inst.setString("name", _user.fullName);
       //
       // Change for Home Page
 

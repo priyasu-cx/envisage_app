@@ -2,6 +2,7 @@ import 'package:envisage_app/controller/authentication/authentication_service.da
 import 'package:envisage_app/model/events_details.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconly/iconly.dart';
 
 class EventDetailsPage extends StatefulWidget {
@@ -282,6 +283,24 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                       ),
                     ),
                   ],
+                ),
+              ),
+              Expanded(child: Container()),
+              Material(
+                color: Color(0xff5669FF).withAlpha(50),
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                child: InkWell(
+                  onTap: () {},
+                  splashColor: Color(0xff5669FF).withAlpha(50),
+                  child: Container(
+                    width: 48,
+                    height: 48,
+                    child: Icon(
+                      FontAwesomeIcons.whatsapp,
+                      color: Color(0xff5669FF),
+                      size: 30,
+                    ),
+                  ),
                 ),
               ),
             ],
