@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/model/events_details.dart';
 import 'package:envisage_app/view/nav_pages/event_details_page.dart';
+import 'package:envisage_app/view/notification.dart';
 import 'package:envisage_app/view/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -63,7 +64,7 @@ class _eventsState extends State<events> {
                   child: Container(
                       child: Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: Get.width * 0.03),
+                              horizontal: Get.width * 0.03,vertical: Get.height*0.01,),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
@@ -87,7 +88,7 @@ class _eventsState extends State<events> {
                                   ),
                                 ),
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {Get.to(() => NotificationPage());},
                                   icon: Icon(
                                     IconlyLight.notification,
                                     color: Colors.white,

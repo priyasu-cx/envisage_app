@@ -1,8 +1,10 @@
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/model/user_details.dart';
+import 'package:envisage_app/view/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:iconly/iconly.dart';
+import 'package:get/get.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -46,18 +48,58 @@ class _ProfilePageState extends State<ProfilePage> {
         : Scaffold(
             // extendBodyBehindAppBar: true,
             backgroundColor: primaryBackgroundColor,
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              leading: IconButton(
-                icon: const Icon(
-                  IconlyLight.arrow_left,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
+            // appBar: AppBar(
+            //   backgroundColor: Colors.transparent,
+            //   leading: IconButton(
+            //     icon: const Icon(
+            //       IconlyLight.arrow_left,
+            //       color: Colors.white,
+            //     ),
+            //     onPressed: () {
+            //       Navigator.of(context).pop();
+            //     },
+            //   ),
+            // ),
+      //extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        child: SafeArea(
+            child: Container(
+                child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: Get.width * 0.03),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          IconButton(
+                            icon: Icon(IconlyLight.arrow_left,
+                                color: Colors.white),
+                            onPressed: () {
+                              setState(() {
+                                //print("Hello World");
+                                Get.back();
+                              });
+                            },
+                          ),
+                          Text(
+                            "Profile",
+                            style: TextStyle(
+                              color: Colors.white,
+                              letterSpacing: 3,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {Get.to(() => NotificationPage());},
+                            icon: Icon(
+                              IconlyLight.notification,
+                              color: Colors.white,
+                            ),
+                          ),
+                          //IconButton(onPressed: (){},icon: Icon(IconlyBold.arrow_down_square,color: Colors.white,),),
+                        ])))),
+        preferredSize: Size.fromHeight(Get.height * 0.1),
+      ),
             body: Container(
               padding: EdgeInsets.symmetric(horizontal: _width * 0.077),
               child: SingleChildScrollView(
@@ -65,7 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                        top: _height * 0.02,
+                        top: _height * 0.03,
                         bottom: _height * 0.03,
                       ),
                       child: Align(
