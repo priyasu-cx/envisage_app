@@ -47,7 +47,7 @@ class _eventsState extends State<events> {
   @override
   Widget build(BuildContext context) {
     return !isLoaded
-        ? Scaffold(
+        ? const Scaffold(
             backgroundColor: primaryBackgroundColor,
             body: Center(
               child: CircularProgressIndicator(
@@ -62,7 +62,8 @@ class _eventsState extends State<events> {
               child: SafeArea(
                   child: Container(
                       child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: Get.width*0.03),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Get.width * 0.03),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
@@ -98,7 +99,8 @@ class _eventsState extends State<events> {
             ),
             body: SingleChildScrollView(
               child: Padding(
-                  padding: EdgeInsets.fromLTRB(0, Get.height * 0.01, 0, Get.height * 0.05),
+                  padding: EdgeInsets.fromLTRB(
+                      0, Get.height * 0.01, 0, Get.height * 0.05),
                   //padding: EdgeInsets.all(0),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,11 +119,7 @@ class _eventsState extends State<events> {
                             padding: EdgeInsets.only(left: Get.width * 0.1)),
                         SizedBox(height: Get.height * 0.02),
                         upcomingEventCount > 0
-                            ? GestureDetector(
-                          onTap: (){
-                            Get.to(()=>EventDetailsPage());
-                          },
-                        child: Container(
+                            ? Container(
                                 child: SingleChildScrollView(
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
@@ -132,87 +130,101 @@ class _eventsState extends State<events> {
                                           itemCount: upcomingEventCount,
                                           scrollDirection: Axis.horizontal,
                                           itemBuilder: (context, index) =>
-                                              Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              color: Colors.white,
-                                            ),
-                                            height: Get.height * 0.33,
-                                            width: Get.height * 0.3,
-                                            margin: EdgeInsets.symmetric(horizontal: 10),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                //SizedBox(height: Get.height*0.01,),
-                                                Container(
-                                                  padding: EdgeInsets.symmetric(horizontal: 10),
-                                                  //width:Get.height*0.28,
-                                                  child: Image.asset(
-                                                    "assets/Events/event.png", // IMAGE of the Event => CHANGE !!!!!!!!!!
-                                                    fit: BoxFit.fitWidth,
-                                                  ),
-                                                ),
-                                                //SizedBox(height: Get.height*0.0,),
-                                                Container(
-                                                  child: Text(
-                                                    upcomingEvents[index]
-                                                        .name, // NAME of the Event  =>  CHANGE !!!!!!!!!!!
-                                                    //data[0].id.toString(),
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 18,
-                                                      color: Colors.black87,
+                                              GestureDetector(
+                                            onTap: () {
+                                              Get.to(() => EventDetailsPage(
+                                                    isUpcoming: true,
+                                                    eventIndex: index,
+                                                  )); // ON TAP FUNCTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                color: Colors.white,
+                                              ),
+                                              height: Get.height * 0.33,
+                                              width: Get.height * 0.3,
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 10),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  //SizedBox(height: Get.height*0.01,),
+                                                  Container(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 10),
+                                                    //width:Get.height*0.28,
+                                                    child: Image.asset(
+                                                      "assets/Events/event.png", // IMAGE of the Event => CHANGE !!!!!!!!!!
+                                                      fit: BoxFit.fitWidth,
                                                     ),
                                                   ),
-                                                  padding: EdgeInsets.only(
-                                                      left: Get.width * 0.05),
-                                                ),
-                                                Container(
-                                                  child: Text(
-                                                    upcomingEvents[index]
-                                                        .date, // DATE of the Event => CHANGE !!!!!!!!!!
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 12,
-                                                      color:
-                                                          primaryHighlightColor,
-                                                    ),
-                                                  ),
-                                                  padding: EdgeInsets.only(
-                                                      left: Get.width * 0.05),
-                                                ),
-                                                //SizedBox(height: Get.height*0.02),
-                                                Row(
-                                                  children: [
-                                                    SizedBox(
-                                                        width:
-                                                            Get.width * 0.04),
-                                                    Icon(
-                                                      Icons.location_on_rounded,
-                                                      color: grey,
-                                                    ),
-                                                    Text(
+                                                  //SizedBox(height: Get.height*0.0,),
+                                                  Container(
+                                                    child: Text(
                                                       upcomingEvents[index]
-                                                          .location, // LOCATION of the Event => CHANGE !!!!!!!!!!!
+                                                          .name, // NAME of the Event  =>  CHANGE !!!!!!!!!!!
+                                                      //data[0].id.toString(),
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontSize: 18,
+                                                        color: Colors.black87,
+                                                      ),
+                                                    ),
+                                                    padding: EdgeInsets.only(
+                                                        left: Get.width * 0.05),
+                                                  ),
+                                                  Container(
+                                                    child: Text(
+                                                      upcomingEvents[index]
+                                                          .date, // DATE of the Event => CHANGE !!!!!!!!!!
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize: 12,
-                                                        color: grey,
+                                                        color:
+                                                            primaryHighlightColor,
                                                       ),
                                                     ),
-                                                  ],
-                                                )
-                                              ],
+                                                    padding: EdgeInsets.only(
+                                                        left: Get.width * 0.05),
+                                                  ),
+                                                  //SizedBox(height: Get.height*0.02),
+                                                  Row(
+                                                    children: [
+                                                      SizedBox(
+                                                          width:
+                                                              Get.width * 0.04),
+                                                      Icon(
+                                                        Icons
+                                                            .location_on_rounded,
+                                                        color: grey,
+                                                      ),
+                                                      Text(
+                                                        upcomingEvents[index]
+                                                            .location, // LOCATION of the Event => CHANGE !!!!!!!!!!!
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color: grey,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -220,7 +232,7 @@ class _eventsState extends State<events> {
                                     ],
                                   ),
                                 ),
-                              ),)
+                              )
                             : Container(
                                 height: Get.height * 0.33,
                                 child: const Center(
@@ -266,7 +278,8 @@ class _eventsState extends State<events> {
                                               ),
                                               height: Get.height * 0.33,
                                               width: Get.height * 0.3,
-                                              margin: EdgeInsets.symmetric(horizontal: 10),
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 10),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
