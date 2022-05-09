@@ -1,6 +1,7 @@
 import 'package:envisage_app/view/homepage.dart';
 import 'package:envisage_app/view/nav_pages/etalk.dart';
 import 'package:envisage_app/view/nav_pages/events.dart';
+import 'package:envisage_app/view/nav_pages/gallery.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:envisage_app/utils/colors.dart';
@@ -19,7 +20,7 @@ class _footerState extends State<footer> {
   final List<Widget> screens = [
     homepage(),
     Etalk(),
-    homepage(),
+    Gallery(),
     homepage(),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
@@ -218,7 +219,7 @@ class _footerState extends State<footer> {
                               minWidth: 40,
                               onPressed: () {
                                 setState(() {
-                                  currentScreen = homepage();
+                                  currentScreen = Gallery();
                                   currentTab = 2;
                                 });
                               },
