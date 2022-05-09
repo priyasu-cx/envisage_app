@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:flutter/foundation.dart';
 
 // Define a reusable function
 String generateIdChar(int length) {
