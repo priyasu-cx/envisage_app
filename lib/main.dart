@@ -1,8 +1,10 @@
+import 'package:envisage_app/view/menu_pages/cart.dart';
 import 'package:envisage_app/view/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'view/splash_screen.dart';
 import 'package:flutter/services.dart';
 
@@ -12,6 +14,7 @@ Future<void> main() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await SharedPreferences.getInstance();
   runApp(const MyApp());
 }
 
@@ -34,5 +37,5 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  testPage() => SplashScreen();
+  testPage() => CartPage();
 }

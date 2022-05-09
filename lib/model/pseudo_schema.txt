@@ -1,0 +1,5 @@
+
+Kinds of Data to be found in Local Storage [ Shared Preferences ]:
+
+    - "name" -> Used to store full name of user. 
+        Used in Menubar.
