@@ -149,7 +149,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                     fontSize: 18,
                                   )),
                               onPressed: () {
-                                // Get.to(() => cart());
+                                Get.to(() => CartPage());
                               }),
                         ],
                       ),
