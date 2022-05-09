@@ -220,7 +220,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "ADD TO CART - ₹$_price",
+                _price == 0 ? "ADD TO CART - FREE" : "ADD TO CART - ₹$_price",
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.white,
