@@ -1,8 +1,30 @@
 import 'package:envisage_app/controller/cart/cart_controller.dart';
+import 'package:envisage_app/view/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:iconly/iconly.dart';
 import 'package:lottie/lottie.dart';
+import 'package:get/get.dart';
+
+
+List<Map> cart1=[
+  {
+    'name':'Hackofy',
+    'price': "100",
+  },
+  {
+    'name':'Stickify',
+    'price': "150",
+  },
+  {
+    'name':'Hello Hello',
+    'price': "80",
+  },
+  {
+    'name':'Hehehehe',
+    'price': "120",
+  },
+];
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -12,45 +34,120 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  double subTotal = 0;
+  double transactionCharge = 0;
+  double total = 0;
+
+  void delete(int index){
+    double price = double.parse(cart1[index]["price"]);
+    setState(() {
+      // subTotal = subTotal - price;
+      // transactionCharge = 0.02 * subTotal;
+      // total = subTotal + transactionCharge;
+      subTotal = 0;
+      transactionCharge = 0;
+      total = 0;
+      cart1.removeAt(index);
+    });
+  }
+
+  void func(int index){
+    setState(() {
+      subTotal = int.parse(cart1[index]["price"]) + subTotal;
+      print(subTotal);
+      transactionCharge = 0.02 * subTotal;
+      transactionCharge = double.parse(transactionCharge.toStringAsExponential(1));
+      total = subTotal + transactionCharge;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
-    num subTotal = 0;
-    num transactionCharge = 0;
-    num total = 0;
 
+    for(var i=0; i< cart1.length; i++){
+      func(i);
+    }
     return Scaffold(
       backgroundColor: primaryBackgroundColor,
-      // extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: const Icon(IconlyLight.arrow_left),
-          onPressed: () {
-            CartController();
-            Navigator.of(context).pop();
-          },
-        ),
-        title: Text(
-          "Cart",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-          ),
-        ),
+      appBar: PreferredSize(
+        child: SafeArea(
+            child: Container(
+                child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: Get.width * 0.03,vertical: Get.height*0.01,),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          IconButton(
+                            icon: Icon(IconlyLight.arrow_left,
+                                color: Colors.white),
+                            onPressed: () {
+                              setState(() {
+                                //print("Hello World");
+                                Get.back();
+                              });
+                            },
+                          ),
+                          Text(
+                            "Events",
+                            style: TextStyle(
+                              color: Colors.white,
+                              letterSpacing: 3,
+                              fontSize: 24,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {Get.to(() => NotificationPage());},
+                            icon: Icon(
+                              IconlyLight.notification,
+                              color: Colors.white,
+                            ),
+                          ),
+                          //IconButton(onPressed: (){},icon: Icon(IconlyBold.arrow_down_square,color: Colors.white,),),
+                        ])))),
+        preferredSize: Size.fromHeight(Get.height * 0.1),
       ),
+//       appBar: AppBar(
+//         backgroundColor: Colors.transparent,
+//         leading: IconButton(
+//           icon: const Icon(IconlyLight.arrow_left),
+//           onPressed: () {
+//             CartController();
+//             Navigator.of(context).pop();
+//           },
+//         ),
+//         title: Text(
+//           "Cart",
+//           style: TextStyle(
+//             color: Colors.white,
+//             fontSize: 20,
+//           ),
+//         ),
+//       ),
       body: Container(
         child: Stack(
           children: [
             Column(
               children: [
-                Text(
-                  "DATA",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
+                Container(
+                  height: Get.height*0.6,
+                    padding: EdgeInsets.symmetric(horizontal:Get.width*0.077),
+                    child: ListView.builder(
+                      //padding: EdgeInsets.only(top:Get.height*0.02),
+
+                      itemBuilder: (context,index)=>CartEvents(index),
+                      itemCount: cart1.length,
+                    )
                 ),
+                // Text(
+                //   "DATA",
+                //   style: TextStyle(
+                //     color: Colors.white,
+                //   ),
+                // ),
               ],
             ),
             Align(
@@ -77,7 +174,7 @@ class _CartPageState extends State<CartPage> {
                           ),
                           Expanded(child: Container()),
                           Text(
-                            "₹$subTotal",
+                            "₹ $subTotal",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -103,7 +200,7 @@ class _CartPageState extends State<CartPage> {
                           ),
                           Expanded(child: Container()),
                           Text(
-                            "₹$transactionCharge",
+                            "₹ $transactionCharge",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -129,7 +226,7 @@ class _CartPageState extends State<CartPage> {
                           ),
                           Expanded(child: Container()),
                           Text(
-                            "₹$total",
+                            " ₹ $total",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -164,6 +261,46 @@ class _CartPageState extends State<CartPage> {
           ],
         ),
       ),
+    );
+  }
+  Widget CartEvents(index){
+    return Card(
+        child: Container(
+            padding: EdgeInsets.symmetric(horizontal: Get.width*0.08 ),
+            height: Get.height*0.09,
+            color: menu,
+            child: Row(
+              children: [
+                Container(
+                    width: Get.width*0.5,
+                    alignment: Alignment.centerLeft,
+                    child: ListTile(
+                      title: Text(cart1[index]["name"], style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                      ),),
+                      subtitle: Text("₹ "+cart1[index]["price"], style: TextStyle(
+                        color: Colors.white54,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),),
+                    )
+                ),
+                Expanded(
+                    flex: 5,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(onPressed: (){
+                          delete(index);
+                        }, icon: Icon(Icons.cancel_outlined, color:primaryHighlightColor, size: Get.width*0.07,)),
+                      ],
+                    )
+                )
+              ],
+            )
+        )
     );
   }
 
@@ -359,7 +496,7 @@ class _CartPageState extends State<CartPage> {
 //                     )
 //                   )
 //               ),
-
+//
 //           //Checking options
 //           SizedBox(height: Get.height*0.01),
 //           //Sub Total
@@ -412,7 +549,7 @@ class _CartPageState extends State<CartPage> {
 //                 ],
 //               )
 //           ),
-
+//
 //           //Total
 //           Container(
 //               padding: EdgeInsets.symmetric(horizontal: Get.width*0.125,vertical: Get.height*0.01 ),
@@ -439,7 +576,7 @@ class _CartPageState extends State<CartPage> {
 //                 ],
 //               )
 //           ),
-
+//
 //           SizedBox(height: Get.height*0.15),
 //           //Checkout Button
 //           Column(
@@ -474,8 +611,8 @@ class _CartPageState extends State<CartPage> {
 //               ),),
 //             ],
 //           )
-
-
+//
+//
 //           ],
 //       ),);
 //   }
