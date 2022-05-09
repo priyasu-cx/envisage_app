@@ -4,6 +4,8 @@ import 'package:envisage_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconly/iconly.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'dart:async';
 
 class EventDetailsPage extends StatefulWidget {
   final bool isUpcoming;
@@ -40,6 +42,13 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
       event = upcoming[eventIndex];
       isLoading = true;
     });
+  }
+
+  void launchWhatsapp({@required number, @required message}) async {
+    final Uri _url  = Uri.parse("whatsapp://send?phone=$number&text=$message");
+    //final Uri _url  = Uri.parse("https://www.youtube.com/");
+
+    if (!await launchUrl(_url)) throw 'Could not launch $_url';
   }
 
   @override
@@ -295,10 +304,14 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                   child: Container(
                     width: 48,
                     height: 48,
-                    child: Icon(
-                      FontAwesomeIcons.whatsapp,
-                      color: Color(0xff5669FF),
-                      size: 30,
+                    child: IconButton(
+                      onPressed: (){
+                        launchWhatsapp(number: "+918697302960", message: "Hey there, I need some help in your event.");
+                      },
+                      icon: Icon(
+                        FontAwesomeIcons.whatsapp,
+                        color: Color(0xff5669FF),
+                        size: 30),
                     ),
                   ),
                 ),

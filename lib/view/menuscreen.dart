@@ -176,7 +176,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                     fontSize: 18,
                                   )),
                               onPressed: () {
-                                Get.to(() => ProfilePage());
+                                Get.to(() => reg_events());
                               }),
                         ],
                       ),

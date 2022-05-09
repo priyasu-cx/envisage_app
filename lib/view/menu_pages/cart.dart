@@ -1,3 +1,4 @@
+import 'package:envisage_app/view/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:envisage_app/utils/colors.dart';
@@ -16,33 +17,45 @@ class _cartState extends State<cart> {
     return Scaffold(
       backgroundColor: primaryBackgroundColor,
       extendBodyBehindAppBar: true,
-      appBar: PreferredSize(child:SafeArea(
-          child: Container(
-              child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        IconButton(icon: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
-                          onPressed: (){
-                            setState(() {
-                              //print("Hello World");
-                              Get.back();
-                            });
-                          },),
-                        Text("Cart", style: TextStyle(
-                          color: Colors.white,
-                          letterSpacing: 3,
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
-                        ),),
-                        IconButton(onPressed: (){},icon: Icon(IconlyBold.notification,color: Colors.white,),),
-                        //IconButton(onPressed: (){},icon: Icon(IconlyBold.arrow_down_square,color: Colors.white,),),
-                      ]
-                  )
-              )
-          )
-      ),preferredSize: Size.fromHeight(Get.height*0.1),),
+      appBar: PreferredSize(
+        child: SafeArea(
+            child: Container(
+                child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: Get.width * 0.03),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          IconButton(
+                            icon: Icon(IconlyLight.arrow_left,
+                                color: Colors.white),
+                            onPressed: () {
+                              setState(() {
+                                //print("Hello World");
+                                Get.back();
+                              });
+                            },
+                          ),
+                          Text(
+                            "Cart",
+                            style: TextStyle(
+                              color: Colors.white,
+                              letterSpacing: 3,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {Get.to(() => NotificationPage());},
+                            icon: Icon(
+                              IconlyLight.notification,
+                              color: Colors.white,
+                            ),
+                          ),
+                          //IconButton(onPressed: (){},icon: Icon(IconlyBold.arrow_down_square,color: Colors.white,),),
+                        ])))),
+        preferredSize: Size.fromHeight(Get.height * 0.1),
+      ),
 
       // body: Column(
       //   children:[
