@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/utils/config.dart';
 import 'package:envisage_app/view/authentication/sign_in.dart';
+import 'package:envisage_app/view/menu_pages/Registered_events.dart';
 import 'package:envisage_app/view/menu_pages/profile_page.dart';
 import 'package:envisage_app/view/menu_pages/cart.dart';
 import 'package:flutter/material.dart';
@@ -150,7 +151,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               fontSize: 18,
                             )),
                         onPressed: () {
-                          Get.to(() => ProfilePage());
+                          Get.to(() => reg_events());
                         }),
                   ],
                 ),
