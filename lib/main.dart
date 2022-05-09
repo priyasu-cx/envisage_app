@@ -1,4 +1,5 @@
 import 'package:envisage_app/view/menu_pages/cart.dart';
+import 'package:envisage_app/view/screen.dart';
 import 'package:envisage_app/view/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +34,9 @@ class MyApp extends StatelessWidget {
               .textTheme, // If this is not set, then ThemeData.light().textTheme is used.
         ),
       ),
-      home: testPage(),
+      home: style(),
     );
   }
 
-  testPage() => CartPage();
+  //testPage() => CartPage();
 }
