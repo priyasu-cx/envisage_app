@@ -1,6 +1,7 @@
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/model/events_details.dart';
 import 'package:envisage_app/view/nav_pages/event_details_page.dart';
+import 'package:envisage_app/view/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:envisage_app/utils/colors.dart';
@@ -84,7 +85,7 @@ class _eventsState extends State<reg_events> {
                             ),
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {Get.to(() => NotificationPage());},
                             icon: Icon(
                               IconlyLight.notification,
                               color: Colors.white,

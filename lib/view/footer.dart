@@ -2,6 +2,7 @@ import 'package:envisage_app/view/homepage.dart';
 import 'package:envisage_app/view/nav_pages/etalk.dart';
 import 'package:envisage_app/view/nav_pages/events.dart';
 import 'package:envisage_app/view/nav_pages/gallery.dart';
+import 'package:envisage_app/view/notification.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:envisage_app/utils/colors.dart';
@@ -110,9 +111,9 @@ class _footerState extends State<footer> {
                                       },
                                     ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {Get.to(() => NotificationPage());},
                                 icon: Icon(
-                                  IconlyBold.notification,
+                                  IconlyLight.notification,
                                   color: Colors.white,
                                 ),
                               ),
