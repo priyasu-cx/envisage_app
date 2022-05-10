@@ -91,7 +91,7 @@ class _CartPageState extends State<CartPage> {
                             },
                           ),
                           Text(
-                            "Events",
+                            "Cart",
                             style: TextStyle(
                               color: Colors.white,
                               letterSpacing: 3,
