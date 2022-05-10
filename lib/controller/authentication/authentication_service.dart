@@ -106,7 +106,6 @@ class AuthenticationService {
         Map<String, dynamic> data = element.data();
         userId = data["uid"];
       });
-      // Map<String, dynamic> data = object.docs[0].data();
     }
 
     DocumentSnapshot<Map<String, dynamic>> snap = await _firestore
@@ -118,8 +117,8 @@ class AuthenticationService {
 
     var snapshot = snap.data() as Map<String, dynamic>;
 
-    // return snapshot["isRegistered"];
-    return false;
+    return snapshot["isRegistered"];
+    // return false;
   }
 
   Future<String> registerSoloEvent(EventDetails _event) async {
