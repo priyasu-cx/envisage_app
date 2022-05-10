@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EventDetails {
+  final String? id;
   final String name;
   final String about;
   final String date;
@@ -12,6 +13,7 @@ class EventDetails {
   final int? maxTeamSize;
 
   const EventDetails({
+    this.id,
     required this.name,
     required this.about,
     required this.date,
@@ -24,6 +26,7 @@ class EventDetails {
   });
 
   Map<String, dynamic> toJson() => {
+        "id": id!,
         "name": name,
         "about": about,
         "date": date,
@@ -35,10 +38,23 @@ class EventDetails {
         "maxTeamSize": maxTeamSize,
       };
 
+  static EventDetails toObject(Map<String, dynamic> json) => EventDetails(
+        id: json["id"],
+        name: json["name"],
+        about: json["about"],
+        date: json["date"],
+        location: json["location"],
+        lead: json["lead"],
+        leadContact: json["leadContact"],
+        price: json["price"],
+        isTeamEvent: json["isTeamEvent"],
+      );
+
   static EventDetails fromJson(QueryDocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
 
     return EventDetails(
+      id: snapshot["id"],
       name: snapshot["name"],
       about: snapshot["about"],
       date: snapshot["date"],

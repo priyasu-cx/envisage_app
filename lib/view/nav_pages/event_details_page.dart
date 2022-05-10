@@ -1,4 +1,5 @@
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
+import 'package:envisage_app/controller/cart/cart_controller.dart';
 import 'package:envisage_app/model/events_details.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
   }
 
   void launchWhatsapp({@required number, @required message}) async {
-    final Uri _url  = Uri.parse("whatsapp://send?phone=$number&text=$message");
+    final Uri _url = Uri.parse("whatsapp://send?phone=$number&text=$message");
     //final Uri _url  = Uri.parse("https://www.youtube.com/");
 
     if (!await launchUrl(_url)) throw 'Could not launch $_url';
@@ -145,6 +146,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                           _width,
                           "assets/Events/organizer.png",
                           event!.lead,
+                          event!.leadContact,
                         ),
                       ),
                       Padding(
@@ -207,6 +209,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                     child: ATCButton(
                       _height,
                       event!.price,
+                      event!,
                     ),
                   ),
                 ),
@@ -215,7 +218,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
           );
   }
 
-  Material ATCButton(double _height, int _price) {
+  Material ATCButton(double _height, int _price, EventDetails _event) {
     return Material(
       color: primaryHighlightColor,
       borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -223,6 +226,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
         splashColor: primaryHighlightColor,
         onTap: () {
           print("Added to Cart");
+          CartController().addToCart(_event);
         },
         child: Container(
           height: _height * 0.0738,
@@ -251,7 +255,8 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
     );
   }
 
-  Container OrganizerDetailWidget(double _width, String _image, String _name) {
+  Container OrganizerDetailWidget(
+      double _width, String _image, String _name, String _number) {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: _width * 0.077,
@@ -305,13 +310,15 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                     width: 48,
                     height: 48,
                     child: IconButton(
-                      onPressed: (){
-                        launchWhatsapp(number: "+918697302960", message: "Hey there, I need some help in your event.");
+                      onPressed: () {
+                        print(_number);
+                        launchWhatsapp(
+                            number: _number,
+                            message:
+                                "Hey there, I need some help in your event.");
                       },
-                      icon: Icon(
-                        FontAwesomeIcons.whatsapp,
-                        color: Color(0xff5669FF),
-                        size: 30),
+                      icon: Icon(FontAwesomeIcons.whatsapp,
+                          color: Color(0xff5669FF), size: 30),
                     ),
                   ),
                 ),

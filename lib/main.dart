@@ -34,9 +34,9 @@ class MyApp extends StatelessWidget {
               .textTheme, // If this is not set, then ThemeData.light().textTheme is used.
         ),
       ),
-      home: style(),
+      home: testPage(),
     );
   }
 
-  //testPage() => CartPage();
+  testPage() => style();
 }
