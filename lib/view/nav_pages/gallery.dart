@@ -12,7 +12,8 @@ class Gallery extends StatelessWidget {
     "https://envisage21.netlify.app/images/gallery/img20.jpg",
     "https://envisage21.netlify.app/images/gallery/img23.jpeg",
     "https://envisage21.netlify.app/images/gallery/img3.jpg",
-
+    "https://envisage21.netlify.app/images/gallery/img5.jpg",
+    "https://envisage21.netlify.app/images/gallery/img25.jpeg"
   ];
 
   @override
@@ -45,7 +46,12 @@ class Gallery extends StatelessWidget {
               ]
           ),
           Expanded(
-            child: StaggeredGridView.countBuilder(
+            // constraints: BoxConstraints(
+            //   maxHeight: Get.height*0.62,
+            // ),
+
+            child:
+            StaggeredGridView.countBuilder(
               padding: EdgeInsets.only(top: Get.height*0.02),
               crossAxisCount: 2,
               itemCount: images.length,
@@ -68,6 +74,9 @@ class Gallery extends StatelessWidget {
           ),
         ],
       ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   child:SizedBox(height: 0.01,),
+      // ),
     );
   }
 }
