@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:iconly/iconly.dart';
 import 'package:get/get.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -63,8 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
       //extendBodyBehindAppBar: true,
       appBar: PreferredSize(
         child: SafeArea(
-            child: Container(
-                child: Padding(
+            child: Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: Get.width * 0.03),
                     child: Row(
@@ -96,8 +97,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               color: Colors.white,
                             ),
                           ),
-                          //IconButton(onPressed: (){},icon: Icon(IconlyBold.arrow_down_square,color: Colors.white,),),
-                        ])))),
+                        ]))),
         preferredSize: Size.fromHeight(Get.height * 0.1),
       ),
             body: Container(
@@ -115,8 +115,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: CircleAvatar(
                           radius: _height * 0.09,
                           backgroundColor: primaryHighlightColor.withAlpha(50),
-                          backgroundImage: AssetImage(
-                              "assets/ic_launcher_adaptive_fore.png"),
+                          backgroundImage: AssetImage("assets/ic_launcher_adaptive_fore.png"),
                         ),
                       ),
                     ),
@@ -130,32 +129,33 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: _height * 0.02,
-                        bottom: _height * 0.06,
-                      ),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: _width * 0.0813,
-                          vertical: 10,
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: _height * 0.02,
+                          bottom: _height * 0.06,
                         ),
-                        child: Text(
-                          userData.evgId,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: _width * 0.0813,
+                            vertical: 10,
+                          ),
+                          child: Text(
+                            userData.evgId,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
+                          ),
+                          decoration: const BoxDecoration(
+                            color: primaryHighlightColor,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
                           ),
                         ),
-                        decoration: const BoxDecoration(
-                          color: primaryHighlightColor,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                        ),
                       ),
-                    ),
+
                     const Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
