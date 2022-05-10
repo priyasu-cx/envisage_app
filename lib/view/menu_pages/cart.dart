@@ -37,18 +37,18 @@ class _CartPageState extends State<CartPage> {
   double transactionCharge = 0;
   double total = 0;
 
-  @override
-  void initState() {
-    setCart();
-    super.initState();
-  }
-
-  void setCart() async {
-    var cart = await CartController().getCart();
-    setState(() {
-      // cart1 = cart;
-    });
-  }
+  // @override
+  // void initState() {
+  //   setCart();
+  //   super.initState();
+  // }
+  //
+  // void setCart() async {
+  //   var cart = await CartController().getCart();
+  //   setState(() {
+  //     // cart1 = cart;
+  //   });
+  // }
 
   void delete(int index) {
     double price = double.parse(cart1[index]["price"]);
@@ -171,8 +171,9 @@ class _CartPageState extends State<CartPage> {
               alignment: Alignment.bottomCenter,
               child: Container(
                 width: _width,
-                height: _height * 0.27,
-                child: Column(
+                height: _height * 0.3,
+                child: SingleChildScrollView(child:
+                Column(
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -272,7 +273,7 @@ class _CartPageState extends State<CartPage> {
                       ),
                     ),
                   ],
-                ),
+                ),),
               ),
             ),
           ],

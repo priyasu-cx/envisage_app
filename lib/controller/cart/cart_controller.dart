@@ -22,14 +22,14 @@ class CartController {
     return cart.contains(event.toJson().toString());
   }
 
-  Future<List<dynamic>> getCart() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-
-    var cart = _prefs.getStringList("cart") ?? [];
-    List<Map<String, dynamic>> cartValue =
-        cart.forEach((index) => jsonDecode(cart[index]));
-    print(cartValue);
-
-    return cartValue;
-  }
+  // Future<List<dynamic>> getCart() async {
+  //   SharedPreferences _prefs = await SharedPreferences.getInstance();
+  //
+  //   var cart = _prefs.getStringList("cart") ?? [];
+  //   List<Map<String, dynamic>> cartValue =
+  //       cart.forEach((index) => jsonDecode(cart[index]));
+  //   print(cartValue);
+  //
+  //   return cartValue;
+  // }
 }
