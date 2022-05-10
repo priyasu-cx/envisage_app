@@ -4,12 +4,15 @@ import 'package:envisage_app/view/menu_pages/Registered_events.dart';
 import 'package:envisage_app/view/menu_pages/contact_us.dart';
 import 'package:envisage_app/view/menu_pages/profile_page.dart';
 import 'package:envisage_app/view/menu_pages/cart.dart';
+import 'package:envisage_app/view/menu_pages/rules.dart';
+import 'package:envisage_app/view/menu_pages/sponsors.dart';
 import 'package:flutter/material.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override
@@ -131,32 +134,32 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     ),
                   ],
                 ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: Get.width * 0.01, bottom: Get.width * 0.01),
-                      child: Row(
-                        children: [
-                          Icon(IconlyLight.buy, color: Colors.white, size: 30),
-                          SizedBox(
-                            width: 0,
-                          ),
-                          MaterialButton(
-                              child: Text("Cart",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 18,
-                                  )),
-                              onPressed: () {
-                                Get.to(() => CartPage());
-                              }),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                // Column(
+                //   children: [
+                //     Padding(
+                //       padding: EdgeInsets.only(
+                //           left: Get.width * 0.01, bottom: Get.width * 0.01),
+                //       child: Row(
+                //         children: [
+                //           Icon(IconlyLight.buy, color: Colors.white, size: 30),
+                //           SizedBox(
+                //             width: 0,
+                //           ),
+                //           MaterialButton(
+                //               child: Text("Cart",
+                //                   style: TextStyle(
+                //                     color: Colors.white,
+                //                     fontWeight: FontWeight.w500,
+                //                     fontSize: 18,
+                //                   )),
+                //               onPressed: () {
+                //                 Get.to(() => CartPage());
+                //               }),
+                //         ],
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 Column(
                   children: [
                     Padding(
@@ -204,7 +207,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                     fontSize: 18,
                                   )),
                               onPressed: () {
-                                Get.to(() => ProfilePage());
+                                Get.to(() => Sponser());
                               }),
                         ],
                       ),
@@ -257,8 +260,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                     fontWeight: FontWeight.w500,
                                     fontSize: 18,
                                   )),
-                              onPressed: () {
-                                Get.to(() => ProfilePage());
+                              onPressed: () async{
+                                final Uri _url  = Uri.parse("https://drive.google.com/file/d/1uThgFp2cUg-H7OM0-7rBTEZanrEdE8Ku/view?usp=sharing");
+                                launchUrl(_url);
                               }),
                         ],
                       ),
