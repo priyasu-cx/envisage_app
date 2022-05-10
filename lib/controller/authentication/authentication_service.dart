@@ -67,19 +67,19 @@ class AuthenticationService {
   Future<bool> isAnyMemberRegistered(
       EventDetails _event, TeamDetails teamData) async {
     bool check1 = await isRegistered(_event, teamData.teamLead);
-    if (teamData.teamMember1 != null) {
+    if (teamData.teamMember1 != null && teamData.teamMember1 != "") {
       bool check2 = await isRegistered(_event, teamData.teamMember1!);
       if (check2) {
         return true;
       }
     }
-    if (teamData.teamMember2 != null) {
+    if (teamData.teamMember2 != null && teamData.teamMember2 != "") {
       bool check3 = await isRegistered(_event, teamData.teamMember2!);
       if (check3) {
         return true;
       }
     }
-    if (teamData.teamMember1 != null) {
+    if (teamData.teamMember3 != null && teamData.teamMember3 != "") {
       bool check4 = await isRegistered(_event, teamData.teamMember3!);
       if (check4) {
         return true;
@@ -96,6 +96,17 @@ class AuthenticationService {
     if (userId == null) {
       User currentUser = _firebaseAuth.currentUser!;
       userId = currentUser.uid;
+    } else {
+      QuerySnapshot<Map<String, dynamic>> object = await _firestore
+          .collection("users")
+          .where("evgId", isEqualTo: userId)
+          .get();
+      Map<String, dynamic> data;
+      object.docs.forEach((element) {
+        Map<String, dynamic> data = element.data();
+        userId = data["uid"];
+      });
+      // Map<String, dynamic> data = object.docs[0].data();
     }
 
     DocumentSnapshot<Map<String, dynamic>> snap = await _firestore
@@ -107,7 +118,8 @@ class AuthenticationService {
 
     var snapshot = snap.data() as Map<String, dynamic>;
 
-    return snapshot["isRegistered"];
+    // return snapshot["isRegistered"];
+    return false;
   }
 
   Future<String> registerSoloEvent(EventDetails _event) async {
@@ -147,12 +159,16 @@ class AuthenticationService {
         "teamId": _teamDetails.teamId.toString(),
       };
 
+      print(_event.id);
+      print(_teamDetails.teamId);
+
       await _firestore
           .collection("events")
-          .doc(_event.id)
+          .doc(_event.id.toString())
           .collection("teams")
-          .doc(_teamDetails.teamId)
-          .set(_teamDetails.toJson());
+          .doc(_teamDetails.teamId.toString())
+          .set({});
+      print("check");
 
       await _firestore
           .collection("users")
@@ -212,6 +228,7 @@ class AuthenticationService {
           .doc(_teamDetails.teamId)
           .set(_teamDetails.toJson());
     } catch (error) {
+      print(error.toString());
       return error.toString();
     }
     return "success";
