@@ -5,6 +5,7 @@ import 'package:envisage_app/view/menu_pages/contact_us.dart';
 import 'package:envisage_app/view/menu_pages/profile_page.dart';
 import 'package:envisage_app/view/menu_pages/cart.dart';
 import 'package:envisage_app/view/menu_pages/rules.dart';
+import 'package:envisage_app/view/menu_pages/sponsors.dart';
 import 'package:flutter/material.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -206,7 +207,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                     fontSize: 18,
                                   )),
                               onPressed: () {
-                                Get.to(() => ProfilePage());
+                                Get.to(() => Sponser());
                               }),
                         ],
                       ),
