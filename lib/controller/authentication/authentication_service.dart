@@ -135,16 +135,6 @@ class AuthenticationService {
     } catch (error) {
       return error.toString();
     }
-    try {
-      await _firestore
-          .collection("events")
-          .doc(_event.id)
-          .collection("registered")
-          .doc(currentUser.uid)
-          .set({});
-    } catch (error) {
-      return error.toString();
-    }
     return "success";
   }
 
@@ -158,17 +148,6 @@ class AuthenticationService {
         "teamId": _teamDetails.teamId.toString(),
       };
 
-      print(_event.id);
-      print(_teamDetails.teamId);
-
-      await _firestore
-          .collection("events")
-          .doc(_event.id.toString())
-          .collection("teams")
-          .doc(_teamDetails.teamId.toString())
-          .set({});
-      print("check");
-
       await _firestore
           .collection("users")
           .doc(currentUser.uid)
@@ -176,14 +155,7 @@ class AuthenticationService {
           .doc(_event.id!)
           .set(data);
 
-      if (_teamDetails.teamMember1 != null) {
-        await _firestore
-            .collection("events")
-            .doc(_event.id)
-            .collection("registered")
-            .doc(_teamDetails.teamMember1)
-            .set({});
-
+      if (_teamDetails.teamMember1 != null && _teamDetails.teamMember1 != "") {
         await _firestore
             .collection("users")
             .doc(_teamDetails.teamMember1)
@@ -191,14 +163,7 @@ class AuthenticationService {
             .doc(_event.id!)
             .set(data);
       }
-      if (_teamDetails.teamMember2 != null) {
-        await _firestore
-            .collection("events")
-            .doc(_event.id)
-            .collection("registered")
-            .doc(_teamDetails.teamMember2)
-            .set({});
-
+      if (_teamDetails.teamMember2 != null && _teamDetails.teamMember2 != "") {
         await _firestore
             .collection("users")
             .doc(_teamDetails.teamMember2)
@@ -206,14 +171,7 @@ class AuthenticationService {
             .doc(_event.id!)
             .set(data);
       }
-      if (_teamDetails.teamMember3 != null) {
-        await _firestore
-            .collection("events")
-            .doc(_event.id)
-            .collection("registered")
-            .doc(_teamDetails.teamMember3)
-            .set({});
-
+      if (_teamDetails.teamMember3 != null && _teamDetails.teamMember3 != "") {
         await _firestore
             .collection("users")
             .doc(_teamDetails.teamMember3)

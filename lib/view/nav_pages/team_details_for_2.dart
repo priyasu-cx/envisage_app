@@ -143,10 +143,6 @@ class _TeamDetailsPage2State extends State<TeamDetailsPage2> {
       validator: (value) {
         if (value == "") {
           return null;
-        } else if (!RegExp(
-                "/^22EVG+[A-Za-z]+[A-Za-z]+[A-Za-z]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]")
-            .hasMatch(value!)) {
-          return ("Please enter a valid EVG-ID");
         }
         return null;
       },
@@ -393,6 +389,7 @@ class _TeamDetailsPage2State extends State<TeamDetailsPage2> {
         teamName: teamNameController.text,
         teamLead: teamLeadController.text,
         teamMember1: teamMember1Controller.text,
+        eventId: event.id!,
       );
       bool checkRegistered =
           await AuthenticationService().isAnyMemberRegistered(event, teamData);

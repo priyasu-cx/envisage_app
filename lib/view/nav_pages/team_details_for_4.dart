@@ -43,7 +43,7 @@ class _TeamDetailsPage4State extends State<TeamDetailsPage4> {
     transactionCharge = 0.02 * subTotal;
     total = subTotal + transactionCharge;
 
-    // Full Name Field
+    // Team Name Field
     final teamNameField = TextFormField(
       autofocus: false,
       keyboardType: TextInputType.name,
@@ -98,10 +98,6 @@ class _TeamDetailsPage4State extends State<TeamDetailsPage4> {
       validator: (value) {
         if (value == "") {
           return ("Please enter Team Lead EVG-ID");
-        } else if (!RegExp(
-                "/^22EVG+[A-Za-z]+[A-Za-z]+[A-Za-z]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]")
-            .hasMatch(value!)) {
-          return ("Please enter a valid EVG-ID");
         }
         return null;
       },
@@ -149,10 +145,6 @@ class _TeamDetailsPage4State extends State<TeamDetailsPage4> {
       validator: (value) {
         if (value == "") {
           return null;
-        } else if (!RegExp(
-                "/^22EVG+[A-Za-z]+[A-Za-z]+[A-Za-z]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]")
-            .hasMatch(value!)) {
-          return ("Please enter a valid EVG-ID");
         }
         return null;
       },
@@ -200,10 +192,6 @@ class _TeamDetailsPage4State extends State<TeamDetailsPage4> {
       validator: (value) {
         if (value == "") {
           return null;
-        } else if (!RegExp(
-                "/^22EVG+[A-Za-z]+[A-Za-z]+[A-Za-z]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]")
-            .hasMatch(value!)) {
-          return ("Please enter a valid EVG-ID");
         }
         return null;
       },
@@ -251,10 +239,6 @@ class _TeamDetailsPage4State extends State<TeamDetailsPage4> {
       validator: (value) {
         if (value == "") {
           return null;
-        } else if (!RegExp(
-                "/^22EVG+[A-Za-z]+[A-Za-z]+[A-Za-z]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]")
-            .hasMatch(value!)) {
-          return ("Please enter a valid EVG-ID");
         }
         return null;
       },
@@ -515,6 +499,7 @@ class _TeamDetailsPage4State extends State<TeamDetailsPage4> {
         teamMember1: teamMember1Controller.text,
         teamMember2: teamMember2Controller.text,
         teamMember3: teamMember3Controller.text,
+        eventId: event.id!,
       );
       bool checkRegistered =
           await AuthenticationService().isAnyMemberRegistered(event, teamData);

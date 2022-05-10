@@ -7,6 +7,7 @@ class TeamDetails {
   final String? teamMember1;
   final String? teamMember2;
   final String? teamMember3;
+  final String eventId;
 
   TeamDetails({
     required this.teamId,
@@ -15,6 +16,7 @@ class TeamDetails {
     this.teamMember1,
     this.teamMember2,
     this.teamMember3,
+    required this.eventId,
   });
 
   Map<String, dynamic> toJson() => {
@@ -24,6 +26,7 @@ class TeamDetails {
         "teamMember1": teamMember1,
         "teamMember2": teamMember2,
         "teamMember3": teamMember3,
+        "eventId": eventId,
       };
 
   static TeamDetails fromJson(Map<String, dynamic> json) => TeamDetails(
@@ -33,6 +36,7 @@ class TeamDetails {
         teamMember1: json["teamMember1"],
         teamMember2: json["teamMember2"],
         teamMember3: json["teamMember3"],
+        eventId: json["eventId"],
       );
 
   static TeamDetails fromSnap(DocumentSnapshot snap) {
@@ -45,6 +49,7 @@ class TeamDetails {
       teamMember1: snapshot["teamMember1"],
       teamMember2: snapshot["teamMember2"],
       teamMember3: snapshot["teamMember3"],
+      eventId: snapshot["eventId"],
     );
   }
 }
