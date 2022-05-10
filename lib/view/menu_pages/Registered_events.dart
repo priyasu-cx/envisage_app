@@ -30,15 +30,12 @@ class _eventsState extends State<reg_events> {
 
   void getData() async {
     List<EventDetails> upcoming =
-    await AuthenticationService().fetchEventDetails(true);
-
-    List<EventDetails> past =
-    await AuthenticationService().fetchEventDetails(false);
+        await AuthenticationService().fetchEventDetails(true);
     setState(() {
       upcomingEvents = upcoming;
       upcomingEventCount = upcoming.length;
-      pastEvents = past;
-      pastEventCount = past.length;
+      // pastEvents = past;
+      // pastEventCount = past.length;
     });
   }
 
@@ -46,335 +43,337 @@ class _eventsState extends State<reg_events> {
   Widget build(BuildContext context) {
     return !isLoaded
         ? const Scaffold(
-      backgroundColor: primaryBackgroundColor,
-      body: Center(
-        child: CircularProgressIndicator(
-          color: Colors.white,
-        ),
-      ),
-    )
+            backgroundColor: primaryBackgroundColor,
+            body: Center(
+              child: CircularProgressIndicator(
+                color: Colors.white,
+              ),
+            ),
+          )
         : Scaffold(
-      backgroundColor: primaryBackgroundColor,
-      extendBodyBehindAppBar: true,
-      appBar: PreferredSize(
-        child: SafeArea(
-            child: Container(
-                child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: Get.width * 0.03),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          IconButton(
-                            icon: Icon(IconlyLight.arrow_left,
-                                color: Colors.white),
-                            onPressed: () {
-                              setState(() {
-                                //print("Hello World");
-                                Get.back();
-                              });
-                            },
-                          ),
-                          Text(
-                            "Registered Events",
-                            style: TextStyle(
-                              color: Colors.white,
-                              letterSpacing: 3,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {Get.to(() => NotificationPage());},
-                            icon: Icon(
-                              IconlyLight.notification,
-                              color: Colors.white,
-                            ),
-                          ),
-                          //IconButton(onPressed: (){},icon: Icon(IconlyBold.arrow_down_square,color: Colors.white,),),
-                        ])))),
-        preferredSize: Size.fromHeight(Get.height * 0.1),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-            padding: EdgeInsets.fromLTRB(
-                0, Get.height * 0.01, 0, Get.height * 0.05),
-            //padding: EdgeInsets.all(0),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: Get.height * 0.13),
-                  Padding(
-                      child: Text(
-                        "Upcoming Events",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 20,
-                          color: Colors.white,
-                        ),
-                      ),
-                      padding: EdgeInsets.only(left: Get.width * 0.1)),
-                  SizedBox(height: Get.height * 0.02),
-                  upcomingEventCount > 0
-                      ? Container(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SizedBox(
-                            height: Get.height * 0.33,
-                            child: ListView.builder(
-                              itemCount: upcomingEventCount,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) =>
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.to(() => EventDetailsPage(
-                                        isUpcoming: true,
-                                        eventIndex: index,
-                                      )); // ON TAP FUNCTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(15),
-                                        color: Colors.white,
-                                      ),
-                                      height: Get.height * 0.33,
-                                      width: Get.height * 0.3,
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                        MainAxisAlignment
-                                            .spaceEvenly,
-                                        children: [
-                                          //SizedBox(height: Get.height*0.01,),
-                                          Container(
-                                            padding:
-                                            EdgeInsets.symmetric(
-                                                horizontal: 10),
-                                            //width:Get.height*0.28,
-                                            child: Image.asset(
-                                              "assets/Events/event.png", // IMAGE of the Event => CHANGE !!!!!!!!!!
-                                              fit: BoxFit.fitWidth,
-                                            ),
-                                          ),
-                                          //SizedBox(height: Get.height*0.0,),
-                                          Container(
-                                            child: Text(
-                                              upcomingEvents[index]
-                                                  .name, // NAME of the Event  =>  CHANGE !!!!!!!!!!!
-                                              //data[0].id.toString(),
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                fontWeight:
-                                                FontWeight.w500,
-                                                fontSize: 18,
-                                                color: Colors.black87,
-                                              ),
-                                            ),
-                                            padding: EdgeInsets.only(
-                                                left: Get.width * 0.05),
-                                          ),
-                                          Container(
-                                            child: Text(
-                                              upcomingEvents[index]
-                                                  .date, // DATE of the Event => CHANGE !!!!!!!!!!
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                fontWeight:
-                                                FontWeight.bold,
-                                                fontSize: 12,
-                                                color:
-                                                primaryHighlightColor,
-                                              ),
-                                            ),
-                                            padding: EdgeInsets.only(
-                                                left: Get.width * 0.05),
-                                          ),
-                                          //SizedBox(height: Get.height*0.02),
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                  width:
-                                                  Get.width * 0.04),
-                                              Icon(
-                                                Icons
-                                                    .location_on_rounded,
-                                                color: grey,
-                                              ),
-                                              Text(
-                                                upcomingEvents[index]
-                                                    .location, // LOCATION of the Event => CHANGE !!!!!!!!!!!
-                                                textAlign:
-                                                TextAlign.left,
-                                                style: TextStyle(
-                                                  fontWeight:
-                                                  FontWeight.bold,
-                                                  fontSize: 12,
-                                                  color: grey,
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
+            backgroundColor: primaryBackgroundColor,
+            extendBodyBehindAppBar: true,
+            appBar: PreferredSize(
+              child: SafeArea(
+                  child: Container(
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Get.width * 0.03),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                IconButton(
+                                  icon: Icon(IconlyLight.arrow_left,
+                                      color: Colors.white),
+                                  onPressed: () {
+                                    setState(() {
+                                      //print("Hello World");
+                                      Get.back();
+                                    });
+                                  },
+                                ),
+                                Text(
+                                  "Registered Events",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    letterSpacing: 3,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
                                   ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                      : Container(
-                      height: Get.height * 0.33,
-                      child: const Center(
-                          child: Text(
-                            " Uh oh! No Upcoming Events ",
-                            style: TextStyle(
-                                color: grey,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400),
-                          ))),
-                  SizedBox(height: Get.height * 0.05),
-                  Padding(
-                    padding: EdgeInsets.only(left: Get.width * 0.1),
-                    child: Text(
-                      "Past Events",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  pastEventCount > 0
-                      ? Container(
-                    padding:
-                    EdgeInsets.only(top: Get.height * 0.02),
-                    child: SingleChildScrollView(
-                      child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SizedBox(
-                              height: Get.height * 0.33,
-                              child: ListView.builder(
-                                itemCount: pastEventCount,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) =>
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(15),
-                                        color: Colors.white,
-                                      ),
-                                      height: Get.height * 0.33,
-                                      width: Get.height * 0.3,
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                        MainAxisAlignment
-                                            .spaceEvenly,
-                                        children: [
-                                          //SizedBox(height: Get.height*0.01,),
-                                          Container(
-                                            padding:
-                                            EdgeInsets.symmetric(
-                                                horizontal: 10),
-                                            //width:Get.height*0.28,
-                                            child: Image.asset(
-                                              "assets/Events/event.png", // IMAGE of the Event => CHANGE !!!!!!!!!!
-                                              fit: BoxFit.fitWidth,
-                                            ),
-                                          ),
-                                          //SizedBox(height: Get.height*0.0,),
-                                          Container(
-                                            child: Text(
-                                              pastEvents[index]
-                                                  .name, // NAME of the Event  =>  CHANGE !!!!!!!!!!!
-                                              //data[0].id.toString(),
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                fontWeight:
-                                                FontWeight.w500,
-                                                fontSize: 18,
-                                                color: Colors.black87,
-                                              ),
-                                            ),
-                                            padding: EdgeInsets.only(
-                                                left: Get.width * 0.05),
-                                          ),
-                                          Container(
-                                            child: Text(
-                                              pastEvents[index]
-                                                  .date, // DATE of the Event => CHANGE !!!!!!!!!!
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                fontWeight:
-                                                FontWeight.bold,
-                                                fontSize: 12,
-                                                color:
-                                                primaryHighlightColor,
-                                              ),
-                                            ),
-                                            padding: EdgeInsets.only(
-                                                left: Get.width * 0.05),
-                                          ),
-                                          //SizedBox(height: Get.height*0.02),
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                  width:
-                                                  Get.width * 0.04),
-                                              Icon(
-                                                Icons
-                                                    .location_on_rounded,
-                                                color: grey,
-                                              ),
-                                              Text(
-                                                pastEvents[index]
-                                                    .location, // LOCATION of the Event => CHANGE !!!!!!!!!!!
-                                                textAlign:
-                                                TextAlign.left,
-                                                style: TextStyle(
-                                                  fontWeight:
-                                                  FontWeight.bold,
-                                                  fontSize: 12,
-                                                  color: grey,
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    Get.to(() => NotificationPage());
+                                  },
+                                  icon: Icon(
+                                    IconlyLight.notification,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                //IconButton(onPressed: (){},icon: Icon(IconlyBold.arrow_down_square,color: Colors.white,),),
+                              ])))),
+              preferredSize: Size.fromHeight(Get.height * 0.1),
+            ),
+            body: SingleChildScrollView(
+              child: Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      0, Get.height * 0.01, 0, Get.height * 0.05),
+                  //padding: EdgeInsets.all(0),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: Get.height * 0.13),
+                        Padding(
+                            child: Text(
+                              "Upcoming Events",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 20,
+                                color: Colors.white,
                               ),
                             ),
-                          ]),
-                    ),
-                  )
-                      : Container(
-                      height: Get.height * 0.33,
-                      child: Center(
+                            padding: EdgeInsets.only(left: Get.width * 0.1)),
+                        SizedBox(height: Get.height * 0.02),
+                        upcomingEventCount > 0
+                            ? Container(
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      SizedBox(
+                                        height: Get.height * 0.33,
+                                        child: ListView.builder(
+                                          itemCount: upcomingEventCount,
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (context, index) =>
+                                              GestureDetector(
+                                            onTap: () {
+                                              Get.to(() => EventDetailsPage(
+                                                    isUpcoming: true,
+                                                    eventIndex: index,
+                                                  )); // ON TAP FUNCTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                color: Colors.white,
+                                              ),
+                                              height: Get.height * 0.33,
+                                              width: Get.height * 0.3,
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 10),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  //SizedBox(height: Get.height*0.01,),
+                                                  Container(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 10),
+                                                    //width:Get.height*0.28,
+                                                    child: Image.asset(
+                                                      "assets/Events/event.png", // IMAGE of the Event => CHANGE !!!!!!!!!!
+                                                      fit: BoxFit.fitWidth,
+                                                    ),
+                                                  ),
+                                                  //SizedBox(height: Get.height*0.0,),
+                                                  Container(
+                                                    child: Text(
+                                                      upcomingEvents[index]
+                                                          .name, // NAME of the Event  =>  CHANGE !!!!!!!!!!!
+                                                      //data[0].id.toString(),
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontSize: 18,
+                                                        color: Colors.black87,
+                                                      ),
+                                                    ),
+                                                    padding: EdgeInsets.only(
+                                                        left: Get.width * 0.05),
+                                                  ),
+                                                  Container(
+                                                    child: Text(
+                                                      upcomingEvents[index]
+                                                          .date, // DATE of the Event => CHANGE !!!!!!!!!!
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12,
+                                                        color:
+                                                            primaryHighlightColor,
+                                                      ),
+                                                    ),
+                                                    padding: EdgeInsets.only(
+                                                        left: Get.width * 0.05),
+                                                  ),
+                                                  //SizedBox(height: Get.height*0.02),
+                                                  Row(
+                                                    children: [
+                                                      SizedBox(
+                                                          width:
+                                                              Get.width * 0.04),
+                                                      Icon(
+                                                        Icons
+                                                            .location_on_rounded,
+                                                        color: grey,
+                                                      ),
+                                                      Text(
+                                                        upcomingEvents[index]
+                                                            .location, // LOCATION of the Event => CHANGE !!!!!!!!!!!
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color: grey,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                height: Get.height * 0.33,
+                                child: const Center(
+                                    child: Text(
+                                  " Uh oh! No Upcoming Events ",
+                                  style: TextStyle(
+                                      color: grey,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400),
+                                ))),
+                        SizedBox(height: Get.height * 0.05),
+                        Padding(
+                          padding: EdgeInsets.only(left: Get.width * 0.1),
                           child: Text(
-                            " Yaay, No Past Events! ",
+                            "Past Events",
+                            textAlign: TextAlign.left,
                             style: TextStyle(
-                                color: grey,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400),
-                          ))),
-                  //SizedBox(height: Get.height*0.05),
-                ])),
-      ),
-    );
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        pastEventCount > 0
+                            ? Container(
+                                padding:
+                                    EdgeInsets.only(top: Get.height * 0.02),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        SizedBox(
+                                          height: Get.height * 0.33,
+                                          child: ListView.builder(
+                                            itemCount: pastEventCount,
+                                            scrollDirection: Axis.horizontal,
+                                            itemBuilder: (context, index) =>
+                                                Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                color: Colors.white,
+                                              ),
+                                              height: Get.height * 0.33,
+                                              width: Get.height * 0.3,
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 10),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  //SizedBox(height: Get.height*0.01,),
+                                                  Container(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 10),
+                                                    //width:Get.height*0.28,
+                                                    child: Image.asset(
+                                                      "assets/Events/event.png", // IMAGE of the Event => CHANGE !!!!!!!!!!
+                                                      fit: BoxFit.fitWidth,
+                                                    ),
+                                                  ),
+                                                  //SizedBox(height: Get.height*0.0,),
+                                                  Container(
+                                                    child: Text(
+                                                      pastEvents[index]
+                                                          .name, // NAME of the Event  =>  CHANGE !!!!!!!!!!!
+                                                      //data[0].id.toString(),
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontSize: 18,
+                                                        color: Colors.black87,
+                                                      ),
+                                                    ),
+                                                    padding: EdgeInsets.only(
+                                                        left: Get.width * 0.05),
+                                                  ),
+                                                  Container(
+                                                    child: Text(
+                                                      pastEvents[index]
+                                                          .date, // DATE of the Event => CHANGE !!!!!!!!!!
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12,
+                                                        color:
+                                                            primaryHighlightColor,
+                                                      ),
+                                                    ),
+                                                    padding: EdgeInsets.only(
+                                                        left: Get.width * 0.05),
+                                                  ),
+                                                  //SizedBox(height: Get.height*0.02),
+                                                  Row(
+                                                    children: [
+                                                      SizedBox(
+                                                          width:
+                                                              Get.width * 0.04),
+                                                      Icon(
+                                                        Icons
+                                                            .location_on_rounded,
+                                                        color: grey,
+                                                      ),
+                                                      Text(
+                                                        pastEvents[index]
+                                                            .location, // LOCATION of the Event => CHANGE !!!!!!!!!!!
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color: grey,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ]),
+                                ),
+                              )
+                            : Container(
+                                height: Get.height * 0.33,
+                                child: Center(
+                                    child: Text(
+                                  " Yaay, No Past Events! ",
+                                  style: TextStyle(
+                                      color: grey,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400),
+                                ))),
+                        //SizedBox(height: Get.height*0.05),
+                      ])),
+            ),
+          );
   }
 }
