@@ -2,6 +2,7 @@ import 'package:envisage_app/view/homepage.dart';
 import 'package:envisage_app/view/nav_pages/etalk.dart';
 import 'package:envisage_app/view/nav_pages/events.dart';
 import 'package:envisage_app/view/nav_pages/gallery.dart';
+import 'package:envisage_app/view/nav_pages/team.dart';
 import 'package:envisage_app/view/notification.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -250,7 +251,7 @@ class _footerState extends State<footer> {
                               minWidth: 40,
                               onPressed: () {
                                 setState(() {
-                                  currentScreen = homepage();
+                                  currentScreen = Team();
                                   currentTab = 3;
                                 });
                               },

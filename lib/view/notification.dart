@@ -5,8 +5,7 @@ import 'package:iconly/iconly.dart';
 import 'package:envisage_app/utils/colors.dart';
 
 List<String> noti =[
-  'Notification 1',
-  'Notification 2',
+  'Coming Soon...',
 ];
 
 

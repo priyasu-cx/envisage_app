@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override
@@ -52,7 +53,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
               ),
             ),
           )
-        : Container(
+        : Scaffold(body:Container(
             alignment: Alignment.topLeft,
             color: menu,
             padding:
@@ -297,9 +298,77 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     ),
                   ],
                 ),
+                SizedBox(height: Get.height*0.02,),
+                Row(
+
+                    children: [
+                      IconButton(
+                          onPressed: ()async{
+                            final Uri _url  = Uri.parse("https://www.facebook.com/iictmsl/");
+                            launchUrl(_url);
+                            //https://www.facebook.com/iictmsl/
+                          },
+                          icon: Icon(FontAwesomeIcons.facebookSquare,color: Colors.white,)
+                      ),
+                      IconButton(
+                          onPressed: ()async{
+                            final Uri _url  = Uri.parse("https://www.instagram.com/iictmsl/");
+                            launchUrl(_url);
+                          },
+                          icon: Icon(FontAwesomeIcons.instagramSquare,color: Colors.white,)
+                      ),
+                      IconButton(
+                          onPressed: ()async{
+                            final Uri _url  = Uri.parse("https://twitter.com/iictmsl");
+                            launchUrl(_url);
+                            //https://twitter.com/iictmsl
+                          },
+                          icon: Icon(FontAwesomeIcons.twitterSquare,color: Colors.white,)
+                      ),
+                    ]
+                ),
               ],
             ),
-          );
+          ),
+      bottomNavigationBar:Container(
+        color: menu,
+        padding: EdgeInsets.symmetric(vertical: 10,horizontal:Get.width * 0.08),
+        child:
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                    onPressed: (){},
+                    child: Text("Terms & Conditions",style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      fontSize: 10,
+                      color: primaryHighlightColor,
+                      fontWeight: FontWeight.w200,
+                    ),)
+                ),
+                TextButton(
+                    onPressed: (){},
+                    child: Text("Privacy Policy",style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      fontSize: 10,
+                      color: primaryHighlightColor,
+                      fontWeight: FontWeight.w200,
+                    ),)
+                ),
+                TextButton(
+                    onPressed: (){},
+                    child: Text("Return policy",style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      fontSize: 10,
+                      color: primaryHighlightColor,
+                      fontWeight: FontWeight.w200,
+                    ),)
+                )
+              ],
+            )
+      )
+    );
   }
 
   void signOutHelper() async {
