@@ -141,8 +141,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           padding: EdgeInsets.symmetric(
                             horizontal: _width * 0.0813,
                             vertical: 10,
-
-                        child: SelectableText(
+                            child: SelectableText(
                           userData.evgId,
                           onTap: () {
                             Fluttertoast.showToast(msg: "Copied");
@@ -152,14 +151,6 @@ class _ProfilePageState extends State<ProfilePage> {
                             fontWeight: FontWeight.w500,
                             color: Colors.white,
 
-                          ),
-                          child: Text(
-                            userData.evgId,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
                           ),
                           decoration: const BoxDecoration(
                             color: primaryHighlightColor,
