@@ -124,6 +124,16 @@ class AuthenticationService {
     } catch (error) {
       return error.toString();
     }
+    try {
+      await _firestore
+          .collection("events")
+          .doc(_event.id)
+          .collection("registered")
+          .doc(currentUser.uid)
+          .set({});
+    } catch (error) {
+      return error.toString();
+    }
     return "success";
   }
 
