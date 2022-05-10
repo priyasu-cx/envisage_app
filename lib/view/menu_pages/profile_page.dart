@@ -6,6 +6,8 @@ import 'package:envisage_app/utils/colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconly/iconly.dart';
 import 'package:get/get.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -61,48 +63,45 @@ class _ProfilePageState extends State<ProfilePage> {
             //     },
             //   ),
             // ),
-            //extendBodyBehindAppBar: true,
-            appBar: PreferredSize(
-              child: SafeArea(
-                  child: Container(
-                      child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: Get.width * 0.03),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                IconButton(
-                                  icon: Icon(IconlyLight.arrow_left,
-                                      color: Colors.white),
-                                  onPressed: () {
-                                    setState(() {
-                                      //print("Hello World");
-                                      Get.back();
-                                    });
-                                  },
-                                ),
-                                Text(
-                                  "Profile",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    letterSpacing: 3,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    Get.to(() => NotificationPage());
-                                  },
-                                  icon: Icon(
-                                    IconlyLight.notification,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                //IconButton(onPressed: (){},icon: Icon(IconlyBold.arrow_down_square,color: Colors.white,),),
-                              ])))),
-              preferredSize: Size.fromHeight(Get.height * 0.1),
-            ),
+      //extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        child: SafeArea(
+            child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: Get.width * 0.03),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          IconButton(
+                            icon: Icon(IconlyLight.arrow_left,
+                                color: Colors.white),
+                            onPressed: () {
+                              setState(() {
+                                //print("Hello World");
+                                Get.back();
+                              });
+                            },
+                          ),
+                          Text(
+                            "Profile",
+                            style: TextStyle(
+                              color: Colors.white,
+                              letterSpacing: 3,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {Get.to(() => NotificationPage());},
+                            icon: Icon(
+                              IconlyLight.notification,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ]))),
+        preferredSize: Size.fromHeight(Get.height * 0.1),
+      ),
+
             body: Container(
               padding: EdgeInsets.symmetric(horizontal: _width * 0.077),
               child: SingleChildScrollView(
@@ -118,8 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: CircleAvatar(
                           radius: _height * 0.09,
                           backgroundColor: primaryHighlightColor.withAlpha(50),
-                          backgroundImage: AssetImage(
-                              "assets/ic_launcher_adaptive_fore.png"),
+                          backgroundImage: AssetImage("assets/ic_launcher_adaptive_fore.png"),
                         ),
                       ),
                     ),
@@ -133,16 +131,17 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: _height * 0.02,
-                        bottom: _height * 0.06,
-                      ),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: _width * 0.0813,
-                          vertical: 10,
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: _height * 0.02,
+                          bottom: _height * 0.06,
                         ),
+
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: _width * 0.0813,
+                            vertical: 10,
+
                         child: SelectableText(
                           userData.evgId,
                           onTap: () {
@@ -152,16 +151,25 @@ class _ProfilePageState extends State<ProfilePage> {
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
                             color: Colors.white,
+
                           ),
-                        ),
-                        decoration: const BoxDecoration(
-                          color: primaryHighlightColor,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
+                          child: Text(
+                            userData.evgId,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
+                          ),
+                          decoration: const BoxDecoration(
+                            color: primaryHighlightColor,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
                           ),
                         ),
                       ),
-                    ),
+
                     const Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
