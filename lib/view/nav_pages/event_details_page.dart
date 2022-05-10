@@ -3,6 +3,7 @@ import 'package:envisage_app/controller/cart/cart_controller.dart';
 import 'package:envisage_app/model/events_details.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconly/iconly.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -226,7 +227,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
         splashColor: primaryHighlightColor,
         onTap: () {
           print("Added to Cart");
-          CartController().addToCart(_event);
+          ATC(_event);
         },
         child: Container(
           height: _height * 0.0738,
@@ -253,6 +254,15 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
         ),
       ),
     );
+  }
+
+  void ATC(EventDetails _event) async {
+    bool check = await CartController().checkInCart(_event);
+    if (!check) {
+      CartController().addToCart(_event);
+    } else {
+      Fluttertoast.showToast(msg: " Already added to cart. ");
+    }
   }
 
   Container OrganizerDetailWidget(

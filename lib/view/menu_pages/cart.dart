@@ -6,22 +6,21 @@ import 'package:iconly/iconly.dart';
 import 'package:lottie/lottie.dart';
 import 'package:get/get.dart';
 
-
-List<Map> cart1=[
+List<Map> cart1 = [
   {
-    'name':'Hackofy',
+    'name': 'Hackofy',
     'price': "100",
   },
   {
-    'name':'Stickify',
+    'name': 'Stickify',
     'price': "150",
   },
   {
-    'name':'Hello Hello',
+    'name': 'Hello Hello',
     'price': "80",
   },
   {
-    'name':'Hehehehe',
+    'name': 'Hehehehe',
     'price': "120",
   },
 ];
@@ -38,7 +37,20 @@ class _CartPageState extends State<CartPage> {
   double transactionCharge = 0;
   double total = 0;
 
-  void delete(int index){
+  @override
+  void initState() {
+    setCart();
+    super.initState();
+  }
+
+  void setCart() async {
+    var cart = await CartController().getCart();
+    setState(() {
+      // cart1 = cart;
+    });
+  }
+
+  void delete(int index) {
     double price = double.parse(cart1[index]["price"]);
     setState(() {
       // subTotal = subTotal - price;
@@ -51,12 +63,13 @@ class _CartPageState extends State<CartPage> {
     });
   }
 
-  void func(int index){
+  void func(int index) {
     setState(() {
       subTotal = int.parse(cart1[index]["price"]) + subTotal;
       print(subTotal);
       transactionCharge = 0.02 * subTotal;
-      transactionCharge = double.parse(transactionCharge.toStringAsExponential(1));
+      transactionCharge =
+          double.parse(transactionCharge.toStringAsExponential(1));
       total = subTotal + transactionCharge;
     });
   }
@@ -66,7 +79,7 @@ class _CartPageState extends State<CartPage> {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
 
-    for(var i=0; i< cart1.length; i++){
+    for (var i = 0; i < cart1.length; i++) {
       func(i);
     }
     return Scaffold(
@@ -76,7 +89,9 @@ class _CartPageState extends State<CartPage> {
             child: Container(
                 child: Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: Get.width * 0.03,vertical: Get.height*0.01,),
+                      horizontal: Get.width * 0.03,
+                      vertical: Get.height * 0.01,
+                    ),
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -100,7 +115,9 @@ class _CartPageState extends State<CartPage> {
                             ),
                           ),
                           IconButton(
-                            onPressed: () {Get.to(() => NotificationPage());},
+                            onPressed: () {
+                              Get.to(() => NotificationPage());
+                            },
                             icon: Icon(
                               IconlyLight.notification,
                               color: Colors.white,
@@ -133,15 +150,15 @@ class _CartPageState extends State<CartPage> {
             Column(
               children: [
                 Container(
-                  height: Get.height*0.6,
-                    padding: EdgeInsets.symmetric(horizontal:Get.width*0.077),
+                    height: Get.height * 0.6,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: Get.width * 0.077),
                     child: ListView.builder(
                       //padding: EdgeInsets.only(top:Get.height*0.02),
 
-                      itemBuilder: (context,index)=>CartEvents(index),
+                      itemBuilder: (context, index) => CartEvents(index),
                       itemCount: cart1.length,
-                    )
-                ),
+                    )),
                 // Text(
                 //   "DATA",
                 //   style: TextStyle(
@@ -263,45 +280,54 @@ class _CartPageState extends State<CartPage> {
       ),
     );
   }
-  Widget CartEvents(index){
+
+  Widget CartEvents(index) {
     return Card(
         child: Container(
-            padding: EdgeInsets.symmetric(horizontal: Get.width*0.08 ),
-            height: Get.height*0.09,
+            padding: EdgeInsets.symmetric(horizontal: Get.width * 0.08),
+            height: Get.height * 0.09,
             color: menu,
             child: Row(
               children: [
                 Container(
-                    width: Get.width*0.5,
+                    width: Get.width * 0.5,
                     alignment: Alignment.centerLeft,
                     child: ListTile(
-                      title: Text(cart1[index]["name"], style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w500,
-                      ),),
-                      subtitle: Text("₹ "+cart1[index]["price"], style: TextStyle(
-                        color: Colors.white54,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                      ),),
-                    )
-                ),
+                      title: Text(
+                        cart1[index]["name"],
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      subtitle: Text(
+                        "₹ " + cart1[index]["price"],
+                        style: TextStyle(
+                          color: Colors.white54,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    )),
                 Expanded(
                     flex: 5,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        IconButton(onPressed: (){
-                          delete(index);
-                        }, icon: Icon(Icons.cancel_outlined, color:primaryHighlightColor, size: Get.width*0.07,)),
+                        IconButton(
+                            onPressed: () {
+                              delete(index);
+                            },
+                            icon: Icon(
+                              Icons.cancel_outlined,
+                              color: primaryHighlightColor,
+                              size: Get.width * 0.07,
+                            )),
                       ],
-                    )
-                )
+                    ))
               ],
-            )
-        )
-    );
+            )));
   }
 
   Material ATCButton(double _height) {
