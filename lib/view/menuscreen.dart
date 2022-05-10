@@ -308,14 +308,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             launchUrl(_url);
                             //https://www.facebook.com/iictmsl/
                           },
-                          icon: Icon(FontAwesomeIcons.facebookSquare,color: Colors.white,)
+                          icon: Icon(FontAwesomeIcons.facebookSquare,color: primaryHighlightColor,size: 30)
                       ),
                       IconButton(
                           onPressed: ()async{
                             final Uri _url  = Uri.parse("https://www.instagram.com/iictmsl/");
                             launchUrl(_url);
                           },
-                          icon: Icon(FontAwesomeIcons.instagramSquare,color: Colors.white,)
+                          icon: Icon(FontAwesomeIcons.instagramSquare,color: primaryHighlightColor,size: 30)
                       ),
                       IconButton(
                           onPressed: ()async{
@@ -323,7 +323,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             launchUrl(_url);
                             //https://twitter.com/iictmsl
                           },
-                          icon: Icon(FontAwesomeIcons.twitterSquare,color: Colors.white,)
+                          icon: Icon(FontAwesomeIcons.twitterSquare,color: primaryHighlightColor,size: 30)
                       ),
                     ]
                 ),

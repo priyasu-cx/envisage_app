@@ -6,8 +6,6 @@ import 'package:envisage_app/utils/colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconly/iconly.dart';
 import 'package:get/get.dart';
-import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -41,32 +39,33 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return !isloaded
         ? Scaffold(
-            backgroundColor: primaryBackgroundColor,
-            body: Center(
-              child: CircularProgressIndicator(
-                color: Colors.white,
-              ),
-            ),
-          )
+      backgroundColor: primaryBackgroundColor,
+      body: Center(
+        child: CircularProgressIndicator(
+          color: Colors.white,
+        ),
+      ),
+    )
         : Scaffold(
-            // extendBodyBehindAppBar: true,
-            backgroundColor: primaryBackgroundColor,
-            // appBar: AppBar(
-            //   backgroundColor: Colors.transparent,
-            //   leading: IconButton(
-            //     icon: const Icon(
-            //       IconlyLight.arrow_left,
-            //       color: Colors.white,
-            //     ),
-            //     onPressed: () {
-            //       Navigator.of(context).pop();
-            //     },
-            //   ),
-            // ),
+      // extendBodyBehindAppBar: true,
+      backgroundColor: primaryBackgroundColor,
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      //   leading: IconButton(
+      //     icon: const Icon(
+      //       IconlyLight.arrow_left,
+      //       color: Colors.white,
+      //     ),
+      //     onPressed: () {
+      //       Navigator.of(context).pop();
+      //     },
+      //   ),
+      // ),
       //extendBodyBehindAppBar: true,
       appBar: PreferredSize(
         child: SafeArea(
-            child: Padding(
+            child: Container(
+                child: Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: Get.width * 0.03),
                     child: Row(
@@ -92,139 +91,141 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ),
                           IconButton(
-                            onPressed: () {Get.to(() => NotificationPage());},
+                            onPressed: () {
+                              Get.to(() => NotificationPage());
+                            },
                             icon: Icon(
                               IconlyLight.notification,
                               color: Colors.white,
                             ),
                           ),
-                        ]))),
+                          //IconButton(onPressed: (){},icon: Icon(IconlyBold.arrow_down_square,color: Colors.white,),),
+                        ])))),
         preferredSize: Size.fromHeight(Get.height * 0.1),
       ),
-
-            body: Container(
-              padding: EdgeInsets.symmetric(horizontal: _width * 0.077),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: _height * 0.03,
-                        bottom: _height * 0.03,
-                      ),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: CircleAvatar(
-                          radius: _height * 0.09,
-                          backgroundColor: primaryHighlightColor.withAlpha(50),
-                          backgroundImage: AssetImage("assets/ic_launcher_adaptive_fore.png"),
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: Text(
-                        userData.fullName!,
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: _height * 0.02,
-                          bottom: _height * 0.06,
-                        ),
-
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: _width * 0.0813,
-                            vertical: 10,
-                            child: SelectableText(
-                          userData.evgId,
-                          onTap: () {
-                            Fluttertoast.showToast(msg: "Copied");
-                          },
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-
-                          ),
-                          decoration: const BoxDecoration(
-                            color: primaryHighlightColor,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          ),
-                        ),
-                      ),
-
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "  ABOUT  ",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.transparent,
-                          decoration: TextDecoration.underline,
-                          decorationColor: primaryHighlightColor,
-                          shadows: [
-                            Shadow(
-                              offset: Offset(0, -15),
-                              color: primaryHighlightColor,
-                            )
-                          ],
-                          decorationThickness: 2,
-                        ),
-                      ),
-                    ),
-                    profileData(
-                      _height,
-                      "Email",
-                      userData.email,
-                      IconlyLight.message,
-                    ),
-                    profileData(
-                      _height,
-                      "Phone",
-                      userData.phone,
-                      IconlyLight.call,
-                    ),
-                    profileData(
-                      _height,
-                      "Gender",
-                      userData.gender,
-                      IconlyLight.user,
-                    ),
-                    profileData(
-                      _height,
-                      "College",
-                      userData.college,
-                      IconlyLight.work,
-                    ),
-                    profileData(
-                      _height,
-                      "City",
-                      userData.city,
-                      IconlyLight.location,
-                    ),
-                    profileData(
-                      _height,
-                      "State",
-                      userData.state,
-                      IconlyLight.discovery,
-                    ),
-                    SizedBox(
-                      height: _height * 0.03,
-                    ),
-                  ],
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: _width * 0.077),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  top: _height * 0.03,
+                  bottom: _height * 0.03,
+                ),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: CircleAvatar(
+                    radius: _height * 0.09,
+                    backgroundColor: primaryHighlightColor.withAlpha(50),
+                    backgroundImage: AssetImage(
+                        "assets/ic_launcher_adaptive_fore.png"),
+                  ),
                 ),
               ),
-            ),
-          );
+              Center(
+                child: Text(
+                  userData.fullName!,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: _height * 0.02,
+                  bottom: _height * 0.06,
+                ),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: _width * 0.0813,
+                    vertical: 10,
+                  ),
+                  child: SelectableText(
+                    userData.evgId,
+                    onTap: () {
+                      Fluttertoast.showToast(msg: "Copied");
+                    },
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                    ),
+                  ),
+                  decoration: const BoxDecoration(
+                    color: primaryHighlightColor,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                ),
+              ),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "  ABOUT  ",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.transparent,
+                    decoration: TextDecoration.underline,
+                    decorationColor: primaryHighlightColor,
+                    shadows: [
+                      Shadow(
+                        offset: Offset(0, -15),
+                        color: primaryHighlightColor,
+                      )
+                    ],
+                    decorationThickness: 2,
+                  ),
+                ),
+              ),
+              profileData(
+                _height,
+                "Email",
+                userData.email,
+                IconlyLight.message,
+              ),
+              profileData(
+                _height,
+                "Phone",
+                userData.phone,
+                IconlyLight.call,
+              ),
+              profileData(
+                _height,
+                "Gender",
+                userData.gender,
+                IconlyLight.user,
+              ),
+              profileData(
+                _height,
+                "College",
+                userData.college,
+                IconlyLight.work,
+              ),
+              profileData(
+                _height,
+                "City",
+                userData.city,
+                IconlyLight.location,
+              ),
+              profileData(
+                _height,
+                "State",
+                userData.state,
+                IconlyLight.discovery,
+              ),
+              SizedBox(
+                height: _height * 0.03,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Container profileData(

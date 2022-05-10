@@ -346,7 +346,7 @@ class _TeamDetailsPage4State extends State<TeamDetailsPage4> {
                 ),
                 Container(
                   width: _width,
-                  height: _height * 0.27,
+                  height: _height * 0.3,
                   child: Column(
                     children: [
                       Padding(

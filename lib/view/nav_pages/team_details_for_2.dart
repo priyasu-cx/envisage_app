@@ -191,7 +191,7 @@ class _TeamDetailsPage2State extends State<TeamDetailsPage2> {
     //
     return Scaffold(
       backgroundColor: primaryBackgroundColor,
-      body: Container(
+      body: SingleChildScrollView(child: Container(
         padding: EdgeInsets.symmetric(horizontal: _width * 0.077),
         child: Form(
           key: _formKey,
@@ -230,7 +230,7 @@ class _TeamDetailsPage2State extends State<TeamDetailsPage2> {
                 ),
                 Container(
                   width: _width,
-                  height: _height * 0.27,
+                  height: _height * 0.3,
                   child: Column(
                     children: [
                       Padding(
@@ -337,7 +337,7 @@ class _TeamDetailsPage2State extends State<TeamDetailsPage2> {
             ),
           ),
         ),
-      ),
+      ),)
     );
   }
 
