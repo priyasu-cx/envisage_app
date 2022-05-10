@@ -2,7 +2,6 @@ import 'package:envisage_app/controller/authentication/authentication_service.da
 import 'package:envisage_app/model/user_details.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:envisage_app/utils/helper.dart';
-import 'package:envisage_app/view/homepage.dart';
 import 'package:envisage_app/view/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';

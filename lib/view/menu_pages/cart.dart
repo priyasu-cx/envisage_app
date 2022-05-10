@@ -37,19 +37,6 @@ class _CartPageState extends State<CartPage> {
   double transactionCharge = 0;
   double total = 0;
 
-  @override
-  void initState() {
-    setCart();
-    super.initState();
-  }
-
-  void setCart() async {
-    var cart = await CartController().getCart();
-    setState(() {
-      // cart1 = cart;
-    });
-  }
-
   void delete(int index) {
     double price = double.parse(cart1[index]["price"]);
     setState(() {

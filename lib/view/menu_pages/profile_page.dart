@@ -3,6 +3,7 @@ import 'package:envisage_app/model/user_details.dart';
 import 'package:envisage_app/view/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:envisage_app/utils/colors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconly/iconly.dart';
 import 'package:get/get.dart';
 
@@ -60,46 +61,48 @@ class _ProfilePageState extends State<ProfilePage> {
             //     },
             //   ),
             // ),
-      //extendBodyBehindAppBar: true,
-      appBar: PreferredSize(
-        child: SafeArea(
-            child: Container(
-                child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: Get.width * 0.03),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          IconButton(
-                            icon: Icon(IconlyLight.arrow_left,
-                                color: Colors.white),
-                            onPressed: () {
-                              setState(() {
-                                //print("Hello World");
-                                Get.back();
-                              });
-                            },
-                          ),
-                          Text(
-                            "Profile",
-                            style: TextStyle(
-                              color: Colors.white,
-                              letterSpacing: 3,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {Get.to(() => NotificationPage());},
-                            icon: Icon(
-                              IconlyLight.notification,
-                              color: Colors.white,
-                            ),
-                          ),
-                          //IconButton(onPressed: (){},icon: Icon(IconlyBold.arrow_down_square,color: Colors.white,),),
-                        ])))),
-        preferredSize: Size.fromHeight(Get.height * 0.1),
-      ),
+            //extendBodyBehindAppBar: true,
+            appBar: PreferredSize(
+              child: SafeArea(
+                  child: Container(
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Get.width * 0.03),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                IconButton(
+                                  icon: Icon(IconlyLight.arrow_left,
+                                      color: Colors.white),
+                                  onPressed: () {
+                                    setState(() {
+                                      //print("Hello World");
+                                      Get.back();
+                                    });
+                                  },
+                                ),
+                                Text(
+                                  "Profile",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    letterSpacing: 3,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    Get.to(() => NotificationPage());
+                                  },
+                                  icon: Icon(
+                                    IconlyLight.notification,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                //IconButton(onPressed: (){},icon: Icon(IconlyBold.arrow_down_square,color: Colors.white,),),
+                              ])))),
+              preferredSize: Size.fromHeight(Get.height * 0.1),
+            ),
             body: Container(
               padding: EdgeInsets.symmetric(horizontal: _width * 0.077),
               child: SingleChildScrollView(
@@ -140,8 +143,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           horizontal: _width * 0.0813,
                           vertical: 10,
                         ),
-                        child: Text(
+                        child: SelectableText(
                           userData.evgId,
+                          onTap: () {
+                            Fluttertoast.showToast(msg: "Copied");
+                          },
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,

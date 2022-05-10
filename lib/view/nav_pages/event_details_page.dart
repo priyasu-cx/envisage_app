@@ -2,6 +2,9 @@ import 'package:envisage_app/controller/authentication/authentication_service.da
 import 'package:envisage_app/controller/cart/cart_controller.dart';
 import 'package:envisage_app/model/events_details.dart';
 import 'package:envisage_app/utils/colors.dart';
+import 'package:envisage_app/view/nav_pages/team_details_for_2.dart';
+import 'package:envisage_app/view/nav_pages/team_details_for_4.dart';
+import 'package:envisage_app/view/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -235,8 +238,9 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                _price == 0 ? "ADD TO CART - FREE" : "ADD TO CART - ₹$_price",
-                style: TextStyle(
+                // _price == 0 ? "ADD TO CART - FREE" : "ADD TO CART - ₹$_price",
+                _price == 0 ? "PURCHASE - FREE" : "PURCHASE - ₹$_price",
+                style: const TextStyle(
                   fontSize: 16,
                   color: Colors.white,
                 ),
@@ -257,11 +261,33 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
   }
 
   void ATC(EventDetails _event) async {
-    bool check = await CartController().checkInCart(_event);
+    bool check = await AuthenticationService().isRegistered(_event, null);
     if (!check) {
-      CartController().addToCart(_event);
+      if (_event.isTeamEvent) {
+        if (_event.maxTeamSize == 2) {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: ((context) => TeamDetailsPage2(event: _event))));
+        } else if (_event.maxTeamSize == 4) {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: ((context) => TeamDetailsPage4(event: _event))));
+        }
+      } else {
+        //
+        //
+        // Add Payment gateway here !!!!!!
+        //
+        //
+        String status = await AuthenticationService().registerSoloEvent(_event);
+        if (status == "success") {
+          Fluttertoast.showToast(msg: "Successfully registered for event");
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => style()));
+        } else {
+          Fluttertoast.showToast(msg: status);
+        }
+      }
     } else {
-      Fluttertoast.showToast(msg: " Already added to cart. ");
+      Fluttertoast.showToast(msg: " Already registered for this event! ");
     }
   }
 

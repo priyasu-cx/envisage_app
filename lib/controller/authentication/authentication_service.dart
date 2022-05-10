@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:envisage_app/model/events_details.dart';
+import 'package:envisage_app/model/team_details.dart';
 import 'package:envisage_app/model/user_details.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:envisage_app/view/onboarding/onboarding_screen1.dart';
@@ -63,6 +64,149 @@ class AuthenticationService {
   // -------------------- All User Functions ---------------------
   //
 
+  Future<bool> isAnyMemberRegistered(
+      EventDetails _event, TeamDetails teamData) async {
+    bool check1 = await isRegistered(_event, teamData.teamLead);
+    if (teamData.teamMember1 != null) {
+      bool check2 = await isRegistered(_event, teamData.teamMember1!);
+      if (check2) {
+        return true;
+      }
+    }
+    if (teamData.teamMember2 != null) {
+      bool check3 = await isRegistered(_event, teamData.teamMember2!);
+      if (check3) {
+        return true;
+      }
+    }
+    if (teamData.teamMember1 != null) {
+      bool check4 = await isRegistered(_event, teamData.teamMember3!);
+      if (check4) {
+        return true;
+      }
+    }
+
+    if (check1 == true) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> isRegistered(EventDetails _event, String? userId) async {
+    if (userId == null) {
+      User currentUser = _firebaseAuth.currentUser!;
+      userId = currentUser.uid;
+    }
+
+    DocumentSnapshot<Map<String, dynamic>> snap = await _firestore
+        .collection("users")
+        .doc(userId)
+        .collection("registered")
+        .doc(_event.id!)
+        .get();
+
+    var snapshot = snap.data() as Map<String, dynamic>;
+
+    return snapshot["isRegistered"];
+  }
+
+  Future<String> registerSoloEvent(EventDetails _event) async {
+    User currentUser = _firebaseAuth.currentUser!;
+
+    try {
+      Map<String, dynamic> data = {"isRegistered": true};
+      await _firestore
+          .collection("users")
+          .doc(currentUser.uid)
+          .collection("registered")
+          .doc(_event.id!)
+          .set(data);
+    } catch (error) {
+      return error.toString();
+    }
+    return "success";
+  }
+
+  Future<String> registerTeamEvent(
+      EventDetails _event, TeamDetails _teamDetails) async {
+    User currentUser = _firebaseAuth.currentUser!;
+
+    try {
+      Map<String, dynamic> data = {
+        "isRegistered": true,
+        "teamId": _teamDetails.teamId.toString(),
+      };
+
+      await _firestore
+          .collection("events")
+          .doc(_event.id)
+          .collection("teams")
+          .doc(_teamDetails.teamId)
+          .set(_teamDetails.toJson());
+
+      await _firestore
+          .collection("users")
+          .doc(currentUser.uid)
+          .collection("registered")
+          .doc(_event.id!)
+          .set(data);
+
+      if (_teamDetails.teamMember1 != null) {
+        await _firestore
+            .collection("events")
+            .doc(_event.id)
+            .collection("registered")
+            .doc(_teamDetails.teamMember1)
+            .set({});
+
+        await _firestore
+            .collection("users")
+            .doc(_teamDetails.teamMember1)
+            .collection("registered")
+            .doc(_event.id!)
+            .set(data);
+      }
+      if (_teamDetails.teamMember2 != null) {
+        await _firestore
+            .collection("events")
+            .doc(_event.id)
+            .collection("registered")
+            .doc(_teamDetails.teamMember2)
+            .set({});
+
+        await _firestore
+            .collection("users")
+            .doc(_teamDetails.teamMember2)
+            .collection("registered")
+            .doc(_event.id!)
+            .set(data);
+      }
+      if (_teamDetails.teamMember3 != null) {
+        await _firestore
+            .collection("events")
+            .doc(_event.id)
+            .collection("registered")
+            .doc(_teamDetails.teamMember3)
+            .set({});
+
+        await _firestore
+            .collection("users")
+            .doc(_teamDetails.teamMember3)
+            .collection("registered")
+            .doc(_event.id!)
+            .set(data);
+      }
+
+      await _firestore
+          .collection("teams")
+          .doc(_teamDetails.teamId)
+          .set(_teamDetails.toJson());
+    } catch (error) {
+      return error.toString();
+    }
+    return "success";
+  }
+
   Future<String> fetchUid() async {
     return _firebaseAuth.currentUser!.uid.toString();
   }
@@ -88,6 +232,28 @@ class AuthenticationService {
           .collection("users")
           .doc(currentUser.uid)
           .set(userDetails.toJson());
+
+      // Build collections to store registered data
+      List<EventDetails> events = await fetchEventDetails(true);
+      events.forEach((element) async {
+        if (element.isTeamEvent) {
+          Map<String, dynamic> data = {"isRegistered": false, "teamId": null};
+          await _firestore
+              .collection("users")
+              .doc(currentUser.uid)
+              .collection("registered")
+              .doc(element.id!)
+              .set(data);
+        } else {
+          Map<String, dynamic> data = {"isRegistered": false};
+          await _firestore
+              .collection("users")
+              .doc(currentUser.uid)
+              .collection("registered")
+              .doc(element.id!)
+              .set(data);
+        }
+      });
     } catch (error) {
       return error.toString();
     }
