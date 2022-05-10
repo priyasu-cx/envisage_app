@@ -1,4 +1,6 @@
 import 'package:envisage_app/view/menu_pages/cart.dart';
+import 'package:envisage_app/view/nav_pages/team_details_for_2.dart';
+import 'package:envisage_app/view/nav_pages/team_details_for_4.dart';
 import 'package:envisage_app/view/screen.dart';
 import 'package:envisage_app/view/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';

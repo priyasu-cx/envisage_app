@@ -3,6 +3,7 @@ import 'package:envisage_app/model/user_details.dart';
 import 'package:envisage_app/view/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:envisage_app/utils/colors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconly/iconly.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
@@ -100,6 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ]))),
         preferredSize: Size.fromHeight(Get.height * 0.1),
       ),
+
             body: Container(
               padding: EdgeInsets.symmetric(horizontal: _width * 0.077),
               child: SingleChildScrollView(
@@ -134,10 +136,22 @@ class _ProfilePageState extends State<ProfilePage> {
                           top: _height * 0.02,
                           bottom: _height * 0.06,
                         ),
+
                         child: Container(
                           padding: EdgeInsets.symmetric(
                             horizontal: _width * 0.0813,
                             vertical: 10,
+
+                        child: SelectableText(
+                          userData.evgId,
+                          onTap: () {
+                            Fluttertoast.showToast(msg: "Copied");
+                          },
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+
                           ),
                           child: Text(
                             userData.evgId,
