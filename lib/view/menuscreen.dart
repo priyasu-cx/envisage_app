@@ -330,7 +330,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          final Uri _url = Uri.parse(
+                              "https://envisage.org.in/terms");
+                          launchUrl(_url);
+                        },
                         child: Text(
                           "Terms & Conditions",
                           style: TextStyle(
@@ -341,7 +345,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           ),
                         )),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          final Uri _url = Uri.parse(
+                              "https://envisage.org.in/privacy");
+                          launchUrl(_url);
+                        },
                         child: Text(
                           "Privacy Policy",
                           style: TextStyle(
@@ -352,9 +360,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           ),
                         )),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          final Uri _url = Uri.parse(
+                              "https://envisage.org.in/refunds");
+                          launchUrl(_url);
+                        },
                         child: Text(
-                          "Return policy",
+                          "Refund policy",
                           style: TextStyle(
                             decoration: TextDecoration.underline,
                             fontSize: 10,
