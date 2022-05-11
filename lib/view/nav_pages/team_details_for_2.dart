@@ -187,6 +187,20 @@ class _TeamDetailsPage2State extends State<TeamDetailsPage2> {
     //
     return Scaffold(
       backgroundColor: primaryBackgroundColor,
+
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: Icon(
+            IconlyLight.arrow_left,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
       body: SingleChildScrollView(child: Container(
         padding: EdgeInsets.symmetric(horizontal: _width * 0.077),
         child: Form(

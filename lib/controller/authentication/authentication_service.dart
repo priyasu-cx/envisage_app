@@ -64,6 +64,30 @@ class AuthenticationService {
   // -------------------- All User Functions ---------------------
   //
 
+  Future<List<EventDetails>> verifyRegisteredEvents() async {
+    User currentUser = _firebaseAuth.currentUser!;
+    var readEvents = await _firestore.collection("events").get();
+
+    List<EventDetails> eventsData =
+        List.from(readEvents.docs.map((doc) => EventDetails.fromJson(doc)));
+
+    var readUserData = await _firestore
+        .collection("users")
+        .doc(currentUser.uid)
+        .collection("registered")
+        .get();
+
+    List<EventDetails> registeredData = [];
+
+    for (var range = 0; range < readUserData.docs.length; range++) {
+      var userData = readUserData.docs[range].data();
+      if (userData["isRegistered"] == true) {
+        registeredData.add(eventsData[range]);
+      }
+    }
+    return registeredData;
+  }
+
   Future<bool> isAnyMemberRegistered(
       EventDetails _event, TeamDetails teamData) async {
     bool check1 = await isRegistered(_event, teamData.teamLead);
@@ -138,6 +162,20 @@ class AuthenticationService {
     return "success";
   }
 
+  Future<String> fetchUserId(String evgId) async {
+    QuerySnapshot<Map<String, dynamic>> object = await _firestore
+        .collection("users")
+        .where("evgId", isEqualTo: evgId)
+        .get();
+    String userId = "";
+    Map<String, dynamic> data;
+    object.docs.forEach((element) {
+      Map<String, dynamic> data = element.data();
+      userId = data["uid"];
+    });
+    return userId;
+  }
+
   Future<String> registerTeamEvent(
       EventDetails _event, TeamDetails _teamDetails) async {
     User currentUser = _firebaseAuth.currentUser!;
@@ -156,25 +194,29 @@ class AuthenticationService {
           .set(data);
 
       if (_teamDetails.teamMember1 != null && _teamDetails.teamMember1 != "") {
+        String uid = await fetchUserId(_teamDetails.teamMember1!);
         await _firestore
             .collection("users")
-            .doc(_teamDetails.teamMember1)
+            .doc(uid)
             .collection("registered")
             .doc(_event.id!)
             .set(data);
       }
       if (_teamDetails.teamMember2 != null && _teamDetails.teamMember2 != "") {
+        String uid = await fetchUserId(_teamDetails.teamMember2!);
         await _firestore
             .collection("users")
-            .doc(_teamDetails.teamMember2)
+            .doc(uid)
             .collection("registered")
             .doc(_event.id!)
             .set(data);
       }
       if (_teamDetails.teamMember3 != null && _teamDetails.teamMember3 != "") {
+        String uid = await fetchUserId(_teamDetails.teamMember3!);
+
         await _firestore
             .collection("users")
-            .doc(_teamDetails.teamMember3)
+            .doc(uid)
             .collection("registered")
             .doc(_event.id!)
             .set(data);

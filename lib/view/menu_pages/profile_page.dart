@@ -47,62 +47,63 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     )
         : Scaffold(
-      // extendBodyBehindAppBar: true,
-      backgroundColor: primaryBackgroundColor,
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      //   leading: IconButton(
-      //     icon: const Icon(
-      //       IconlyLight.arrow_left,
-      //       color: Colors.white,
-      //     ),
-      //     onPressed: () {
-      //       Navigator.of(context).pop();
-      //     },
-      //   ),
-      // ),
-      //extendBodyBehindAppBar: true,
-      appBar: PreferredSize(
-        child: SafeArea(
-            child: Container(
-                child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: Get.width * 0.03),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          IconButton(
-                            icon: Icon(IconlyLight.arrow_left,
-                                color: Colors.white),
-                            onPressed: () {
-                              setState(() {
-                                //print("Hello World");
-                                Get.back();
-                              });
-                            },
-                          ),
-                          Text(
-                            "Profile",
-                            style: TextStyle(
-                              color: Colors.white,
-                              letterSpacing: 3,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Get.to(() => NotificationPage());
-                            },
-                            icon: Icon(
-                              IconlyLight.notification,
-                              color: Colors.white,
-                            ),
-                          ),
-                          //IconButton(onPressed: (){},icon: Icon(IconlyBold.arrow_down_square,color: Colors.white,),),
-                        ])))),
-        preferredSize: Size.fromHeight(Get.height * 0.1),
-      ),
+            // extendBodyBehindAppBar: true,
+            backgroundColor: primaryBackgroundColor,
+            // appBar: AppBar(
+            //   backgroundColor: Colors.transparent,
+            //   leading: IconButton(
+            //     icon: const Icon(
+            //       IconlyLight.arrow_left,
+            //       color: Colors.white,
+            //     ),
+            //     onPressed: () {
+            //       Navigator.of(context).pop();
+            //     },
+            //   ),
+            // ),
+            //extendBodyBehindAppBar: true,
+            appBar: PreferredSize(
+              child: SafeArea(
+                  child: Container(
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Get.width * 0.03),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                IconButton(
+                                  icon: Icon(IconlyLight.arrow_left,
+                                      color: Colors.white),
+                                  onPressed: () {
+                                    setState(() {
+                                      //print("Hello World");
+                                      Get.back();
+                                    });
+                                  },
+                                ),
+                                Text(
+                                  "Profile",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    letterSpacing: 3,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    Get.to(() => NotificationPage());
+                                  },
+                                  icon: Icon(
+                                    IconlyLight.notification,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                //IconButton(onPressed: (){},icon: Icon(IconlyBold.arrow_down_square,color: Colors.white,),),
+                              ])))),
+              preferredSize: Size.fromHeight(Get.height * 0.1),
+            ),
+
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: _width * 0.077),
         child: SingleChildScrollView(
