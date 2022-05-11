@@ -118,7 +118,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                 left: Get.width * 0.01, bottom: Get.width * 0.01),
                             child: Row(
                               children: [
-                                Icon(IconlyLight.calendar,
+                                Icon(IconlyLight.profile,
                                     color: Colors.white, size: 30),
                                 SizedBox(
                                   width: 8,
