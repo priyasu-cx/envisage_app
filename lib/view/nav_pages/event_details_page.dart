@@ -10,6 +10,7 @@ import 'package:envisage_app/view/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:iconly/iconly.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -32,6 +33,8 @@ class EventDetailsPage extends StatefulWidget {
 class _EventDetailsPageState extends State<EventDetailsPage> {
   final _razorpay = Razorpay();
   Order? orderDetails;
+
+  bool OrderStatus = false;
 
   final bool isUpcoming;
   final int eventIndex;
@@ -79,15 +82,16 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
     _razorpay.clear();
   }
 
-  String _handlePaymentSuccess(PaymentSuccessResponse response) {
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
     print('Success Response: $response');
-    return "success";
+    setState(() {
+      OrderStatus = true;
+    });
   }
 
-  String _handlePaymentError(PaymentFailureResponse response) {
+  void _handlePaymentError(PaymentFailureResponse response) {
     // Do something when payment fails
     print('Error Response: $response');
-    return response.toString();
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
@@ -407,8 +411,12 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
       borderRadius: BorderRadius.all(Radius.circular(8)),
       child: InkWell(
         splashColor: Colors.white30,
-        onTap: () {
+        onTap: () async {
           openCheckout(amount, eventName);
+          setState(() {
+            // OrderStatus = true;
+          });
+          Navigator.of(context).pop();
         },
         child: Container(
           height: _height * 0.0738,
@@ -489,10 +497,14 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
         //
         //
         // Add Payment gateway here !!!!!!
-        var paymentStatus = await bottomSheet(context, _event);
+        //
+        await bottomSheet(context, _event);
+        print(OrderStatus);
+        // Navigator.of(context).pop();
         //
         //
-        if (paymentStatus == "success") {
+        //
+        if (OrderStatus == true) {
           String status =
               await AuthenticationService().registerSoloEvent(_event);
           if (status == "success") {
@@ -504,6 +516,8 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
           }
         } else {
           Fluttertoast.showToast(msg: "Payment Failed");
+          // Navigator.of(context).pushReplacement(
+          //     MaterialPageRoute(builder: (context) => style()));
         }
       }
     } else {
