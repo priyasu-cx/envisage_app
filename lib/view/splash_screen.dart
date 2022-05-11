@@ -55,6 +55,19 @@ class _SplashScreenState extends State<SplashScreen> {
               bottom: 0,
               width: MediaQuery.of(context).size.width * 0.5,
             ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Text(
+                  " Designed and Developed by \nIIC Tech Wing ",
+                  style: TextStyle(
+                    color: Colors.white70,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            )
           ],
         ),
       ),

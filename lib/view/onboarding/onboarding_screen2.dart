@@ -37,13 +37,13 @@ class OnboardingScreen2 extends StatelessWidget {
                   children: [
                     Padding(
                       padding: EdgeInsets.fromLTRB(
+                        _screenWidth * 0.07,
                         _screenWidth * 0.06,
-                        _screenWidth * 0.06,
-                        _screenWidth * 0.06,
+                        _screenWidth * 0.07,
                         _screenWidth * 0.02,
                       ),
                       child: Text(
-                        " Web Have Modern Events Calendar Feature",
+                        " Varoius Events and Guests Talks ",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
@@ -53,7 +53,7 @@ class OnboardingScreen2 extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      " In publishing and graphic design, Lorem is a placeholder text commonly ",
+                      " Several events and guests talks related to \nbusiness and technology. ",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,

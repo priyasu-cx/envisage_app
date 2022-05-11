@@ -43,7 +43,7 @@ class OnboardingScreen1 extends StatelessWidget {
                         _screenWidth * 0.02,
                       ),
                       child: const Text(
-                        " Explore Upcoming and Nearby Events ",
+                        " Second largest E-Summit in Kolkata ",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
@@ -53,7 +53,7 @@ class OnboardingScreen1 extends StatelessWidget {
                       ),
                     ),
                     const Text(
-                      " In publishing and graphic design, Lorem is a placeholder text commonly ",
+                      " Organised by IIC TMSL, an MHRD Initiative ",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,

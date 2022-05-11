@@ -60,262 +60,268 @@ class _DrawerScreenState extends State<DrawerScreen> {
               padding: EdgeInsets.fromLTRB(
                   Get.width * 0.08, Get.height * 0.10, 0, 0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  // CircleAvatar(
-                  //   radius: Get.width * 0.1,
-                  //   backgroundColor: Colors.black,
-                  //   backgroundImage: AssetImage("assets/envisage_logo.png"),
-                  //   onBackgroundImageError: null,
-                  // ),
-                  CircleAvatar(
-                    radius: Get.width * 0.1,
-                    backgroundColor: primaryBackgroundColor,
-                    backgroundImage:
-                        AssetImage("assets/ic_launcher_adaptive_fore.png"),
-                  ),
-
-                  SizedBox(
-                    height: Get.height * 0.03,
-                  ),
-                  Text(
-                    fullName,
-                    style: TextStyle(
-                      letterSpacing: 1,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    // CircleAvatar(
+                    //   radius: Get.width * 0.1,
+                    //   backgroundColor: Colors.black,
+                    //   backgroundImage: AssetImage("assets/envisage_logo.png"),
+                    //   onBackgroundImageError: null,
+                    // ),
+                    CircleAvatar(
+                      radius: Get.width * 0.1,
+                      backgroundColor: primaryBackgroundColor,
+                      backgroundImage:
+                          AssetImage("assets/ic_launcher_adaptive_fore.png"),
                     ),
-                  ),
-                  SizedBox(
-                    height: Get.height * 0.06,
-                  ),
-                  // Column(
-                  //   children: drawerItems.map((element)=>Padding(
-                  //     padding: EdgeInsets.only(left: Get.width*0.015, bottom: Get.width*0.01),
-                  //     child: Row(
-                  //       children:[
-                  //         Icon(element['icon'],color: Colors.white, size:30),
-                  //         SizedBox(width: 10,),
-                  //         MaterialButton(
-                  //           child:
-                  //         Text(element['title'],style: TextStyle(
-                  //           color: Colors.white,
-                  //           fontWeight: FontWeight.w500,
-                  //           fontSize: 18,
-                  //         )),onPressed: (){Get.to(()=>profile());}),
-                  //       ],
-                  //     ),
-                  //   )).toList(),
-                  // ),
-                  Column(
-                    children: [
-                      Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: Get.width * 0.01, bottom: Get.width * 0.01),
-                            child: Row(
-                              children: [
-                                Icon(IconlyLight.profile,
-                                    color: Colors.white, size: 30),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                MaterialButton(
-                                    child: Text("Profile",
+
+                    SizedBox(
+                      height: Get.height * 0.03,
+                    ),
+                    Text(
+                      fullName,
+                      style: TextStyle(
+                        letterSpacing: 1,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(
+                      height: Get.height * 0.06,
+                    ),
+                    // Column(
+                    //   children: drawerItems.map((element)=>Padding(
+                    //     padding: EdgeInsets.only(left: Get.width*0.015, bottom: Get.width*0.01),
+                    //     child: Row(
+                    //       children:[
+                    //         Icon(element['icon'],color: Colors.white, size:30),
+                    //         SizedBox(width: 10,),
+                    //         MaterialButton(
+                    //           child:
+                    //         Text(element['title'],style: TextStyle(
+                    //           color: Colors.white,
+                    //           fontWeight: FontWeight.w500,
+                    //           fontSize: 18,
+                    //         )),onPressed: (){Get.to(()=>profile());}),
+                    //       ],
+                    //     ),
+                    //   )).toList(),
+                    // ),
+                    Column(
+                      children: [
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: Get.width * 0.01,
+                                  bottom: Get.width * 0.01),
+                              child: Row(
+                                children: [
+                                  Icon(IconlyLight.profile,
+                                      color: Colors.white, size: 30),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  MaterialButton(
+                                      child: Text("Profile",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 18,
+                                          )),
+                                      onPressed: () {
+                                        Get.to(() => ProfilePage());
+                                      }),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        // Column(
+                        //   children: [
+                        //     Padding(
+                        //       padding: EdgeInsets.only(
+                        //           left: Get.width * 0.01, bottom: Get.width * 0.01),
+                        //       child: Row(
+                        //         children: [
+                        //           Icon(IconlyLight.calendar,
+                        //               color: Colors.white, size: 30),
+                        //           SizedBox(
+                        //             width: 8,
+                        //           ),
+                        //           MaterialButton(
+                        //               child: Text("Registered Events",
+                        //                   style: TextStyle(
+                        //                     color: Colors.white,
+                        //                     fontWeight: FontWeight.w500,
+                        //                     fontSize: 18,
+                        //                   )),
+                        //               onPressed: () {
+                        //                 Get.to(() => reg_events());
+                        //               }),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: Get.width * 0.01,
+                                  bottom: Get.width * 0.01),
+                              child: Row(
+                                children: [
+                                  Icon(IconlyLight.heart,
+                                      color: Colors.white, size: 30),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  MaterialButton(
+                                      child: Text("Sponsors",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 18,
+                                          )),
+                                      onPressed: () {
+                                        Get.to(() => Sponser());
+                                      }),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: Get.width * 0.01,
+                                  bottom: Get.width * 0.01),
+                              child: Row(
+                                children: [
+                                  Icon(IconlyLight.message,
+                                      color: Colors.white, size: 30),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  MaterialButton(
+                                      child: Text("Contact Us",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 18,
+                                          )),
+                                      onPressed: () {
+                                        Get.to(() => ContactUs());
+                                      }),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: Get.width * 0.01,
+                                  bottom: Get.width * 0.01),
+                              child: Row(
+                                children: [
+                                  Icon(IconlyLight.info_square,
+                                      color: Colors.white, size: 30),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  MaterialButton(
+                                      child: Text("Rules",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 18,
+                                          )),
+                                      onPressed: () async {
+                                        final Uri _url = Uri.parse(
+                                            "https://drive.google.com/file/d/1uThgFp2cUg-H7OM0-7rBTEZanrEdE8Ku/view?usp=sharing");
+                                        launchUrl(_url);
+                                      }),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: Get.width * 0.01,
+                                  bottom: Get.width * 0.01),
+                              child: Row(
+                                children: [
+                                  Icon(IconlyLight.logout,
+                                      color: Colors.white, size: 30),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  MaterialButton(
+                                    child: Text("Sign Out",
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.w500,
                                           fontSize: 18,
                                         )),
                                     onPressed: () {
-                                      Get.to(() => ProfilePage());
-                                    }),
-                              ],
+                                      signOutHelper();
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: Get.width * 0.01, bottom: Get.width * 0.01),
-                        child: Row(
-                          children: [
-                            Icon(IconlyLight.calendar,
-                                color: Colors.white, size: 30),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            MaterialButton(
-                                child: Text("Registered Events",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18,
-                                    )),
-                                onPressed: () {
-                                  Get.to(() => reg_events());
-                                }),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: Get.width * 0.01, bottom: Get.width * 0.01),
-                        child: Row(
-                          children: [
-                            Icon(IconlyLight.heart,
-                                color: Colors.white, size: 30),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            MaterialButton(
-                                child: Text("Sponsors",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18,
-                                    )),
-                                onPressed: () {
-                                  Get.to(() => Sponser());
-                                }),
-                          ],
+                        SizedBox(
+                          height: Get.height * 0.02,
                         ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: Get.width * 0.01, bottom: Get.width * 0.01),
-                        child: Row(
-                          children: [
-                            Icon(IconlyLight.message,
-                                color: Colors.white, size: 30),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            MaterialButton(
-                                child: Text("Contact Us",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18,
-                                    )),
-                                onPressed: () {
-                                  Get.to(() => ContactUs());
-                                }),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: Get.width * 0.01, bottom: Get.width * 0.01),
-                        child: Row(
-                          children: [
-                            Icon(IconlyLight.info_square,
-                                color: Colors.white, size: 30),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            MaterialButton(
-                                child: Text("Rules",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18,
-                                    )),
-                                onPressed: () async {
-                                  final Uri _url = Uri.parse(
-                                      "https://drive.google.com/file/d/1uThgFp2cUg-H7OM0-7rBTEZanrEdE8Ku/view?usp=sharing");
-                                  launchUrl(_url);
-                                }),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: Get.width * 0.01, bottom: Get.width * 0.01),
-                        child: Row(
-                          children: [
-                            Icon(IconlyLight.logout,
-                                color: Colors.white, size: 30),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            MaterialButton(
-                              child: Text("Sign Out",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 18,
-                                  )),
-                              onPressed: () {
-                                signOutHelper();
+                        Row(children: [
+                          IconButton(
+                              onPressed: () async {
+                                final Uri _url = Uri.parse(
+                                    "https://www.facebook.com/iictmsl/");
+                                launchUrl(_url);
+                                //https://www.facebook.com/iictmsl/
                               },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: Get.height * 0.02,
-                  ),
-                  Row(children: [
-                    IconButton(
-                        onPressed: () async {
-                          final Uri _url =
-                              Uri.parse("https://www.facebook.com/iictmsl/");
-                          launchUrl(_url);
-                          //https://www.facebook.com/iictmsl/
-                        },
-                        icon: Icon(
-                          FontAwesomeIcons.facebookSquare,
-                          color: Colors.white,
-                        )),
-                    IconButton(
-                        onPressed: () async {
-                          final Uri _url =
-                              Uri.parse("https://www.instagram.com/iictmsl/");
-                          launchUrl(_url);
-                        },
-                        icon: Icon(
-                          FontAwesomeIcons.instagramSquare,
-                          color: Colors.white,
-                        )),
-                    IconButton(
-                        onPressed: () async {
-                          final Uri _url =
-                              Uri.parse("https://twitter.com/iictmsl");
-                          launchUrl(_url);
-                          //https://twitter.com/iictmsl
-                        },
-                        icon: Icon(
-                          FontAwesomeIcons.twitterSquare,
-                          color: Colors.white,
-                        )),
+                              icon: Icon(
+                                FontAwesomeIcons.facebookSquare,
+                                color: Colors.white,
+                              )),
+                          IconButton(
+                              onPressed: () async {
+                                final Uri _url = Uri.parse(
+                                    "https://www.instagram.com/iictmsl/");
+                                launchUrl(_url);
+                              },
+                              icon: Icon(
+                                FontAwesomeIcons.instagramSquare,
+                                color: Colors.white,
+                              )),
+                          IconButton(
+                              onPressed: () async {
+                                final Uri _url =
+                                    Uri.parse("https://twitter.com/iictmsl");
+                                launchUrl(_url);
+                                //https://twitter.com/iictmsl
+                              },
+                              icon: Icon(
+                                FontAwesomeIcons.twitterSquare,
+                                color: Colors.white,
+                              )),
+                        ]),
+                      ],
+                    ),
                   ]),
-                ],
-              ),
-            ]),),
+            ),
             bottomNavigationBar: Container(
                 color: menu,
                 padding: EdgeInsets.symmetric(

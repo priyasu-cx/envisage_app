@@ -42,7 +42,7 @@ class OnboardingScreen3 extends StatelessWidget {
                         _screenWidth * 0.02,
                       ),
                       child: Text(
-                        "  To Look Up More Events or Activities Nearby By Map ",
+                        "  Supported by several tech giants ",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
@@ -52,7 +52,7 @@ class OnboardingScreen3 extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      " In publishing and graphic design, Lorem is a placeholder text commonly ",
+                      " We are backed by several tech giants making our events more exciting. ",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
