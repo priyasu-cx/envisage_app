@@ -187,6 +187,7 @@ class _TeamDetailsPage2State extends State<TeamDetailsPage2> {
     //
     return Scaffold(
       backgroundColor: primaryBackgroundColor,
+
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -200,7 +201,7 @@ class _TeamDetailsPage2State extends State<TeamDetailsPage2> {
           },
         ),
       ),
-      body: Container(
+      body: SingleChildScrollView(child: Container(
         padding: EdgeInsets.symmetric(horizontal: _width * 0.077),
         child: Form(
           key: _formKey,
@@ -239,7 +240,7 @@ class _TeamDetailsPage2State extends State<TeamDetailsPage2> {
                 ),
                 Container(
                   width: _width,
-                  height: _height * 0.27,
+                  height: _height * 0.3,
                   child: Column(
                     children: [
                       Padding(
@@ -321,11 +322,11 @@ class _TeamDetailsPage2State extends State<TeamDetailsPage2> {
                         ),
                       ),
                       Text(
-                        "By clicking “Purchase”, you accept the terms & conditions.",
+                        "By clicking “Purchase”, \nyou accept the terms & conditions.",
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.white,
-                        ),
+                        ),textAlign: TextAlign.center,
                       ),
                       Align(
                         alignment: Alignment.bottomCenter,
@@ -346,7 +347,7 @@ class _TeamDetailsPage2State extends State<TeamDetailsPage2> {
             ),
           ),
         ),
-      ),
+      ),)
     );
   }
 

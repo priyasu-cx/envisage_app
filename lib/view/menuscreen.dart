@@ -111,57 +111,33 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   // ),
                   Column(
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: Get.width * 0.01, bottom: Get.width * 0.01),
-                        child: Row(
-                          children: [
-                            Icon(IconlyLight.profile,
-                                color: Colors.white, size: 30),
-                            SizedBox(
-                              width: 8,
+                      Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: Get.width * 0.01, bottom: Get.width * 0.01),
+                            child: Row(
+                              children: [
+                                Icon(IconlyLight.profile,
+                                    color: Colors.white, size: 30),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                MaterialButton(
+                                    child: Text("Profile",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 18,
+                                        )),
+                                    onPressed: () {
+                                      Get.to(() => ProfilePage());
+                                    }),
+                              ],
                             ),
-                            MaterialButton(
-                                child: Text("Profile",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 18,
-                                    )),
-                                onPressed: () {
-                                  Get.to(() => ProfilePage());
-                                }),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  // Column(
-                  //   children: [
-                  //     Padding(
-                  //       padding: EdgeInsets.only(
-                  //           left: Get.width * 0.01, bottom: Get.width * 0.01),
-                  //       child: Row(
-                  //         children: [
-                  //           Icon(IconlyLight.buy, color: Colors.white, size: 30),
-                  //           SizedBox(
-                  //             width: 0,
-                  //           ),
-                  //           MaterialButton(
-                  //               child: Text("Cart",
-                  //                   style: TextStyle(
-                  //                     color: Colors.white,
-                  //                     fontWeight: FontWeight.w500,
-                  //                     fontSize: 18,
-                  //                   )),
-                  //               onPressed: () {
-                  //                 Get.to(() => CartPage());
-                  //               }),
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                   Column(
                     children: [
                       Padding(
@@ -339,7 +315,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   ]),
                 ],
               ),
-            ),
+            ]),),
             bottomNavigationBar: Container(
                 color: menu,
                 padding: EdgeInsets.symmetric(

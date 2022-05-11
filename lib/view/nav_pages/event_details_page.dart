@@ -14,6 +14,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:iconly/iconly.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EventDetailsPage extends StatefulWidget {
   final bool isUpcoming;
@@ -445,6 +446,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
     );
   }
 
+
   Material ATCButton(double _height, int _price, EventDetails _event) {
     return Material(
       color: primaryHighlightColor,
@@ -452,7 +454,48 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
       child: InkWell(
         splashColor: primaryHighlightColor,
         onTap: () {
-          ATC(_event);
+          //ATC(_event);
+          if(_event.id == "biz_debate"){
+            final Uri _url = Uri.parse(
+                "https://bit.ly/evg22_tweeters");
+            launchUrl(_url);
+          }
+          if(_event.id == "biz_plan"){
+            final Uri _url = Uri.parse(
+                "https://bit.ly/evg22_bizplan");
+            launchUrl(_url);
+          }
+          if(_event.id == "brain_it_out"){
+            final Uri _url = Uri.parse(
+                "https://bit.ly/evg22_brainitout");
+            launchUrl(_url);
+          }
+          if(_event.id == "case_study"){
+            final Uri _url = Uri.parse(
+                "https://bit.ly/evg22_casestudy");
+            launchUrl(_url);
+          }
+          if(_event.id == "hackathon"){
+            final Uri _url = Uri.parse(
+                "https://bit.ly/evg22_hackurway");
+            launchUrl(_url);
+          }
+          if(_event.id == "mock_ipl"){
+            final Uri _url = Uri.parse(
+                "https://bit.ly/evg22_mockipl");
+            launchUrl(_url);
+          }
+          if(_event.id == "reels"){
+            final Uri _url = Uri.parse(
+                "https://bit.ly/evg22_reelomania");
+            launchUrl(_url);
+          }
+          if(_event.id == "stockify"){
+            final Uri _url = Uri.parse(
+                "https://bit.ly/evg22_stockify");
+            launchUrl(_url);
+          }
+
         },
         child: Container(
           height: _height * 0.0738,
