@@ -43,9 +43,14 @@ List<Map> Core = [
     'designation': 'Tech Wing Head',
   },
   {
+    'name':'Koustav Banerjee',
+    'photoUrl': "https://firebasestorage.googleapis.com/v0/b/envisage-22.appspot.com/o/Team%2FKoustav%20Banerjee.jpeg?alt=media&token=281df8bb-90af-4981-9894-29702da6c026",
+    'designation': 'Media & Graphics Head, \nAdministration Head',
+  },
+  {
     'name':'Shubhayu Majumdar',
     'photoUrl': "https://firebasestorage.googleapis.com/v0/b/envisage-22.appspot.com/o/Team%2FShubhayu%20Majumdar.jpg?alt=media&token=b00136d6-c083-443f-ab27-c88086272dcc",
-    'designation': 'Tech Wing Head',
+    'designation': 'Tech Wing Co-Head',
   },
   {
     'name':'Sanjana Dey',
@@ -108,11 +113,6 @@ List<Map> Core = [
     'designation': 'Management Co-Head ',
   },
   {
-    'name':'Koustav Banerjee',
-    'photoUrl': "https://firebasestorage.googleapis.com/v0/b/envisage-22.appspot.com/o/Team%2FKoustav%20Banerjee.jpeg?alt=media&token=281df8bb-90af-4981-9894-29702da6c026",
-    'designation': 'Media & Graphics Head, \nAdministration Head',
-  },
-  {
     'name':'Ankit Kumar Gorain',
     'photoUrl': "https://firebasestorage.googleapis.com/v0/b/envisage-22.appspot.com/o/Team%2FAnkit%20Kumar%20Gorain.jpg?alt=media&token=9b2ba373-1e8b-48a8-9b1d-f926fef58388",
     'designation': 'Management Co-Head',
@@ -126,6 +126,11 @@ List<Map> Core = [
     'name':'Anushka Mukherjee',
     'photoUrl': "https://firebasestorage.googleapis.com/v0/b/envisage-22.appspot.com/o/Team%2FAnushka%20Mukherjee.jpeg?alt=media&token=4e479560-c5f2-4a7e-b201-3571cae42e58",
     'designation': 'Co-Head, Media Wing',
+  },
+  {
+    'name':'Abhipreya Ghosh',
+    'photoUrl': "https://firebasestorage.googleapis.com/v0/b/envisage-22.appspot.com/o/Team%2FAbhipreyaGhosh.jpeg?alt=media&token=7dd8275e-c0d2-45b3-a233-4ded2ed4741b",
+    'designation': 'Co-Head Startup Wing',
   },
   {
     'name':'Abhipreya Ghosh',

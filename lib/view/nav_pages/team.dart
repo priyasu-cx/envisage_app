@@ -36,7 +36,7 @@ class _TeamState extends State<Team> {
             padding: EdgeInsets.only(bottom: 10),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: ScrollLoopAutoScroll(child: Row(
+              child: Row(
                 children: [
 
                   avatar("image", "Tech\nWing"),
@@ -50,10 +50,7 @@ class _TeamState extends State<Team> {
                   avatar("image", "Press\nWing"),
                   avatar("image", "Social Media\nWing"),
                 ],
-              ),delay: Duration(seconds: 0),
-                duration: Duration(seconds: 10),
-                scrollDirection: Axis.horizontal,
-              )
+              ),
             ),
           ),
           Container(
