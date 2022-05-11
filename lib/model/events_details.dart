@@ -8,6 +8,7 @@ class EventDetails {
   final String location;
   final String lead;
   final String leadContact;
+  final String? photoUrl;
   final int price;
   final bool isTeamEvent;
   final int? maxTeamSize;
@@ -20,6 +21,7 @@ class EventDetails {
     required this.location,
     required this.lead,
     required this.leadContact,
+    this.photoUrl,
     required this.price,
     required this.isTeamEvent,
     this.maxTeamSize,
@@ -33,6 +35,7 @@ class EventDetails {
         "location": location,
         "lead": lead,
         "leadContact": leadContact,
+        "photoUrl": photoUrl!,
         "price": price,
         "isTeamEvent": isTeamEvent,
         "maxTeamSize": maxTeamSize,
@@ -46,6 +49,7 @@ class EventDetails {
         location: json["location"],
         lead: json["lead"],
         leadContact: json["leadContact"],
+        photoUrl: json["photoUrl"],
         price: json["price"],
         isTeamEvent: json["isTeamEvent"],
       );
@@ -61,6 +65,7 @@ class EventDetails {
       location: snapshot["location"],
       lead: snapshot["lead"],
       leadContact: snapshot["leadContact"],
+      photoUrl: snapshot["photoUrl"],
       price: snapshot["price"],
       isTeamEvent: snapshot["isTeamEvent"],
       maxTeamSize: snapshot["maxTeamSize"],

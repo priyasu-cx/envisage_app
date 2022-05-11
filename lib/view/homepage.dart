@@ -160,8 +160,8 @@ class _homepageState extends State<homepage> {
                                         Container(
                                           padding: EdgeInsets.all(10),
                                           //width:Get.height*0.28,
-                                          child: Image.asset(
-                                            "assets/Events/event.png",
+                                          child: Image.network(
+                                            upcomingEvents[index].photoUrl!,
                                             fit: BoxFit.fitWidth,
                                           ),
                                         ),

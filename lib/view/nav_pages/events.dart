@@ -64,7 +64,9 @@ class _eventsState extends State<events> {
                   child: Container(
                       child: Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: Get.width * 0.03,vertical: Get.height*0.01,),
+                            horizontal: Get.width * 0.03,
+                            vertical: Get.height * 0.01,
+                          ),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
@@ -88,7 +90,9 @@ class _eventsState extends State<events> {
                                   ),
                                 ),
                                 IconButton(
-                                  onPressed: () {Get.to(() => NotificationPage());},
+                                  onPressed: () {
+                                    Get.to(() => NotificationPage());
+                                  },
                                   icon: Icon(
                                     IconlyLight.notification,
                                     color: Colors.white,
@@ -161,8 +165,9 @@ class _eventsState extends State<events> {
                                                         EdgeInsets.symmetric(
                                                             horizontal: 10),
                                                     //width:Get.height*0.28,
-                                                    child: Image.asset(
-                                                      "assets/Events/event.png", // IMAGE of the Event => CHANGE !!!!!!!!!!
+                                                    child: Image.network(
+                                                      upcomingEvents[index]
+                                                          .photoUrl!, // IMAGE of the Event => CHANGE !!!!!!!!!!
                                                       fit: BoxFit.fitWidth,
                                                     ),
                                                   ),
