@@ -1,6 +1,5 @@
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/model/events_details.dart';
-import 'package:envisage_app/view/nav_pages/event_details_page.dart';
 import 'package:envisage_app/view/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +17,6 @@ class _eventsState extends State<reg_events> {
   int upcomingEventCount = 0;
   int pastEventCount = 0;
   List<EventDetails> upcomingEvents = [];
-  List<EventDetails> pastEvents = [];
   bool isLoaded = false;
 
   @override
@@ -30,7 +28,8 @@ class _eventsState extends State<reg_events> {
 
   void getData() async {
     List<EventDetails> upcoming =
-        await AuthenticationService().fetchEventDetails(true);
+        await AuthenticationService().verifyRegisteredEvents();
+
     setState(() {
       upcomingEvents = upcoming;
       upcomingEventCount = upcoming.length;
@@ -105,7 +104,7 @@ class _eventsState extends State<reg_events> {
                         SizedBox(height: Get.height * 0.13),
                         Padding(
                             child: Text(
-                              "Upcoming Events",
+                              "Your Upcoming Events",
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -129,10 +128,10 @@ class _eventsState extends State<reg_events> {
                                           itemBuilder: (context, index) =>
                                               GestureDetector(
                                             onTap: () {
-                                              Get.to(() => EventDetailsPage(
-                                                    isUpcoming: true,
-                                                    eventIndex: index,
-                                                  )); // ON TAP FUNCTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                              // Get.to(() => EventDetailsPage(
+                                              //       isUpcoming: true,
+                                              //       eventIndex: index,
+                                              //     )); // ON TAP FUNCTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(

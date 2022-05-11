@@ -146,7 +146,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: SelectableText(
                           userData.evgId,
                           onTap: () {
-                            Fluttertoast.showToast(msg: "Copied");
+                            Fluttertoast.showToast(
+                                msg: "Press and hold to copy");
                           },
                           style: const TextStyle(
                             fontSize: 20,

@@ -64,6 +64,30 @@ class AuthenticationService {
   // -------------------- All User Functions ---------------------
   //
 
+  Future<List<EventDetails>> verifyRegisteredEvents() async {
+    User currentUser = _firebaseAuth.currentUser!;
+    var readEvents = await _firestore.collection("events").get();
+
+    List<EventDetails> eventsData =
+        List.from(readEvents.docs.map((doc) => EventDetails.fromJson(doc)));
+
+    var readUserData = await _firestore
+        .collection("users")
+        .doc(currentUser.uid)
+        .collection("registered")
+        .get();
+
+    List<EventDetails> registeredData = [];
+
+    for (var range = 0; range < readUserData.docs.length; range++) {
+      var userData = readUserData.docs[range].data();
+      if (userData["isRegistered"] == true) {
+        registeredData.add(eventsData[range]);
+      }
+    }
+    return registeredData;
+  }
+
   Future<bool> isAnyMemberRegistered(
       EventDetails _event, TeamDetails teamData) async {
     bool check1 = await isRegistered(_event, teamData.teamLead);
