@@ -299,8 +299,8 @@ class _eventsState extends State<events> {
                                                         EdgeInsets.symmetric(
                                                             horizontal: 10),
                                                     //width:Get.height*0.28,
-                                                    child: Image.asset(
-                                                      "assets/Events/event.png", // IMAGE of the Event => CHANGE !!!!!!!!!!
+                                                    child: Image.network(
+                                                      "https://firebasestorage.googleapis.com/v0/b/envisage-22.appspot.com/o/Event%20Banners%2FBIZVERSE.jpeg?alt=media&token=f32735c6-ccca-4164-ad68-4496577d41a5", // IMAGE of the Event => CHANGE !!!!!!!!!!
                                                       fit: BoxFit.fitWidth,
                                                     ),
                                                   ),

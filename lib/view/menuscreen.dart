@@ -117,7 +117,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               padding: EdgeInsets.only(
                                   left: Get.width * 0.01,
                                   bottom: Get.width * 0.01),
-                              child: Row(
+                              child: GestureDetector(
+                                onTap: (){Get.to(() => ProfilePage());},
+                                child: Row(
                                 children: [
                                   Icon(IconlyLight.profile,
                                       color: Colors.white, size: 30),
@@ -136,7 +138,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                       }),
                                 ],
                               ),
-                            ),
+                            ),)
                           ],
                         ),
                         // Column(
@@ -172,7 +174,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               padding: EdgeInsets.only(
                                   left: Get.width * 0.01,
                                   bottom: Get.width * 0.01),
-                              child: Row(
+                              child: GestureDetector(
+                                onTap: (){Get.to(() => Sponser());},
+                                child:Row(
                                 children: [
                                   Icon(IconlyLight.heart,
                                       color: Colors.white, size: 30),
@@ -191,7 +195,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                       }),
                                 ],
                               ),
-                            ),
+                            ),)
                           ],
                         ),
                         Column(
@@ -200,7 +204,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               padding: EdgeInsets.only(
                                   left: Get.width * 0.01,
                                   bottom: Get.width * 0.01),
-                              child: Row(
+                              child: GestureDetector(
+                                onTap: (){Get.to(() => ContactUs());},
+                                child:Row(
                                 children: [
                                   Icon(IconlyLight.message,
                                       color: Colors.white, size: 30),
@@ -219,7 +225,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                       }),
                                 ],
                               ),
-                            ),
+                            ),)
                           ],
                         ),
                         Column(
@@ -228,7 +234,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               padding: EdgeInsets.only(
                                   left: Get.width * 0.01,
                                   bottom: Get.width * 0.01),
-                              child: Row(
+                              child: GestureDetector(
+                                onTap: (){final Uri _url = Uri.parse(
+                                    "https://drive.google.com/file/d/1uThgFp2cUg-H7OM0-7rBTEZanrEdE8Ku/view?usp=sharing");
+                                launchUrl(_url);},
+                                child:Row(
                                 children: [
                                   Icon(IconlyLight.info_square,
                                       color: Colors.white, size: 30),
@@ -249,7 +259,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                       }),
                                 ],
                               ),
-                            ),
+                            ),)
                           ],
                         ),
                         Column(
@@ -258,7 +268,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               padding: EdgeInsets.only(
                                   left: Get.width * 0.01,
                                   bottom: Get.width * 0.01),
-                              child: Row(
+                              child: GestureDetector(
+                                onTap: (){signOutHelper();},
+                                child: Row(
                                 children: [
                                   Icon(IconlyLight.logout,
                                       color: Colors.white, size: 30),
@@ -278,7 +290,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                   ),
                                 ],
                               ),
-                            ),
+                            ),)
                           ],
                         ),
                         SizedBox(
