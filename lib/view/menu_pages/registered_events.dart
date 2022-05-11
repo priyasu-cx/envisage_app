@@ -297,8 +297,8 @@ class _eventsState extends State<reg_events> {
                                                   //SizedBox(height: Get.height*0.0,),
                                                   Container(
                                                     child: Text(
-                                                      pastEvents[index]
-                                                          .name, // NAME of the Event  =>  CHANGE !!!!!!!!!!!
+                                                      "",
+                                                      // NAME of the Event  =>  CHANGE !!!!!!!!!!!
                                                       //data[0].id.toString(),
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
@@ -313,8 +313,7 @@ class _eventsState extends State<reg_events> {
                                                   ),
                                                   Container(
                                                     child: Text(
-                                                      pastEvents[index]
-                                                          .date, // DATE of the Event => CHANGE !!!!!!!!!!
+                                                      "", // DATE of the Event => CHANGE !!!!!!!!!!
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
                                                         fontWeight:
@@ -339,8 +338,7 @@ class _eventsState extends State<reg_events> {
                                                         color: grey,
                                                       ),
                                                       Text(
-                                                        pastEvents[index]
-                                                            .location, // LOCATION of the Event => CHANGE !!!!!!!!!!!
+                                                        "", // LOCATION of the Event => CHANGE !!!!!!!!!!!
                                                         textAlign:
                                                             TextAlign.left,
                                                         style: TextStyle(

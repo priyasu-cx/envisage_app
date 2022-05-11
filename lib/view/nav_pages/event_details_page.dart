@@ -229,7 +229,6 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
       child: InkWell(
         splashColor: primaryHighlightColor,
         onTap: () {
-          print("Added to Cart");
           ATC(_event);
         },
         child: Container(
