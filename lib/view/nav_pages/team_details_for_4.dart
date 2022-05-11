@@ -412,11 +412,11 @@ class _TeamDetailsPage4State extends State<TeamDetailsPage4> {
                         ),
                       ),
                       Text(
-                        "By clicking “Purchase”, you accept the terms & conditions.",
+                        "By clicking “Purchase”, \nyou accept the terms & conditions.",
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.white,
-                        ),
+                        ),textAlign: TextAlign.center,
                       ),
                       Align(
                         alignment: Alignment.bottomCenter,

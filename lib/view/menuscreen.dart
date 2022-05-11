@@ -325,6 +325,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           },
                           icon: Icon(FontAwesomeIcons.twitterSquare,color: primaryHighlightColor,size: 30)
                       ),
+                      IconButton(
+                          onPressed: ()async{
+                            final Uri _url  = Uri.parse("https://www.youtube.com/channel/UCnrbFhmXUKnMU2Wzeq-EY6Q");
+                            launchUrl(_url);
+                            //https://twitter.com/iictmsl
+                          },
+                          icon: Icon(FontAwesomeIcons.youtube,color: primaryHighlightColor,size: 30)
+                      ),
                     ]
                 ),
               ],
