@@ -1,7 +1,9 @@
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
+import 'package:envisage_app/controller/cart/cart_controller1.dart';
 import 'package:envisage_app/model/events_details.dart';
 import 'package:envisage_app/model/order.dart';
 import 'package:envisage_app/utils/colors.dart';
+import 'package:envisage_app/utils/event_model.dart';
 import 'package:envisage_app/utils/services.dart';
 import 'package:envisage_app/view/nav_pages/events.dart';
 import 'package:envisage_app/view/nav_pages/team_details_for_2.dart';
@@ -15,6 +17,7 @@ import 'package:iconly/iconly.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:get/get.dart';
 
 class EventDetailsPage extends StatefulWidget {
   final bool isUpcoming;
@@ -271,10 +274,10 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                       vertical: 15,
                       horizontal: _width * 0.077,
                     ),
-                    child: ATCButton(
+                    child: CheckoutButton(
                       _height,
                       event!.price,
-                      event!,
+                      event!.name,
                     ),
                   ),
                 ),
@@ -286,11 +289,11 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
   Future<dynamic> bottomSheet(BuildContext context, EventDetails _event) {
     double subTotal = 0;
     double transactionCharge = 0;
-    double total = 0;
+    int total = 0;
 
     subTotal = double.parse(_event.price.toString());
     transactionCharge = 0.02 * subTotal;
-    total = subTotal + transactionCharge;
+    //total = subTotal + transactionCharge;
 
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
@@ -406,16 +409,18 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
         });
   }
 
-  Material CheckoutButton(double _height, double amount, String eventName) {
+  Material CheckoutButton(double _height, int amount, String eventName) {
+    final cartController = Get.put(CartController());
     return Material(
       color: primaryHighlightColor,
       borderRadius: BorderRadius.all(Radius.circular(8)),
       child: InkWell(
         splashColor: Colors.white30,
         onTap: () async {
-          openCheckout(amount, eventName);
+          //openCheckout(amount, eventName);
           setState(() {
             // OrderStatus = true;
+            cartController.addProduct(Events(name: eventName, price: amount, imageUrl: "imageUrl"));
           });
           Navigator.of(context).pop();
         },
