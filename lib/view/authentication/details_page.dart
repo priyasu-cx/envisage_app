@@ -442,7 +442,7 @@ class _DetailsPageState extends State<DetailsPage> {
           color: Colors.white30,
         ),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 0, 15),
-        hintText: "Refferal Code",
+        hintText: "Refferal Code (Optional)",
         hintStyle: TextStyle(
           color: Colors.white30,
           fontSize: 14,

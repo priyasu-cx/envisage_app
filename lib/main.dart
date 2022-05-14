@@ -1,3 +1,5 @@
+import 'package:envisage_app/Cart%20Project/screens/catalog_screen.dart';
+import 'package:envisage_app/controller/cart/cart_controller1.dart';
 import 'package:envisage_app/view/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Get.put(CartController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Envisage 2022',
@@ -33,6 +36,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: testPage(),
+      //home: CatalogScreen(),
     );
   }
 

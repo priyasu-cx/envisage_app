@@ -175,6 +175,36 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                   left: Get.width * 0.01,
                                   bottom: Get.width * 0.01),
                               child: GestureDetector(
+                                onTap: (){Get.to(() => CartPage());},
+                                child:Row(
+                                  children: [
+                                    Icon(IconlyLight.heart,
+                                        color: Colors.white, size: 30),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    MaterialButton(
+                                        child: Text("Cart",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 18,
+                                            )),
+                                        onPressed: () {
+                                          Get.to(() => CartPage());
+                                        }),
+                                  ],
+                                ),
+                              ),)
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: Get.width * 0.01,
+                                  bottom: Get.width * 0.01),
+                              child: GestureDetector(
                                 onTap: (){Get.to(() => Sponser());},
                                 child:Row(
                                 children: [
