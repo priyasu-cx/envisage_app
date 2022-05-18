@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class ScreenLoader extends StatelessWidget {
@@ -59,6 +60,11 @@ class AuthenticationService {
 
     return eventsData;
   }
+  Future<EventDetails> fetchEventbyID(String eventId)async{
+    var event = await _firestore.collection("events").doc(eventId).get();
+    print(event.data());
+    return EventDetails.fromDocumentSnapshot(event);
+  }
 
   //
   // -------------------- All User Functions ---------------------
@@ -81,10 +87,22 @@ class AuthenticationService {
 
     for (var range = 0; range < readUserData.docs.length; range++) {
       var userData = readUserData.docs[range].data();
+      var eventid1 = readUserData.docs[range].id;
+      // print(userData);
+      // print(readUserData.docs[range].id);
+      // print(eventsData[range].id);
       if (userData["isRegistered"] == true) {
-        registeredData.add(eventsData[range]);
+        eventsData.forEach((element) {
+          if(element.id == eventid1){
+            registeredData.add(element);
+          }
+        });
+
       }
     }
+    registeredData.forEach((element) {print(element.id);});
+    // print(registeredData);
+    // print(currentUser.uid);
     return registeredData;
   }
 
@@ -140,6 +158,7 @@ class AuthenticationService {
         .get();
 
     var snapshot = snap.data() as Map<String, dynamic>;
+    print(snapshot);
 
     return snapshot["isRegistered"];
     // return false;
@@ -232,6 +251,64 @@ class AuthenticationService {
     }
     return "success";
   }
+  //Doing Bakchodi ---------------------------------------------------------------------------------
+  Future<String> registerTeamEvent1(
+      List eventid, TeamDetails _teamDetails, int index) async {
+    User currentUser = _firebaseAuth.currentUser!;
+
+    try {
+      Map<String, dynamic> data = {
+        "isRegistered": true,
+        "teamId": _teamDetails.teamId.toString(),
+      };
+
+      await _firestore
+          .collection("users_test")
+          .doc(currentUser.uid)
+          .collection("registered")
+          .doc(eventid[index])
+          .set(data);
+
+      if (_teamDetails.teamMember1 != null && _teamDetails.teamMember1 != "") {
+        String uid = await fetchUserId(_teamDetails.teamMember1!);
+        await _firestore
+            .collection("users_test")
+            .doc(uid)
+            .collection("registered")
+            .doc(eventid[index])
+            .set(data);
+      }
+      if (_teamDetails.teamMember2 != null && _teamDetails.teamMember2 != "") {
+        String uid = await fetchUserId(_teamDetails.teamMember2!);
+        await _firestore
+            .collection("users_test")
+            .doc(uid)
+            .collection("registered")
+            .doc(eventid[index])
+            .set(data);
+      }
+      if (_teamDetails.teamMember3 != null && _teamDetails.teamMember3 != "") {
+        String uid = await fetchUserId(_teamDetails.teamMember3!);
+
+        await _firestore
+            .collection("users_test")
+            .doc(uid)
+            .collection("registered")
+            .doc(eventid[index])
+            .set(data);
+      }
+
+      await _firestore
+          .collection("teams")
+          .doc(_teamDetails.teamId)
+          .set(_teamDetails.toJson());
+    } catch (error) {
+      print(error.toString());
+      return error.toString();
+    }
+    return "success";
+  }
+  //Ending Bakchodi ---------------------------------------------------------------------------------
 
   Future<String> fetchUid() async {
     return _firebaseAuth.currentUser!.uid.toString();
