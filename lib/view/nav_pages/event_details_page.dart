@@ -2,6 +2,8 @@ import 'package:envisage_app/controller/authentication/authentication_service.da
 import 'package:envisage_app/controller/cart/cart_controller1.dart';
 import 'package:envisage_app/model/events_details.dart';
 import 'package:envisage_app/model/order.dart';
+import 'package:envisage_app/model/user_details.dart';
+import 'package:envisage_app/utils/CreateTeam.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:envisage_app/utils/event_model.dart';
 import 'package:envisage_app/utils/services.dart';
@@ -9,13 +11,13 @@ import 'package:envisage_app/view/nav_pages/events.dart';
 import 'package:envisage_app/view/nav_pages/team_details_for_2.dart';
 import 'package:envisage_app/view/nav_pages/team_details_for_4.dart';
 import 'package:envisage_app/view/screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:iconly/iconly.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:get/get.dart';
 
@@ -50,14 +52,17 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
 
   EventDetails? event;
   bool isLoading = false;
+  var userData;
 
   void getData() async {
     List<EventDetails> upcoming =
         await AuthenticationService().fetchEventDetails(isUpcoming);
+    UserDetails user = await AuthenticationService().fetchUserDetails();
 
     setState(() {
       event = upcoming[eventIndex];
       isLoading = true;
+      userData = user;
     });
   }
 
@@ -276,8 +281,11 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                     ),
                     child: CheckoutButton(
                       _height,
+                      event!,
                       event!.price,
                       event!.name,
+                      event!.id,
+
                     ),
                   ),
                 ),
@@ -293,7 +301,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
 
     subTotal = double.parse(_event.price.toString());
     transactionCharge = 0.02 * subTotal;
-    //total = subTotal + transactionCharge;
+    total = (subTotal + transactionCharge).round();
 
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
@@ -399,8 +407,10 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                   ),
                   child: CheckoutButton(
                     _height,
+                    _event,
                     total,
                     _event.name,
+                    _event.id,
                   ),
                 ),
               ),
@@ -409,7 +419,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
         });
   }
 
-  Material CheckoutButton(double _height, int amount, String eventName) {
+  Material CheckoutButton(double _height, EventDetails event,int amount, String eventName, String? id) {
     final cartController = Get.put(CartController());
     return Material(
       color: primaryHighlightColor,
@@ -418,11 +428,12 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
         splashColor: Colors.white30,
         onTap: () async {
           //openCheckout(amount, eventName);
-          setState(() {
-            // OrderStatus = true;
-            cartController.addProduct(Events(name: eventName, price: amount, imageUrl: "imageUrl"));
-          });
-          Navigator.of(context).pop();
+          // setState(() {
+          //   // OrderStatus = true;
+          //   cartController.addProduct(Events(name: eventName, price: amount, id: id));
+          // });
+          // Navigator.of(context).pop();
+          check(event,amount,eventName,id);
         },
         child: Container(
           height: _height * 0.0738,
@@ -449,6 +460,46 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
         ),
       ),
     );
+  }
+
+  void check(EventDetails _event,int amount, String eventName, String? id) async{
+
+    final cartController = Get.put(CartController());
+    bool check = await AuthenticationService().isRegistered(_event, null);
+    String currentUser = userData.evgId;
+    if (!check) {
+      if (_event.price>0) {
+        // if (_event.maxTeamSize == 2) {
+        //   Navigator.of(context).push(MaterialPageRoute(
+        //       builder: ((context) => TeamDetailsPage2(event: _event))));
+        // } else if (_event.maxTeamSize == 4) {
+        //   Navigator.of(context).push(MaterialPageRoute(
+        //       builder: ((context) => TeamDetailsPage4(event: _event))));
+        // }
+        setState(() {
+          // OrderStatus = true;
+          cartController.addProduct(Events(name: eventName, price: amount, id: id, event: _event));
+        });
+        Navigator.of(context).pop();
+
+      } else {
+        if(_event.isTeamEvent){
+          CreateTeam(currentUser, _event);
+        }else{
+        String status =
+        await AuthenticationService().registerSoloEvent(_event);
+        if (status == "success") {
+          Fluttertoast.showToast(msg: "Successfully registered for event");
+          Navigator.of(context).pop();
+          // Navigator.of(context).pushReplacement(
+          //     MaterialPageRoute(builder: (context) => style()));
+        } else {
+          Fluttertoast.showToast(msg: status);
+        }
+      }}
+    } else {
+      Fluttertoast.showToast(msg: " Already registered for this event! ");
+    }
   }
 
 

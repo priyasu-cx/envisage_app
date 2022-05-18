@@ -1,16 +1,24 @@
-import 'package:envisage_app/controller/cart/cart_controller.dart';
+import 'package:envisage_app/controller/authentication/authentication_service.dart';
+import 'package:envisage_app/controller/cart/Temp_List.dart';
 import 'package:envisage_app/controller/cart/cart_controller1.dart';
 import 'package:envisage_app/model/events_details.dart';
+import 'package:envisage_app/model/order.dart';
+import 'package:envisage_app/utils/CreateTeam.dart';
 import 'package:envisage_app/utils/event_model.dart';
+import 'package:envisage_app/utils/services.dart';
+import 'package:envisage_app/view/menu_pages/registered_events.dart';
 import 'package:envisage_app/view/notification.dart';
+import 'package:envisage_app/view/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:iconly/iconly.dart';
 import 'package:lottie/lottie.dart';
 import 'package:get/get.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-// List<EventDetails> eventsDb = [
-// ];
+import '../../model/user_details.dart';
+
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -20,60 +28,98 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  final _razorpay = Razorpay();
+  Order? orderDetails;
+
+  bool OrderStatus = false;
+
   final CartController controller = Get.find();
 
   int subTotal = 0;
   double transactionCharge = 0;
   double total = 0;
 
-  // void delete(int index) {
-  //   double price = double.parse(cart1[index]["price"]);
-  //   setState(() {
-  //     // subTotal = subTotal - price;
-  //     // transactionCharge = 0.02 * subTotal;
-  //     // total = subTotal + transactionCharge;
-  //     subTotal = 0;
-  //     transactionCharge = 0;
-  //     total = 0;
-  //     cart1.removeAt(index);
-  //   });
-  // }
+  void getOrderData() async {
+    orderDetails = await OrderHandle().getOrder();
+  }
+  var userData;
 
-  // void func(int index) {
-  //   setState(() {
-  //     subTotal = int.parse(cart1[index]["price"]) + subTotal;
-  //     print(subTotal);
-  //     transactionCharge = 0.02 * subTotal;
-  //     transactionCharge =
-  //         double.parse(transactionCharge.toStringAsExponential(1));
-  //     total = subTotal + transactionCharge;
-  //   });
-  // }
+  void getData() async {
+    UserDetails user = await AuthenticationService().fetchUserDetails();
+    setState(() {
+      userData = user;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    _razorpay.clear();
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    print('Success Response: $response');
+    setState(() {
+      OrderStatus = true;
+    });
+    RegisterCall();
+
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    // Do something when payment fails
+    print('Error Response: $response');
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    // Do something when an external wallet is selected
+    print('External SDK Response: $response');
+  }
+
+  Future<bool> openCheckout(double amount, List eventid) async {
+    getOrderData();
+    int value = (amount * 100).toInt();
+    var options = {
+      'key': 'rzp_test_mWdZk20UX7IlbJ',
+      'amount': value, //in the smallest currency sub-unit.
+      'name': 'IIC TMSL',
+      'order_id': orderDetails?.id, // Generate order_id using Orders API
+      'description': "Registering in " + eventid.length.toString() + " events ",
+      'timeout': 600, // in seconds
+      'prefill': {
+        'email': await AuthenticationService().fetchEmail(),
+      },
+    };
+
+    try {
+      _razorpay.open(options);
+    } catch (err) {
+      debugPrint('Error: $err');
+    }
+    return true;
+  }
+
+  List<dynamic> GlobalCart = [];
+  void RegisterCall(){
+    // print("-----------------------------------------------------------");
+    // print(GlobalCart);
+    register(GlobalCart);
+    Get.to(()=>reg_events);
+  }
 
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
-    // print("--------------------------------------------------------------------------");
-    // print(controller.events.length);
-    // subTotal = controller.events.length > 0 ?controller.total: 0;
-    // transactionCharge = 0.02 * subTotal;
-    // total = subTotal + transactionCharge;
 
-    void removeItem(){
-      var sub_Total = controller.events.length > 0 ?controller.total: 0;
-      var transaction_Charge = 0.02 * subTotal;
-      var total_charge = subTotal + transactionCharge;
-      setState(() {
-        subTotal = sub_Total;
-        transactionCharge = transaction_Charge;
-        total = total_charge;
-      });
-    }
-
-    // for (var i = 0; i < cart1.length; i++) {
-    //   func(i);
-    // }
     return Scaffold(
       backgroundColor: primaryBackgroundColor,
       appBar: PreferredSize(
@@ -119,26 +165,8 @@ class _CartPageState extends State<CartPage> {
                         ])))),
         preferredSize: Size.fromHeight(Get.height * 0.1),
       ),
-//       appBar: AppBar(
-//         backgroundColor: Colors.transparent,
-//         leading: IconButton(
-//           icon: const Icon(IconlyLight.arrow_left),
-//           onPressed: () {
-//             CartController();
-//             Navigator.of(context).pop();
-//           },
-//         ),
-//         title: Text(
-//           "Cart",
-//           style: TextStyle(
-//             color: Colors.white,
-//             fontSize: 20,
-//           ),
-//         ),
-//       ),
+//
       body: Obx(()=>controller.events.length ==0 ?EmptyCart():
-
-
       Container(
         child: Stack(
           children: [
@@ -271,6 +299,8 @@ class _CartPageState extends State<CartPage> {
                           ),
                           child: ATCButton(
                             _height,
+                              (controller.total + controller.total*0.02),
+                            Cart,
                           ),
                         ),
                       ),
@@ -284,68 +314,24 @@ class _CartPageState extends State<CartPage> {
       ),)
     );
   }
-
-  // Widget CartEvents(index) {
-  //   //final CartController controller;
-  //
-  //   controller.events.keys.toList()[index];
-  //
-  //   return Card(
-  //       child: Container(
-  //           padding: EdgeInsets.symmetric(horizontal: Get.width * 0.08),
-  //           height: Get.height * 0.09,
-  //           color: menu,
-  //           child: Row(
-  //             children: [
-  //               Container(
-  //                   width: Get.width * 0.5,
-  //                   alignment: Alignment.centerLeft,
-  //                   child: ListTile(
-  //                     title: Text(
-  //                       controller.events.index.name,
-  //                       style: TextStyle(
-  //                         color: Colors.white,
-  //                         fontSize: 17,
-  //                         fontWeight: FontWeight.w500,
-  //                       ),
-  //                     ),
-  //                     subtitle: Text(
-  //                       "₹ " + controller.events.index.price,
-  //                       style: TextStyle(
-  //                         color: Colors.white54,
-  //                         fontSize: 15,
-  //                         fontWeight: FontWeight.w500,
-  //                       ),
-  //                     ),
-  //                   )),
-  //               Expanded(
-  //                   flex: 5,
-  //                   child: Row(
-  //                     mainAxisAlignment: MainAxisAlignment.end,
-  //                     children: [
-  //                       IconButton(
-  //                           onPressed: () {
-  //                             controller.removeProduct(controller.events[index]);
-  //                           },
-  //                           icon: Icon(
-  //                             Icons.cancel_outlined,
-  //                             color: primaryHighlightColor,
-  //                             size: Get.width * 0.07,
-  //                           )),
-  //                     ],
-  //                   ))
-  //             ],
-  //           )));
-  // }
-
-  Material ATCButton(double _height) {
+  Material ATCButton(double _height, double total, List eventid) {
     return Material(
       color: primaryHighlightColor,
       borderRadius: BorderRadius.all(Radius.circular(8)),
       child: InkWell(
         splashColor: primaryHighlightColor,
         onTap: () {
-          print(" Purchased!! ");
+          setState(() {
+            GlobalCart = eventid;
+          });
+          // print("*********************************************************");
+          // print(GlobalCart);
+          openCheckout(total, eventid);
+          // print(OrderStatus);
+          //register(eventid);
+          Cart = [];
+          controller.clearall();
+          // Get.to(()=>reg_events);
         },
         child: Container(
           height: _height * 0.0738,
@@ -372,6 +358,29 @@ class _CartPageState extends State<CartPage> {
         ),
       ),
     );
+
+  }
+
+  void register(List eventid){
+    eventid.forEach((element) async{
+      print(element);
+      EventDetails _event = await AuthenticationService().fetchEventbyID(element);
+      String currentUser = userData.evgId;
+      if(_event.isTeamEvent){
+        CreateTeam(currentUser, _event);
+      }else{
+        String status =
+        await AuthenticationService().registerSoloEvent(_event);
+        if (status == "success") {
+          Fluttertoast.showToast(msg: "Successfully registered for event");
+          Navigator.of(context).pop();
+          // Navigator.of(context).pushReplacement(
+          //     MaterialPageRoute(builder: (context) => style()));
+        } else {
+          Fluttertoast.showToast(msg: status);
+        }
+      }
+    });
   }
 
   Container EmptyCart() {
@@ -380,8 +389,7 @@ class _CartPageState extends State<CartPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Lottie.network(
-                "https://assets8.lottiefiles.com/packages/lf20_jmejybvu.json"),
+            Lottie.network("https://assets8.lottiefiles.com/packages/lf20_jmejybvu.json"),
             const Text(
               " No Items in Cart ! ",
               style: TextStyle(
@@ -411,6 +419,9 @@ class CartEventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String price = events.price.toString();
+    if(!Cart.contains(events.id)){
+    Cart.add(events.id);}
+    print(Cart);
 
     return Card(
         child: Container(
@@ -432,7 +443,7 @@ class CartEventCard extends StatelessWidget {
                         ),
                       ),
                       subtitle: Text(
-                        price,
+                        "₹ "+price,
                         style: TextStyle(
                           color: Colors.white54,
                           fontSize: 15,
@@ -448,7 +459,7 @@ class CartEventCard extends StatelessWidget {
                         IconButton(
                             onPressed: () {
                               controller.removeProduct(events);
-
+                              Cart.remove(events.id);
                             },
                             icon: Icon(
                               Icons.cancel_outlined,
@@ -461,259 +472,3 @@ class CartEventCard extends StatelessWidget {
             )));
   }
 }
-
-// class cart extends StatefulWidget {
-//   const cart({Key? key}) : super(key: key);
-
-//   @override
-//   State<cart> createState() => _cartState();
-// }
-
-// class _cartState extends State<cart> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: primaryBackgroundColor,
-//       extendBodyBehindAppBar: true,
-//       appBar: PreferredSize(child:SafeArea(
-//           child: Container(
-//               child: Padding(
-//                   padding: const EdgeInsets.all(20),
-//                   child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                       children: <Widget>[
-//                         IconButton(icon: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
-//                           onPressed: (){
-//                             setState(() {
-//                               //print("Hello World");
-//                               Get.back();
-//                             });
-//                           },),
-//                         Text("Cart", style: TextStyle(
-//                           color: Colors.white,
-//                           letterSpacing: 3,
-//                           fontSize: 24,
-//                           fontWeight: FontWeight.w600,
-//                         ),),
-//                         IconButton(onPressed: (){},icon: Icon(IconlyBold.notification,color: Colors.white,),),
-//                         //IconButton(onPressed: (){},icon: Icon(IconlyBold.arrow_down_square,color: Colors.white,),),
-//                       ]
-//                   )
-//               )
-//           )
-//       ),preferredSize: Size.fromHeight(Get.height*0.1),),
-
-//       // body: Column(
-//       //   children:[
-//       //     SizedBox(height: Get.height*0.15),
-//       //     Container(
-//       //       child: Padding(
-//       //         padding: EdgeInsets.all(0),
-//       //         //padding: EdgeInsets.symmetric(horizontal: Get.width*0.02),
-//       //         child: Column(
-//       //           children: [
-//       //             Container(
-//       //               padding: EdgeInsets.symmetric(horizontal: Get.width*0.1 ),
-//       //               // decoration: BoxDecoration(
-//       //               //   color: menu,
-//       //               //   //borderRadius: BorderRadius.circular(10),
-//       //               // ),
-//       //               color: menu,
-//       //               height: Get.height*0.09,
-//       //               child: Column(
-//       //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//       //                 children: [
-//       //                   // Column(
-//       //                   //   children: [
-//       //                   //     IconButton(onPressed: (){}, icon: Icon(Icons.cancel_rounded, color: primaryHighlightColor)),
-//       //                   //   ]
-//       //                   // ),
-//       //
-//       //                   Row(
-//       //                     children: [
-//       //                       Text("Hackathon", style: TextStyle(
-//       //                         color: Colors.white,
-//       //                         fontSize: 17,
-//       //                         fontWeight: FontWeight.w500,
-//       //                       ),),],),
-//       //                   Row(
-//       //                     children: [
-//       //                       //Icon(Icons.)
-//       //                       Text("\u{20B9} 100", style: TextStyle(
-//       //                         color: Colors.white54,
-//       //                         fontSize: 15,
-//       //                         fontWeight: FontWeight.w500,
-//       //                       ),),
-//       //                     ],
-//       //                   )
-//       //
-//       //                 ]
-//       //               ),
-//       //             )
-//       //           ]
-//       //         )
-//       //       )
-//       //     )
-//       //   ]
-//       // )
-
-//       body: Column(
-//         children: [
-//           SizedBox(height: Get.height*0.15),
-//           Card(
-//             child: Container(
-//               padding: EdgeInsets.symmetric(horizontal: Get.width*0.08 ),
-//               height: Get.height*0.09,
-//               color: menu,
-//               child: Row(
-//                 children: [
-//                   Container(
-//                     width: Get.width*0.5,
-//                     alignment: Alignment.centerLeft,
-//                     child: ListTile(
-//                               title: Text("Hackathon", style: TextStyle(
-//                                         color: Colors.white,
-//                                         fontSize: 17,
-//                                         fontWeight: FontWeight.w500,
-//                                       ),),
-//                               subtitle: Text("\u{20B9} 100", style: TextStyle(
-//                                         color: Colors.white54,
-//                                         fontSize: 15,
-//                                         fontWeight: FontWeight.w500,
-//                                       ),),
-//                             )
-//                   ),
-//                   Expanded(
-//                     flex: 5,
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.end,
-//                       children: [
-//                         IconButton(onPressed: (){}, icon: Icon(Icons.cancel_outlined, color:primaryHighlightColor, size: Get.width*0.07,)),
-//                       ],
-//                     )
-//                   )
-//                       ],
-//                     )
-//                   )
-//               ),
-//
-//           //Checking options
-//           SizedBox(height: Get.height*0.01),
-//           //Sub Total
-//           Container(
-//               padding: EdgeInsets.symmetric(horizontal: Get.width*0.125, vertical: Get.height*0.01 ),
-//             child: Row(
-//               children: [
-//                 Container(
-//                   child: Text("Sub Total", style: TextStyle(
-//                     color: Colors.white,
-//                     fontSize: 18,
-//                     fontWeight: FontWeight.w500,
-//                   ),),
-//                 ),
-//                 Expanded(
-//                   flex:5,
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.end,
-//                       children:[Text("\u{20B9} 100.00", style: TextStyle(
-//                       color: Colors.white,
-//                       fontSize: 18,
-//                       fontWeight: FontWeight.w500,
-//                     ),),],),
-//                 )
-//               ],
-//             )
-//           ),
-//           //Transaction Charge
-//           Container(
-//               padding: EdgeInsets.symmetric(horizontal: Get.width*0.125,vertical: Get.height*0.01 ),
-//               child: Row(
-//                 children: [
-//                   Container(
-//                     child: Text("Transaction Charge", style: TextStyle(
-//                       color: Colors.white,
-//                       fontSize: 18,
-//                       fontWeight: FontWeight.w500,
-//                     ),),
-//                   ),
-//                   Expanded(
-//                     flex:5,
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.end,
-//                       children:[Text("\u{20B9} 2.00", style: TextStyle(
-//                         color: Colors.white,
-//                         fontSize: 18,
-//                         fontWeight: FontWeight.w500,
-//                       ),),],),
-//                   )
-//                 ],
-//               )
-//           ),
-//
-//           //Total
-//           Container(
-//               padding: EdgeInsets.symmetric(horizontal: Get.width*0.125,vertical: Get.height*0.01 ),
-//               child: Row(
-//                 children: [
-//                   Container(
-//                     child: Text("Total", style: TextStyle(
-//                       color: Colors.white,
-//                       letterSpacing: 2,
-//                       fontSize: 20,
-//                       fontWeight: FontWeight.w800,
-//                     ),),
-//                   ),
-//                   Expanded(
-//                     flex:5,
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.end,
-//                       children:[Text("\u{20B9} 102.00", style: TextStyle(
-//                         color: Colors.white,
-//                         fontSize: 20,
-//                         fontWeight: FontWeight.w800,
-//                       ),),],),
-//                   )
-//                 ],
-//               )
-//           ),
-//
-//           SizedBox(height: Get.height*0.15),
-//           //Checkout Button
-//           Column(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               Text("By clicking “Purchase”, you accept the terms.", style: TextStyle(
-//                   color: Colors.white,
-//                   fontSize: 12,
-//                   fontWeight: FontWeight.w400,
-//                 ),),
-//               SizedBox(height: 6),
-//               SizedBox(width: Get.width*0.5, height: 50, child:
-//               MaterialButton(
-//                   shape: RoundedRectangleBorder(
-//                     borderRadius: BorderRadius.circular(20),
-//                   ),
-//                   minWidth: 60,
-//                   color: primaryHighlightColor,
-//                   onPressed: (){},
-//                   child: Row(
-//                     mainAxisAlignment: MainAxisAlignment.center,
-//                     children: [
-//                       Text("Purchase",style: TextStyle(
-//                         color: Colors.white,
-//                         fontSize: 18,
-//                         fontWeight: FontWeight.w400,
-//                       ),),
-//                       SizedBox(width: 6),
-//                       Icon(IconlyLight.arrow_right, color: Colors.white),
-//                     ],
-//                   )
-//               ),),
-//             ],
-//           )
-//
-//
-//           ],
-//       ),);
-//   }
-// }
