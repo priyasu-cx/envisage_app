@@ -92,6 +92,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.16.0"
+  cross_file:
+    dependency: transitive
+    description:
+      name: cross_file
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.3"
   crypto:
     dependency: transitive
     description:
@@ -175,7 +182,6 @@ packages:
       name: firebase_core_web
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
     version: "1.6.4"
   firebase_messaging:
     dependency: "direct main"
@@ -198,8 +204,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.0"
-=======
-    version: "1.6.3"
   firebase_storage:
     dependency: "direct main"
     description:
@@ -221,7 +225,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.2.14"
->>>>>>> a965e669cd238b746e05b4c7b4492fd49cbdb721
   flutter:
     dependency: "direct main"
     description: flutter
