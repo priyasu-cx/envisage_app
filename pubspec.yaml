@@ -33,6 +33,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_auth: ^3.3.16
   firebase_core: ^1.15.0
+  firebase_messaging: ^11.4.0
   flutter:
     sdk: flutter
   flutter_facebook_auth: ^4.3.0
@@ -45,8 +46,9 @@ dependencies:
   http: ^0.13.4
   iconly: null
   lottie: ^1.3.0
+  overlay_support: ^2.0.0
   provider: ^6.0.2
-  razorpay_flutter: 
+  razorpay_flutter: null
   scroll_loop_auto_scroll: null
   scroll_to_index: null
   shared_preferences: ^2.0.13
