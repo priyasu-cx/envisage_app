@@ -251,64 +251,6 @@ class AuthenticationService {
     }
     return "success";
   }
-  //Doing Bakchodi ---------------------------------------------------------------------------------
-  Future<String> registerTeamEvent1(
-      List eventid, TeamDetails _teamDetails, int index) async {
-    User currentUser = _firebaseAuth.currentUser!;
-
-    try {
-      Map<String, dynamic> data = {
-        "isRegistered": true,
-        "teamId": _teamDetails.teamId.toString(),
-      };
-
-      await _firestore
-          .collection("users_test")
-          .doc(currentUser.uid)
-          .collection("registered")
-          .doc(eventid[index])
-          .set(data);
-
-      if (_teamDetails.teamMember1 != null && _teamDetails.teamMember1 != "") {
-        String uid = await fetchUserId(_teamDetails.teamMember1!);
-        await _firestore
-            .collection("users_test")
-            .doc(uid)
-            .collection("registered")
-            .doc(eventid[index])
-            .set(data);
-      }
-      if (_teamDetails.teamMember2 != null && _teamDetails.teamMember2 != "") {
-        String uid = await fetchUserId(_teamDetails.teamMember2!);
-        await _firestore
-            .collection("users_test")
-            .doc(uid)
-            .collection("registered")
-            .doc(eventid[index])
-            .set(data);
-      }
-      if (_teamDetails.teamMember3 != null && _teamDetails.teamMember3 != "") {
-        String uid = await fetchUserId(_teamDetails.teamMember3!);
-
-        await _firestore
-            .collection("users_test")
-            .doc(uid)
-            .collection("registered")
-            .doc(eventid[index])
-            .set(data);
-      }
-
-      await _firestore
-          .collection("teams")
-          .doc(_teamDetails.teamId)
-          .set(_teamDetails.toJson());
-    } catch (error) {
-      print(error.toString());
-      return error.toString();
-    }
-    return "success";
-  }
-  //Ending Bakchodi ---------------------------------------------------------------------------------
 
   Future<String> fetchUid() async {
     return _firebaseAuth.currentUser!.uid.toString();

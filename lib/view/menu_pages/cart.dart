@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/controller/cart/Temp_List.dart';
 import 'package:envisage_app/controller/cart/cart_controller1.dart';
@@ -6,6 +8,7 @@ import 'package:envisage_app/model/order.dart';
 import 'package:envisage_app/utils/CreateTeam.dart';
 import 'package:envisage_app/utils/event_model.dart';
 import 'package:envisage_app/utils/services.dart';
+import 'package:envisage_app/view/menu_pages/UpiPage.dart';
 import 'package:envisage_app/view/menu_pages/registered_events.dart';
 import 'package:envisage_app/view/notification.dart';
 import 'package:envisage_app/view/screen.dart';
@@ -28,6 +31,8 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+
+  //Razorpay ---------------------------------------------
   final _razorpay = Razorpay();
   Order? orderDetails;
 
@@ -111,14 +116,16 @@ class _CartPageState extends State<CartPage> {
   void RegisterCall(){
     // print("-----------------------------------------------------------");
     // print(GlobalCart);
-    register(GlobalCart);
-    Get.to(()=>reg_events);
+    register(GlobalCart,RegTeams);
+    RegTeams = [];
   }
+
 
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
+
 
     return Scaffold(
       backgroundColor: primaryBackgroundColor,
@@ -297,6 +304,12 @@ class _CartPageState extends State<CartPage> {
                             vertical: 15,
                             horizontal: _width * 0.077,
                           ),
+                          // child: UPIButton(
+                          //   _height,
+                          //   (controller.total + controller.total*0.02),
+                          //   Cart,
+
+
                           child: ATCButton(
                             _height,
                               (controller.total + controller.total*0.02),
@@ -314,6 +327,43 @@ class _CartPageState extends State<CartPage> {
       ),)
     );
   }
+
+  Material UPIButton(double _height,double total, List eventid){
+    return Material(
+      color: primaryHighlightColor,
+      borderRadius: BorderRadius.all(Radius.circular(8)),
+      child: InkWell(
+        splashColor: primaryHighlightColor,
+        onTap: () {
+          Get.to(()=>UpiPay(amount: total,ID: eventid));
+        },
+        child: Container(
+          height: 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                " PURCHASE ",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Image.asset(
+                  "assets/icons/forward_arrow_circle.png",
+                  height: 30,
+                  width: 30,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Material ATCButton(double _height, double total, List eventid) {
     return Material(
       color: primaryHighlightColor,
@@ -361,19 +411,22 @@ class _CartPageState extends State<CartPage> {
 
   }
 
-  void register(List eventid){
+  void register(List eventid, List regteam){
+    int i=0;
     eventid.forEach((element) async{
       print(element);
       EventDetails _event = await AuthenticationService().fetchEventbyID(element);
       String currentUser = userData.evgId;
       if(_event.isTeamEvent){
-        CreateTeam(currentUser, _event);
+        CreateTeam(currentUser, _event, regteam[i]);
+        i++;
       }else{
         String status =
         await AuthenticationService().registerSoloEvent(_event);
         if (status == "success") {
           Fluttertoast.showToast(msg: "Successfully registered for event");
-          Navigator.of(context).pop();
+          //Navigator.of(context).pop();
+          Get.to(()=>reg_events);
           // Navigator.of(context).pushReplacement(
           //     MaterialPageRoute(builder: (context) => style()));
         } else {
@@ -389,7 +442,8 @@ class _CartPageState extends State<CartPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Lottie.network("https://assets8.lottiefiles.com/packages/lf20_jmejybvu.json"),
+            // Lottie.network("https://assets8.lottiefiles.com/packages/lf20_jmejybvu.json"),
+            Image.asset("assets/cart/emptycart.png"),
             const Text(
               " No Items in Cart ! ",
               style: TextStyle(
@@ -420,8 +474,10 @@ class CartEventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     String price = events.price.toString();
     if(!Cart.contains(events.id)){
-    Cart.add(events.id);}
+      Cart.add(events.id);
+    }
     print(Cart);
+    //print(RegTeams);
 
     return Card(
         child: Container(
