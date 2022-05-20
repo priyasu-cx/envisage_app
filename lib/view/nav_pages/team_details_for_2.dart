@@ -1,11 +1,16 @@
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
+import 'package:envisage_app/controller/cart/Temp_List.dart';
+import 'package:envisage_app/controller/cart/cart_controller1.dart';
 import 'package:envisage_app/model/events_details.dart';
 import 'package:envisage_app/model/team_details.dart';
 import 'package:envisage_app/utils/colors.dart';
+import 'package:envisage_app/utils/event_model.dart';
 import 'package:envisage_app/utils/helper.dart';
+import 'package:envisage_app/view/menu_pages/registered_events.dart';
 import 'package:envisage_app/view/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 
 class TeamDetailsPage2 extends StatefulWidget {
@@ -243,91 +248,91 @@ class _TeamDetailsPage2State extends State<TeamDetailsPage2> {
                   height: _height * 0.3,
                   child: Column(
                     children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          // horizontal: _width * 0.077,
-                          vertical: _width * 0.02,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Subtotal",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                            Expanded(child: Container()),
-                            Text(
-                              "₹ $subTotal",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          // horizontal: _width * 0.077,
-                          vertical: _width * 0.02,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Transaction Charge",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                            Expanded(child: Container()),
-                            Text(
-                              "₹ $transactionCharge",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          // horizontal: _width * 0.077,
-                          vertical: _width * 0.02,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Total",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                            Expanded(child: Container()),
-                            Text(
-                              " ₹ $total",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Text(
-                        "By clicking “Purchase”, \nyou accept the terms & conditions.",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.white,
-                        ),textAlign: TextAlign.center,
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(
+                      //     // horizontal: _width * 0.077,
+                      //     vertical: _width * 0.02,
+                      //   ),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: [
+                      //       Text(
+                      //         "Subtotal",
+                      //         style: TextStyle(
+                      //           color: Colors.white,
+                      //           fontSize: 16,
+                      //         ),
+                      //       ),
+                      //       Expanded(child: Container()),
+                      //       Text(
+                      //         "₹ $subTotal",
+                      //         style: TextStyle(
+                      //           color: Colors.white,
+                      //           fontSize: 16,
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(
+                      //     // horizontal: _width * 0.077,
+                      //     vertical: _width * 0.02,
+                      //   ),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: [
+                      //       Text(
+                      //         "Transaction Charge",
+                      //         style: TextStyle(
+                      //           color: Colors.white,
+                      //           fontSize: 16,
+                      //         ),
+                      //       ),
+                      //       Expanded(child: Container()),
+                      //       Text(
+                      //         "₹ $transactionCharge",
+                      //         style: TextStyle(
+                      //           color: Colors.white,
+                      //           fontSize: 16,
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(
+                      //     // horizontal: _width * 0.077,
+                      //     vertical: _width * 0.02,
+                      //   ),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: [
+                      //       Text(
+                      //         "Total",
+                      //         style: TextStyle(
+                      //           color: Colors.white,
+                      //           fontSize: 16,
+                      //         ),
+                      //       ),
+                      //       Expanded(child: Container()),
+                      //       Text(
+                      //         " ₹ $total",
+                      //         style: TextStyle(
+                      //           color: Colors.white,
+                      //           fontSize: 16,
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      // Text(
+                      //   "By clicking “Purchase”, \nyou accept the terms & conditions.",
+                      //   style: TextStyle(
+                      //     fontSize: 12,
+                      //     color: Colors.white,
+                      //   ),textAlign: TextAlign.center,
+                      // ),
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Padding(
@@ -337,6 +342,7 @@ class _TeamDetailsPage2State extends State<TeamDetailsPage2> {
                           ),
                           child: ATCButton(
                             _height,
+                            event,
                           ),
                         ),
                       ),
@@ -351,7 +357,7 @@ class _TeamDetailsPage2State extends State<TeamDetailsPage2> {
     );
   }
 
-  Material ATCButton(double _height) {
+  Material ATCButton(double _height, EventDetails event) {
     return Material(
       color: primaryHighlightColor,
       borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -359,6 +365,7 @@ class _TeamDetailsPage2State extends State<TeamDetailsPage2> {
         splashColor: primaryHighlightColor,
         onTap: () {
           _handler(
+            event,
             teamNameController,
             teamLeadController,
             teamMember1Controller,
@@ -370,7 +377,7 @@ class _TeamDetailsPage2State extends State<TeamDetailsPage2> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                " PURCHASE ",
+                " REGISTER ",
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.white,
@@ -392,10 +399,12 @@ class _TeamDetailsPage2State extends State<TeamDetailsPage2> {
   }
 
   void _handler(
+      EventDetails event,
     TextEditingController teamNameController,
     TextEditingController teamLeadController,
     TextEditingController teamMember1Controller,
   ) async {
+    final cartController = Get.put(CartController());
     if (_formKey.currentState!.validate()) {
       String teamID = getId();
       TeamDetails teamData = TeamDetails(
@@ -408,20 +417,37 @@ class _TeamDetailsPage2State extends State<TeamDetailsPage2> {
       bool checkRegistered =
           await AuthenticationService().isAnyMemberRegistered(event, teamData);
       if (!checkRegistered) {
+        if(event.price>0){
+          setState(() {
+            cartController.addProduct(Events(name: event.name, price: event.price, id: event.id, event: event));
+            RegTeams.add(teamData);
+          });
+          Navigator.of(context).pop();// Add to cart
+        }else{
+          String status =
+          await AuthenticationService().registerTeamEvent(event, teamData);
+          if (status == "success") {
+            Fluttertoast.showToast(msg: "Successfully registered for event");
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => reg_events()));
+          } else {
+            Fluttertoast.showToast(msg: status);
+          }
+        }
         //
         //
         // Add Payment Gateway here !!!!!!!!
         //
         //
-        String status =
-            await AuthenticationService().registerTeamEvent(event, teamData);
-        if (status == "success") {
-          Fluttertoast.showToast(msg: "Successfully registered for event");
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => style()));
-        } else {
-          Fluttertoast.showToast(msg: status);
-        }
+        // String status =
+        //     await AuthenticationService().registerTeamEvent(event, teamData);
+        // if (status == "success") {
+        //   Fluttertoast.showToast(msg: "Successfully registered for event");
+        //   Navigator.of(context).pushReplacement(
+        //       MaterialPageRoute(builder: (context) => style()));
+        // } else {
+        //   Fluttertoast.showToast(msg: status);
+        // }
       } else {
         Fluttertoast.showToast(msg: " Already registered for this event! ");
       }

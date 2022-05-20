@@ -1,4 +1,5 @@
 import 'package:envisage_app/Cart%20Project/models/product_model.dart';
+import 'package:envisage_app/controller/cart/Temp_List.dart';
 import 'package:envisage_app/utils/event_model.dart';
 import 'package:envisage_app/view/nav_pages/events.dart';
 import 'package:get/get.dart';
@@ -11,19 +12,16 @@ class CartController extends GetxController {
     _events={}.obs;
   }
   void addProduct(Events event) {
-    if (_events.containsKey(event)) {
-      _events[event] += 1;
-    } else {
-      _events[event] = 1;
+    if(Cart.contains(event.id)){
+      Fluttertoast.showToast(msg: " Event added to cart ");
+    }else {
+      if (_events.containsKey(event)) {
+        _events[event] += 1;
+      } else {
+        _events[event] = 1;
+      }
+      Fluttertoast.showToast(msg: " Added ${event.name} to the cart ");
     }
-
-    // Get.snackbar(
-    //   "Product Added",
-    //   "You have added the ${event.name} to the cart",
-    //   snackPosition: SnackPosition.BOTTOM,
-    //   duration: Duration(seconds: 2),
-    // );
-    Fluttertoast.showToast(msg: " Added ${event.name} to the cart ");
   }
 
   void removeProduct(Events event) {
