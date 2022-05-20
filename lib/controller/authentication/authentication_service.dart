@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class ScreenLoader extends StatelessWidget {
@@ -59,6 +60,11 @@ class AuthenticationService {
 
     return eventsData;
   }
+  Future<EventDetails> fetchEventbyID(String eventId)async{
+    var event = await _firestore.collection("events").doc(eventId).get();
+    print(event.data());
+    return EventDetails.fromDocumentSnapshot(event);
+  }
 
   //
   // -------------------- All User Functions ---------------------
@@ -72,7 +78,7 @@ class AuthenticationService {
         List.from(readEvents.docs.map((doc) => EventDetails.fromJson(doc)));
 
     var readUserData = await _firestore
-        .collection("users")
+        .collection("users_test")
         .doc(currentUser.uid)
         .collection("registered")
         .get();
@@ -81,10 +87,22 @@ class AuthenticationService {
 
     for (var range = 0; range < readUserData.docs.length; range++) {
       var userData = readUserData.docs[range].data();
+      var eventid1 = readUserData.docs[range].id;
+      // print(userData);
+      // print(readUserData.docs[range].id);
+      // print(eventsData[range].id);
       if (userData["isRegistered"] == true) {
-        registeredData.add(eventsData[range]);
+        eventsData.forEach((element) {
+          if(element.id == eventid1){
+            registeredData.add(element);
+          }
+        });
+
       }
     }
+    registeredData.forEach((element) {print(element.id);});
+    // print(registeredData);
+    // print(currentUser.uid);
     return registeredData;
   }
 
@@ -122,7 +140,7 @@ class AuthenticationService {
       userId = currentUser.uid;
     } else {
       QuerySnapshot<Map<String, dynamic>> object = await _firestore
-          .collection("users")
+          .collection("users_test")
           .where("evgId", isEqualTo: userId)
           .get();
       Map<String, dynamic> data;
@@ -133,13 +151,14 @@ class AuthenticationService {
     }
 
     DocumentSnapshot<Map<String, dynamic>> snap = await _firestore
-        .collection("users")
+        .collection("users_test")
         .doc(userId)
         .collection("registered")
         .doc(_event.id!)
         .get();
 
     var snapshot = snap.data() as Map<String, dynamic>;
+    print(snapshot);
 
     return snapshot["isRegistered"];
     // return false;
@@ -151,7 +170,7 @@ class AuthenticationService {
     try {
       Map<String, dynamic> data = {"isRegistered": true};
       await _firestore
-          .collection("users")
+          .collection("users_test")
           .doc(currentUser.uid)
           .collection("registered")
           .doc(_event.id!)
@@ -164,7 +183,7 @@ class AuthenticationService {
 
   Future<String> fetchUserId(String evgId) async {
     QuerySnapshot<Map<String, dynamic>> object = await _firestore
-        .collection("users")
+        .collection("users_test")
         .where("evgId", isEqualTo: evgId)
         .get();
     String userId = "";
@@ -187,7 +206,7 @@ class AuthenticationService {
       };
 
       await _firestore
-          .collection("users")
+          .collection("users_test")
           .doc(currentUser.uid)
           .collection("registered")
           .doc(_event.id!)
@@ -196,7 +215,7 @@ class AuthenticationService {
       if (_teamDetails.teamMember1 != null && _teamDetails.teamMember1 != "") {
         String uid = await fetchUserId(_teamDetails.teamMember1!);
         await _firestore
-            .collection("users")
+            .collection("users_test")
             .doc(uid)
             .collection("registered")
             .doc(_event.id!)
@@ -205,7 +224,7 @@ class AuthenticationService {
       if (_teamDetails.teamMember2 != null && _teamDetails.teamMember2 != "") {
         String uid = await fetchUserId(_teamDetails.teamMember2!);
         await _firestore
-            .collection("users")
+            .collection("users_test")
             .doc(uid)
             .collection("registered")
             .doc(_event.id!)
@@ -215,7 +234,7 @@ class AuthenticationService {
         String uid = await fetchUserId(_teamDetails.teamMember3!);
 
         await _firestore
-            .collection("users")
+            .collection("users_test")
             .doc(uid)
             .collection("registered")
             .doc(_event.id!)
@@ -245,7 +264,7 @@ class AuthenticationService {
     User currentUser = _firebaseAuth.currentUser!;
 
     DocumentSnapshot snap =
-        await _firestore.collection("users").doc(currentUser.uid).get();
+        await _firestore.collection("users_test").doc(currentUser.uid).get();
 
     return UserDetails.fromSnap(snap);
   }
@@ -255,7 +274,7 @@ class AuthenticationService {
       User currentUser = _firebaseAuth.currentUser!;
 
       await _firestore
-          .collection("users")
+          .collection("users_test")
           .doc(currentUser.uid)
           .set(userDetails.toJson());
 
@@ -265,7 +284,7 @@ class AuthenticationService {
         if (element.isTeamEvent) {
           Map<String, dynamic> data = {"isRegistered": false, "teamId": null};
           await _firestore
-              .collection("users")
+              .collection("users_test")
               .doc(currentUser.uid)
               .collection("registered")
               .doc(element.id!)
@@ -273,7 +292,7 @@ class AuthenticationService {
         } else {
           Map<String, dynamic> data = {"isRegistered": false};
           await _firestore
-              .collection("users")
+              .collection("users_test")
               .doc(currentUser.uid)
               .collection("registered")
               .doc(element.id!)

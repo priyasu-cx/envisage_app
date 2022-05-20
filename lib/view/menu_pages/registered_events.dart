@@ -128,10 +128,7 @@ class _eventsState extends State<reg_events> {
                                           itemBuilder: (context, index) =>
                                               GestureDetector(
                                             onTap: () {
-                                              // Get.to(() => EventDetailsPage(
-                                              //       isUpcoming: true,
-                                              //       eventIndex: index,
-                                              //     )); // ON TAP FUNCTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                              //Get.to(()=>RegEventsPage(isUpcoming: true, eventIndex: index));
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
@@ -156,8 +153,9 @@ class _eventsState extends State<reg_events> {
                                                         EdgeInsets.symmetric(
                                                             horizontal: 10),
                                                     //width:Get.height*0.28,
-                                                    child: Image.asset(
-                                                      "assets/Events/event.png", // IMAGE of the Event => CHANGE !!!!!!!!!!
+                                                    child: Image.network(
+                                                      upcomingEvents[index]
+                                                          .photoUrl!, // IMAGE of the Event => CHANGE !!!!!!!!!!
                                                       fit: BoxFit.fitWidth,
                                                     ),
                                                   ),

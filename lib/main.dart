@@ -1,4 +1,6 @@
 import 'package:envisage_app/controller/pushnotification.dart';
+import 'package:envisage_app/Cart%20Project/screens/catalog_screen.dart';
+import 'package:envisage_app/controller/cart/cart_controller1.dart';
 import 'package:envisage_app/view/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -43,6 +45,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Get.put(CartController());
     return OverlaySupport(
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,

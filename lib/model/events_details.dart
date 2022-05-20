@@ -71,4 +71,25 @@ class EventDetails {
       maxTeamSize: snapshot["maxTeamSize"],
     );
   }
+
+  static EventDetails fromDocumentSnapshot(DocumentSnapshot snap) {
+    print(snap.id);
+    print(snap.data());
+    var snapshot = snap.data() as Map<String, dynamic>;
+    // print(snapshot);
+
+    return EventDetails(
+      id: snapshot["id"],
+      name: snapshot["name"],
+      about: snapshot["about"],
+      date: snapshot["date"],
+      location: snapshot["location"],
+      lead: snapshot["lead"],
+      leadContact: snapshot["leadContact"],
+      photoUrl: snapshot["photoUrl"],
+      price: snapshot["price"],
+      isTeamEvent: snapshot["isTeamEvent"],
+      maxTeamSize: snapshot["maxTeamSize"],
+    );
+  }
 }
