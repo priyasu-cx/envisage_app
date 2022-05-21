@@ -14,7 +14,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "596995894219-ami1dh93ae8hnb7dhmikm19ppf2bvcso.apps.googleusercontent.com",
+          "client_id": "596995894219-i1k888sdbjhd16nrr2s30pvedh3bet3l.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.envisage_app",
@@ -37,6 +37,57 @@
             {
               "client_id": "596995894219-q5hfq41ntohesisbv880fa765gpor872.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "596995894219-6bqm6na98j41ejpu877p29pvqj7lnb1u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.envisageApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596995894219:android:96e4ef31100380d412244e",
+        "android_client_info": {
+          "package_name": "com.iictmsl.envisage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596995894219-jq69pfjmn0e0jtduvm17cmqq9rpplfjs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iictmsl.envisage",
+            "certificate_hash": "632968b3a4337f694b83cbee3a961647d265db46"
+          }
+        },
+        {
+          "client_id": "596995894219-q5hfq41ntohesisbv880fa765gpor872.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHY5PgnRG3i_T0aSnMKPjrUl2quOnzs2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596995894219-q5hfq41ntohesisbv880fa765gpor872.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "596995894219-6bqm6na98j41ejpu877p29pvqj7lnb1u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.envisageApp"
+              }
             }
           ]
         }
