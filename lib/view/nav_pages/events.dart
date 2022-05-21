@@ -161,6 +161,9 @@ class _eventsState extends State<events> {
                                                 children: [
                                                   //SizedBox(height: Get.height*0.01,),
                                                   Container(
+                                                    decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                            image: AssetImage("assets/Events/event.png"))),
                                                     padding:
                                                         EdgeInsets.symmetric(
                                                             horizontal: 10),
@@ -295,12 +298,15 @@ class _eventsState extends State<events> {
                                                 children: [
                                                   //SizedBox(height: Get.height*0.01,),
                                                   Container(
+                                                    decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                            image: AssetImage("assets/Events/event.png"))),
                                                     padding:
                                                         EdgeInsets.symmetric(
                                                             horizontal: 10),
                                                     //width:Get.height*0.28,
                                                     child: Image.network(
-                                                      "https://firebasestorage.googleapis.com/v0/b/envisage-22.appspot.com/o/Event%20Banners%2FBIZVERSE.jpeg?alt=media&token=f32735c6-ccca-4164-ad68-4496577d41a5", // IMAGE of the Event => CHANGE !!!!!!!!!!
+                                                      "https://raw.githubusercontent.com/iictech/Assets/main/Event/BIZVERSE.jpeg", // IMAGE of the Event => CHANGE !!!!!!!!!!
                                                       fit: BoxFit.fitWidth,
                                                     ),
                                                   ),

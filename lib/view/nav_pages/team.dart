@@ -38,7 +38,6 @@ class _TeamState extends State<Team> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-
                   avatar("image", "Technical\nWing"),
                   avatar("image", "Start-up\nWing"),
                   avatar("image", "Graphics\nWing"),
@@ -83,9 +82,7 @@ class _TeamState extends State<Team> {
                           )),
                       child: WingMembers(listname),
                     ), //WingMembers(),
-                  )
-              )
-          )
+                  )))
         ]),
       )),
       bottomNavigationBar: Container(
@@ -144,7 +141,6 @@ class _TeamState extends State<Team> {
   }
 
   Widget Member(index) {
-
     return Container(
       alignment: Alignment.centerLeft,
       padding: EdgeInsets.all(10),
@@ -153,14 +149,18 @@ class _TeamState extends State<Team> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-
-              child: Image.network(
+              borderRadius: BorderRadius.circular(20),
+              child: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/loading.jpg"))),
+                child: Image.network(
                   Core[index]["photoUrl"],
-                  height: 120, width: Get.width*0.3,fit: BoxFit.cover,
-              ),
-          ),
-
+                  height: 120,
+                  width: Get.width * 0.3,
+                  fit: BoxFit.cover,
+                ),
+              )),
           SizedBox(
             width: 10,
           ),
