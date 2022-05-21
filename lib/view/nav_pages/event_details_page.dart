@@ -453,47 +453,47 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
       borderRadius: BorderRadius.all(Radius.circular(8)),
       child: InkWell(
         splashColor: primaryHighlightColor,
-        onTap: () {
+        onTap: () async{
           //ATC(_event);
           if(_event.id == "biz_debate"){
             final Uri _url = Uri.parse(
                 "https://bit.ly/evg22_tweeters");
-            launchUrl(_url);
+            launchUrl(_url,mode:LaunchMode.externalApplication);
           }
           if(_event.id == "biz_plan"){
             final Uri _url = Uri.parse(
                 "https://bit.ly/evg22_bizplan");
-            launchUrl(_url);
+            launchUrl(_url,mode:LaunchMode.externalApplication);
           }
-          if(_event.id == "brain_it_out"){
+          if(_event.id == "brain"){
             final Uri _url = Uri.parse(
                 "https://bit.ly/evg22_brainitout");
-            launchUrl(_url);
+            launchUrl(_url,mode:LaunchMode.externalApplication);
           }
           if(_event.id == "case_study"){
             final Uri _url = Uri.parse(
                 "https://bit.ly/evg22_casestudy");
-            launchUrl(_url);
+            launchUrl(_url,mode:LaunchMode.externalApplication);
           }
           if(_event.id == "hackathon"){
             final Uri _url = Uri.parse(
                 "https://bit.ly/evg22_hackurway");
-            launchUrl(_url);
+            launchUrl(_url,mode:LaunchMode.externalApplication);
           }
           if(_event.id == "mock_ipl"){
             final Uri _url = Uri.parse(
                 "https://bit.ly/evg22_mockipl");
-            launchUrl(_url);
+            launchUrl(_url,mode:LaunchMode.externalApplication);
           }
           if(_event.id == "reels"){
             final Uri _url = Uri.parse(
                 "https://bit.ly/evg22_reelomania");
-            launchUrl(_url);
+            launchUrl(_url,mode:LaunchMode.externalApplication);
           }
           if(_event.id == "stockify"){
             final Uri _url = Uri.parse(
                 "https://bit.ly/evg22_stockify");
-            launchUrl(_url);
+            launchUrl(_url,mode:LaunchMode.externalApplication);
           }
 
         },

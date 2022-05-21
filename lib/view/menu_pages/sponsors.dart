@@ -15,23 +15,64 @@ List<Map> sponser = [
     'logo': 'assets/Sponsors/unstop.png',
   },
   {
-    'name':'Learning While Travelling',
-    'type': 'Knowledge Partner',
-    'logo': 'assets/Sponsors/lwt.png',
+    'name':'Bank of Baroda',
+    'type': '\n\n\nEvent Partners',
+    'logo': 'assets/Sponsors/baroda.png',
   },
   {
     'name':'Freeflow',
-    'type': 'Ecosystem Partner',
+    'type': '',
     'logo': 'assets/Sponsors/freeflow.png',
   },
   {
+    'name':'Wow! China',
+    'type': '',
+    'logo': 'assets/Sponsors/wowchina.jpg',
+  },
+  {
+    'name':'BoookD.com',
+    'type': '',
+    'logo': 'assets/Sponsors/boookd.png',
+  },
+  {
+    'name':'Voxit Media Tech',
+    'type': '',
+    'logo': 'assets/Sponsors/baroda.png',
+  },
+  {
     'name':'Solvoix',
-    'type': 'Event Partner',
+    'type': '\n\n\nEvent Partner \nfor Biz-Plan Event',
     'logo': 'assets/Sponsors/solvoix.png',
   },
   {
+    'name':'Exchange 22',
+    'type': '\n\n\nEvent Partner \nfor Mock IPL Event',
+    'logo': 'assets/Sponsors/exchange22.png',
+  },
+  {
+    'name':'Dalal Street \nInvestment Journal',
+    'type': '\n\n\nEvent Partner \nfor Stockify Event',
+    'logo': 'assets/Sponsors/dalalstreet.png',
+  },
+  {
+    'name':'Learning While Travelling',
+    'type': '\n\n\nKnowledge Partner',
+    'logo': 'assets/Sponsors/lwt.png',
+  },
+
+  {
     'name': "Co Founder's Planet",
-    'type': 'Event Partner \nfor Biz-Plan Event',
+    'type': '\n\nVenture Partner',
+    'logo': 'assets/Sponsors/cofounder.png',
+  },
+  {
+    'name': "2nd Innings \nMulti Cuisine Restaurant",
+    'type': '\n\nFood Sponsor',
+    'logo': 'assets/Sponsors/food.png',
+  },
+  {
+    'name': "Creatale Fashions & Accessories",
+    'type': '\n\nMerchandise Partner',
     'logo': 'assets/Sponsors/cofounder.png',
   },
 
@@ -99,7 +140,7 @@ class Sponser extends StatelessWidget {
               ),
             ],
           ),
-          padding: EdgeInsets.symmetric(vertical: 10,horizontal:10),
+          padding: EdgeInsets.symmetric(vertical: 20,horizontal:10),
           child: ScrollLoopAutoScroll(
             child: Row(
               children: [
@@ -113,6 +154,22 @@ class Sponser extends StatelessWidget {
                 SizedBox(width: 40,),
                 Image.asset(sponser[4]["logo"], height: Get.height*0.1,),
                 SizedBox(width: 40,),
+                Image.asset(sponser[5]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
+                Image.asset(sponser[6]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
+                Image.asset(sponser[7]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
+                Image.asset(sponser[8]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
+                Image.asset(sponser[9]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
+                Image.asset(sponser[10]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
+                Image.asset(sponser[11]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
+                Image.asset(sponser[12]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
               ],
             ),
             delay: Duration(seconds: 0),
@@ -124,16 +181,18 @@ class Sponser extends StatelessWidget {
   }
   Widget SponsorCard(index){
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: Get.height*0.18),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: Get.height*0.03),
       width: Get.width*0.8,
       child:Column(
         children: [
-          Text(sponser[index]["type"], style: TextStyle(
-            color: Colors.white,
-            letterSpacing: 2,
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),textAlign: TextAlign.center,),
+          Center(
+              child: Text(sponser[index]["type"], style: TextStyle(
+                color: Colors.white,
+                letterSpacing: 2,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),textAlign: TextAlign.center,),
+          ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 30),
             child: Image.asset(sponser[index]["logo"], width: Get.width*0.5,),
@@ -143,7 +202,7 @@ class Sponser extends StatelessWidget {
             letterSpacing: 2,
             fontSize: 20,
             fontWeight: FontWeight.w600,
-          ),)
+          ),textAlign: TextAlign.center,)
         ]
       )
     );
