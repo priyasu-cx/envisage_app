@@ -37,7 +37,7 @@ List<Map> sponser = [
   {
     'name': 'Voxit Media Tech',
     'type': '',
-    'logo': 'assets/Sponsors/1x1.png',
+    'logo': 'assets/Sponsors/voxit.png',
   },
   {
     'name': 'Solvoix',
@@ -72,7 +72,7 @@ List<Map> sponser = [
   {
     'name': "Creatale Fashions & Accessories",
     'type': '\n\nMerchandise Partner',
-    'logo': 'assets/Sponsors/1x1.png',
+    'logo': null,
   },
 ];
 
@@ -144,97 +144,30 @@ class Sponser extends StatelessWidget {
           child: ScrollLoopAutoScroll(
             child: Row(
               children: [
-                Image.asset(
-                  sponser[0]["logo"],
-                  height: Get.height * 0.1,
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Image.asset(
-                  sponser[1]["logo"],
-                  height: Get.height * 0.1,
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Image.asset(
-                  sponser[2]["logo"],
-                  height: Get.height * 0.1,
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Image.asset(
-                  sponser[3]["logo"],
-                  height: Get.height * 0.1,
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Image.asset(
-                  sponser[4]["logo"],
-                  height: Get.height * 0.1,
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Image.asset(
-                  sponser[5]["logo"],
-                  height: Get.height * 0.1,
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Image.asset(
-                  sponser[6]["logo"],
-                  height: Get.height * 0.1,
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Image.asset(
-                  sponser[7]["logo"],
-                  height: Get.height * 0.1,
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Image.asset(
-                  sponser[8]["logo"],
-                  height: Get.height * 0.1,
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Image.asset(
-                  sponser[9]["logo"],
-                  height: Get.height * 0.1,
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Image.asset(
-                  sponser[10]["logo"],
-                  height: Get.height * 0.1,
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Image.asset(
-                  sponser[11]["logo"],
-                  height: Get.height * 0.1,
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Image.asset(
-                  sponser[12]["logo"],
-                  height: Get.height * 0.1,
-                ),
-                SizedBox(
-                  width: 40,
-                ),
+                Image.asset(sponser[0]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
+                Image.asset(sponser[1]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
+                Image.asset(sponser[2]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
+                Image.asset(sponser[3]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
+                Image.asset(sponser[4]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
+                Image.asset(sponser[5]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
+                Image.asset(sponser[6]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
+                Image.asset(sponser[7]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
+                Image.asset(sponser[8]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
+                Image.asset(sponser[9]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
+                Image.asset(sponser[10]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
+                Image.asset(sponser[11]["logo"], height: Get.height*0.1,),
+                SizedBox(width: 40,),
               ],
             ),
             delay: Duration(seconds: 0),
@@ -264,21 +197,18 @@ class Sponser extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 30),
-            child: Image.asset(
-              sponser[index]["logo"],
-              width: Get.width * 0.5,
-            ),
+
+            child: sponser[index]["logo"]!=null?Image.asset(sponser[index]["logo"], width: Get.width*0.5,):null,
           ),
-          Text(
-            sponser[index]["name"],
-            style: TextStyle(
-              color: Colors.white,
-              letterSpacing: 2,
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-            ),
-            textAlign: TextAlign.center,
-          )
-        ]));
+          Text(sponser[index]["name"], style: TextStyle(
+            color: Colors.white,
+            letterSpacing: 2,
+            fontSize: 17,
+            fontWeight: FontWeight.w400,
+          ),textAlign: TextAlign.center,),
+          SizedBox(height: Get.height*0.05),
+          ]
+      )
+    );
   }
 }
