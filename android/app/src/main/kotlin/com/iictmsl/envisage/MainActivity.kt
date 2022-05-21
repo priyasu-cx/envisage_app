@@ -1,4 +1,4 @@
-package com.example.envisage_app
+package com.iictmsl.envisage
 
 import io.flutter.embedding.android.FlutterActivity
 

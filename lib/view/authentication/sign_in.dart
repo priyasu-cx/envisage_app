@@ -374,13 +374,13 @@ class _SignInState extends State<SignIn> {
                       ),
                       child: GoogleSignInButton,
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: _height * 0.0114,
-                        horizontal: _width * 0.077,
-                      ),
-                      child: FacebookSignInButton,
-                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.symmetric(
+                    //     vertical: _height * 0.0114,
+                    //     horizontal: _width * 0.077,
+                    //   ),
+                    //   child: FacebookSignInButton,
+                    // ),
                   ],
                 ),
               ),
