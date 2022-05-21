@@ -37,7 +37,7 @@ List<Map> sponser = [
   {
     'name':'Voxit Media Tech',
     'type': '',
-    'logo': 'assets/Sponsors/baroda.png',
+    'logo': 'assets/Sponsors/voxit.png',
   },
   {
     'name':'Solvoix',
@@ -73,7 +73,7 @@ List<Map> sponser = [
   {
     'name': "Creatale Fashions & Accessories",
     'type': '\n\nMerchandise Partner',
-    'logo': 'assets/Sponsors/cofounder.png',
+    'logo': null,
   },
 
 ];
@@ -168,8 +168,6 @@ class Sponser extends StatelessWidget {
                 SizedBox(width: 40,),
                 Image.asset(sponser[11]["logo"], height: Get.height*0.1,),
                 SizedBox(width: 40,),
-                Image.asset(sponser[12]["logo"], height: Get.height*0.1,),
-                SizedBox(width: 40,),
               ],
             ),
             delay: Duration(seconds: 0),
@@ -195,15 +193,16 @@ class Sponser extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 30),
-            child: Image.asset(sponser[index]["logo"], width: Get.width*0.5,),
+            child: sponser[index]["logo"]!=null?Image.asset(sponser[index]["logo"], width: Get.width*0.5,):null,
           ),
           Text(sponser[index]["name"], style: TextStyle(
             color: Colors.white,
             letterSpacing: 2,
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),textAlign: TextAlign.center,)
-        ]
+            fontSize: 17,
+            fontWeight: FontWeight.w400,
+          ),textAlign: TextAlign.center,),
+          SizedBox(height: Get.height*0.05),
+          ]
       )
     );
   }
