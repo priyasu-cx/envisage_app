@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 
 class Gallery extends StatelessWidget {
   final List<String> images = [
-    "https://firebasestorage.googleapis.com/v0/b/envisage-22.appspot.com/o/Gallery%2Fpic5.jpg?alt=media&token=55837038-94d0-4761-8c5c-f345e11cee01",
-    "https://firebasestorage.googleapis.com/v0/b/envisage-22.appspot.com/o/Gallery%2Fpic4.jpg?alt=media&token=f7f87aa5-5279-45f1-bab9-f2f40de318f1",
+    "https://raw.githubusercontent.com/iictech/Assets/main/Gallery/pic5.jpg",
+    "https://raw.githubusercontent.com/iictech/Assets/main/Gallery/pic4.jpg",
     "https://envisage21.netlify.app/images/gallery/img7.jpg",
     "https://envisage21.netlify.app/images/gallery/img11.jpg",
     "https://envisage21.netlify.app/images/gallery/img8.jpg",
@@ -16,8 +16,8 @@ class Gallery extends StatelessWidget {
     "https://envisage21.netlify.app/images/gallery/img3.jpg",
     "https://envisage21.netlify.app/images/gallery/img5.jpg",
     "https://envisage21.netlify.app/images/gallery/img25.jpeg",
-    "https://firebasestorage.googleapis.com/v0/b/envisage-22.appspot.com/o/Gallery%2Fpic2.jpg?alt=media&token=d34b71de-64e6-4240-ba71-96ed416c479e",
-    "https://firebasestorage.googleapis.com/v0/b/envisage-22.appspot.com/o/Gallery%2Fpic1.jpg?alt=media&token=9d27d243-1530-4291-853b-cc4ae8ea9eb0",
+    "https://raw.githubusercontent.com/iictech/Assets/main/Gallery/pic1.jpg",
+    "https://raw.githubusercontent.com/iictech/Assets/main/Gallery/pic2.jpg",
   ];
 
   @override
