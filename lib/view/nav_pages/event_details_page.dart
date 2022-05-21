@@ -203,6 +203,29 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                           "Location",
                         ),
                       ),
+                      event!.maxTeamSize == null
+                          ? Padding(
+                              padding: EdgeInsets.only(
+                                bottom: _height * 0.03,
+                              ),
+                              child: EventDetailsWidget(
+                                _width,
+                                IconlyBold.profile,
+                                "Solo Event",
+                                "Team Size",
+                              ),
+                            )
+                          : Padding(
+                              padding: EdgeInsets.only(
+                                bottom: _height * 0.03,
+                              ),
+                              child: EventDetailsWidget(
+                                _width,
+                                IconlyBold.user_3,
+                                event!.maxTeamSize.toString() + " Members",
+                                "Team Size",
+                              ),
+                            ),
                       Padding(
                         padding: EdgeInsets.only(
                           bottom: _height * 0.08,
@@ -446,7 +469,6 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
     );
   }
 
-
   Material ATCButton(double _height, int _price, EventDetails _event) {
     return Material(
       color: primaryHighlightColor,
@@ -455,47 +477,38 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
         splashColor: primaryHighlightColor,
         onTap: () {
           //ATC(_event);
-          if(_event.id == "biz_debate"){
-            final Uri _url = Uri.parse(
-                "https://bit.ly/evg22_tweeters");
+          if (_event.id == "biz_debate") {
+            final Uri _url = Uri.parse("https://bit.ly/evg22_tweeters");
             launchUrl(_url);
           }
-          if(_event.id == "biz_plan"){
-            final Uri _url = Uri.parse(
-                "https://bit.ly/evg22_bizplan");
+          if (_event.id == "biz_plan") {
+            final Uri _url = Uri.parse("https://bit.ly/evg22_bizplan");
             launchUrl(_url);
           }
-          if(_event.id == "brain_it_out"){
-            final Uri _url = Uri.parse(
-                "https://bit.ly/evg22_brainitout");
+          if (_event.id == "brain_it_out") {
+            final Uri _url = Uri.parse("https://bit.ly/evg22_brainitout");
             launchUrl(_url);
           }
-          if(_event.id == "case_study"){
-            final Uri _url = Uri.parse(
-                "https://bit.ly/evg22_casestudy");
+          if (_event.id == "case_study") {
+            final Uri _url = Uri.parse("https://bit.ly/evg22_casestudy");
             launchUrl(_url);
           }
-          if(_event.id == "hackathon"){
-            final Uri _url = Uri.parse(
-                "https://bit.ly/evg22_hackurway");
+          if (_event.id == "hackathon") {
+            final Uri _url = Uri.parse("https://bit.ly/evg22_hackurway");
             launchUrl(_url);
           }
-          if(_event.id == "mock_ipl"){
-            final Uri _url = Uri.parse(
-                "https://bit.ly/evg22_mockipl");
+          if (_event.id == "mock_ipl") {
+            final Uri _url = Uri.parse("https://bit.ly/evg22_mockipl");
             launchUrl(_url);
           }
-          if(_event.id == "reels"){
-            final Uri _url = Uri.parse(
-                "https://bit.ly/evg22_reelomania");
+          if (_event.id == "reels") {
+            final Uri _url = Uri.parse("https://bit.ly/evg22_reelomania");
             launchUrl(_url);
           }
-          if(_event.id == "stockify"){
-            final Uri _url = Uri.parse(
-                "https://bit.ly/evg22_stockify");
+          if (_event.id == "stockify") {
+            final Uri _url = Uri.parse("https://bit.ly/evg22_stockify");
             launchUrl(_url);
           }
-
         },
         child: Container(
           height: _height * 0.0738,

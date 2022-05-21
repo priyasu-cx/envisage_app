@@ -241,6 +241,15 @@ class AuthenticationService {
     return _firebaseAuth.currentUser!.email.toString();
   }
 
+  Future<dynamic> fetchPhotoUrl() async {
+    var url = _firebaseAuth.currentUser!.photoURL;
+    if (url == null) {
+      return null;
+    } else {
+      return url.toString();
+    }
+  }
+
   Future<UserDetails> fetchUserDetails() async {
     User currentUser = _firebaseAuth.currentUser!;
 
