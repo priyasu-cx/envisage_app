@@ -153,22 +153,22 @@ List<Map> Core = [
     'photoUrl': "https://raw.githubusercontent.com/iictech/Assets/main/Team/Vivek%20Anand.jpg",
     'designation': 'Frontend Developer',
   },
+  {
+    'name':'',
+    'photoUrl': "",
+    'designation': '',
+  },
+  {
+    'name':'',
+    'photoUrl': "",
+    'designation': '',
+  },
+  {
+    'name':'',
+    'photoUrl': "",
+    'designation': '',
+  },
 
-  {
-    'name':'',
-    'photoUrl': "",
-    'designation': '',
-  },
-  {
-    'name':'',
-    'photoUrl': "",
-    'designation': '',
-  },
-  {
-    'name':'',
-    'photoUrl': "",
-    'designation': '',
-  },
 
 
 
