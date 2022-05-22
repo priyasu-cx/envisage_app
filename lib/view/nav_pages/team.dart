@@ -152,7 +152,7 @@ class _TeamState extends State<Team> {
               borderRadius: BorderRadius.circular(20),
               child: Container(
                 decoration: BoxDecoration(
-                    image: DecorationImage(
+                    image: Core[index]["photoUrl"]==""?null:DecorationImage(
                         image: AssetImage("assets/loading.jpg"))),
                 child: Image.network(
                   Core[index]["photoUrl"],
