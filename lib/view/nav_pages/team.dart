@@ -125,7 +125,7 @@ class _TeamState extends State<Team> {
   }
 
   Widget WingMembers(listname) {
-    print(listname.length);
+    // print(listname.length);
     return SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: SizedBox(

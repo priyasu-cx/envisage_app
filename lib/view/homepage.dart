@@ -60,10 +60,40 @@ class _homepageState extends State<homepage> {
 
         if (_notificationInfo != null) {
           // For displaying the notification as an overlay
+          // showOverlayNotification(
+          //   (context) {
+          //     return Material(
+          //       child: SafeArea(
+          //         child: Image.asset("assets/envisageNotificationLogo.png"),
+          //       ),
+          //     );
+          //   },
+          //   duration: Duration(seconds: 5),
+          //   context: context,
+          // );
+
           showSimpleNotification(
-            Text(_notificationInfo!.title!),
-            subtitle: Text(_notificationInfo!.body!),
-            trailing: Image.asset("assets/envisageNotificationLogo.png"),
+            Text(
+              _notificationInfo!.title!,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              vertical: 10,
+              horizontal: 10,
+            ),
+            subtitle: Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 4.0,
+              ),
+              child: Text(_notificationInfo!.body!),
+            ),
+            // trailing: Material(
+            //   borderRadius: BorderRadius.all(Radius.circular(20)),
+            //   child: Image.asset("assets/envisageNotificationLogo.png"),
+            // ),
             background: menu,
             duration: Duration(seconds: 5),
             autoDismiss: false,
