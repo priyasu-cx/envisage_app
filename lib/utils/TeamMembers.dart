@@ -74,7 +74,7 @@ List<Map> Core = [
   },
   {
     'name':'Siladitta Marik',
-    'photoUrl': "https://raw.githubusercontent.com/iictech/Assets/main/Team/Adi%20(3).jpg",
+    'photoUrl': "https://raw.githubusercontent.com/iictech/Assets/main/Team/Adi%20(3)%20(1).jpg",
     'designation': 'Co-Head Graphics Wing \nHead of IIC Press Wing',
   },
   {
