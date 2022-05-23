@@ -16,6 +16,8 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  bool isLoaded = false;
+
   // form key
   final _formKey = GlobalKey<FormState>();
 
@@ -281,111 +283,122 @@ class _SignUpState extends State<SignUp> {
       ),
     );
 
-    return Scaffold(
-      backgroundColor: primaryBackgroundColor,
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: _width * 0.077),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  padding: EdgeInsets.fromLTRB(_width * 0.193, _height * 0.09,
-                      _width * 0.193, _height * 0.01),
-                  child: Image.asset("assets/envisage_logo.png"),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: _height * 0.025),
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    child: const Text(
-                      " Sign up ",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-                emailField,
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: _height * 0.025),
-                  child: passwordField,
-                ),
-                confirmPasswordField,
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: _width * 0.061,
-                    vertical: _height * 0.0381,
-                  ),
-                  child: SignUpButton,
-                ),
-                Column(
-                  children: [
-                    const Text(
-                      " OR ",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: _height * 0.0114,
-                        // horizontal: _width * 0.138,
-                      ),
-                      child: GoogleSignInButton,
-                    ),
-                    // Padding(
-                    //   padding: EdgeInsets.symmetric(
-                    //     vertical: _height * 0.0114,
-                    //     // horizontal: _width * 0.138,
-                    //   ),
-                    //   child: FacebookSignInButton,
-                    // ),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: _height * 0.0217,
-                  ),
-                  child: Row(
+    return isLoaded
+        ? const Scaffold(
+            backgroundColor: primaryBackgroundColor,
+            body: Center(
+              child: CircularProgressIndicator(
+                color: Colors.white,
+              ),
+            ),
+          )
+        : Scaffold(
+            backgroundColor: primaryBackgroundColor,
+            body: Container(
+              padding: EdgeInsets.symmetric(horizontal: _width * 0.077),
+              child: SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      const Text(
-                        " Already have an account? ",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
+                    children: [
+                      Container(
+                        padding: EdgeInsets.fromLTRB(_width * 0.193,
+                            _height * 0.09, _width * 0.193, _height * 0.01),
+                        child: Image.asset("assets/envisage_logo.png"),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SignIn()));
-                        },
-                        child: const Text(
-                          "Sign In ",
-                          style: TextStyle(
-                            color: primaryHighlightColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15,
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: _height * 0.025),
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          child: const Text(
+                            " Sign up ",
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
+                      emailField,
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: _height * 0.025),
+                        child: passwordField,
+                      ),
+                      confirmPasswordField,
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: _width * 0.061,
+                          vertical: _height * 0.0381,
+                        ),
+                        child: SignUpButton,
+                      ),
+                      Column(
+                        children: [
+                          const Text(
+                            " OR ",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: _height * 0.0114,
+                              // horizontal: _width * 0.138,
+                            ),
+                            child: GoogleSignInButton,
+                          ),
+                          // Padding(
+                          //   padding: EdgeInsets.symmetric(
+                          //     vertical: _height * 0.0114,
+                          //     // horizontal: _width * 0.138,
+                          //   ),
+                          //   child: FacebookSignInButton,
+                          // ),
+                        ],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: _height * 0.0217,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            const Text(
+                              " Already have an account? ",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => SignIn()));
+                              },
+                              child: const Text(
+                                "Sign In ",
+                                style: TextStyle(
+                                  color: primaryHighlightColor,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(),
                     ],
                   ),
                 ),
-                Container(),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
-    );
+          );
   }
 
   void _signUp(
@@ -394,6 +407,9 @@ class _SignUpState extends State<SignUp> {
     TextEditingController confirmPasswordController,
   ) async {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        isLoaded = true;
+      });
       AuthenticationService _authController = AuthenticationService();
       String status = await _authController.signUpFirebase(
           emailController: emailController,
@@ -409,6 +425,9 @@ class _SignUpState extends State<SignUp> {
   }
 
   void _signUpWithGoogle(BuildContext context) async {
+    setState(() {
+      isLoaded = true;
+    });
     String? status = await AuthenticationService().signInWithGoogle(context);
     // print(status);
     if (status == null) {

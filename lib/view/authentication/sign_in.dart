@@ -18,6 +18,8 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  bool isLoaded = false;
+
   // form key
   final _formKey = GlobalKey<FormState>();
 
@@ -276,155 +278,167 @@ class _SignInState extends State<SignIn> {
       ),
     );
 
-    return Scaffold(
-      backgroundColor: primaryBackgroundColor,
-      body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                padding: EdgeInsets.fromLTRB(_width * 0.27, _height * 0.09,
-                    _width * 0.27, _height * 0.03),
-                child: Image.asset("assets/envisage_logo.png"),
+    return isLoaded
+        ? const Scaffold(
+            backgroundColor: primaryBackgroundColor,
+            body: Center(
+              child: CircularProgressIndicator(
+                color: Colors.white,
               ),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: _width * 0.077,
-                  ),
-                  child: const Text(
-                    "Sign In",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 24,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-              Form(
-                key: _formKey,
+            ),
+          )
+        : Scaffold(
+            backgroundColor: primaryBackgroundColor,
+            body: Container(
+              child: SingleChildScrollView(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: _height * 0.0251,
-                        horizontal: _width * 0.074,
-                      ),
-                      child: emailField,
+                    Container(
+                      padding: EdgeInsets.fromLTRB(_width * 0.27,
+                          _height * 0.14, _width * 0.27, _height * 0.04),
+                      child: Image.asset("assets/envisage_logo.png"),
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: _width * 0.074,
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: _width * 0.077,
+                        ),
+                        child: const Text(
+                          "Sign In",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 24,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
-                      child: passwordField,
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: _width * 0.074,
-                        vertical: _height * 0.01,
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: _height * 0.0251,
+                              horizontal: _width * 0.074,
+                            ),
+                            child: emailField,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: _width * 0.074,
+                            ),
+                            child: passwordField,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: _width * 0.074,
+                              vertical: _height * 0.01,
+                            ),
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: GestureDetector(
+                                child: const Text(
+                                  "Forgot Password?",
+                                  // textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => ResetPassword()));
+                                },
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: _width * 0.138,
+                              vertical: _height * 0.04,
+                            ),
+                            child: SignInButton,
+                          ),
+                        ],
                       ),
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: GestureDetector(
-                          child: const Text(
-                            "Forgot Password?",
-                            // textAlign: TextAlign.right,
+                    ),
+                    Container(
+                      child: Column(
+                        children: [
+                          const Text(
+                            " OR ",
                             style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: _height * 0.0114,
+                              horizontal: _width * 0.077,
+                            ),
+                            child: GoogleSignInButton,
+                          ),
+                          // Padding(
+                          //   padding: EdgeInsets.symmetric(
+                          //     vertical: _height * 0.0114,
+                          //     horizontal: _width * 0.077,
+                          //   ),
+                          //   child: FacebookSignInButton,
+                          // ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: _height * 0.0217,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          const Text(
+                            " Don't have an account? ",
+                            style: TextStyle(
                               color: Colors.white,
                             ),
                           ),
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => ResetPassword()));
-                          },
-                        ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => SignUp()));
+                            },
+                            child: const Text(
+                              "Sign Up",
+                              style: TextStyle(
+                                color: primaryHighlightColor,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: _width * 0.138,
-                        vertical: _height * 0.04,
-                      ),
-                      child: SignInButton,
-                    ),
+                    Container(),
                   ],
                 ),
               ),
-              Container(
-                child: Column(
-                  children: [
-                    const Text(
-                      " OR ",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: _height * 0.0114,
-                        horizontal: _width * 0.077,
-                      ),
-                      child: GoogleSignInButton,
-                    ),
-                    // Padding(
-                    //   padding: EdgeInsets.symmetric(
-                    //     vertical: _height * 0.0114,
-                    //     horizontal: _width * 0.077,
-                    //   ),
-                    //   child: FacebookSignInButton,
-                    // ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: _height * 0.0217,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Text(
-                      " Don't have an account? ",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => SignUp()));
-                      },
-                      child: const Text(
-                        "Sign Up",
-                        style: TextStyle(
-                          color: primaryHighlightColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
   }
 
   void _signIn(TextEditingController emailController,
       TextEditingController passwordController) async {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        isLoaded = true;
+      });
       AuthenticationService _authController = AuthenticationService();
       String status = await _authController.signInFirebase(
           email: emailController, password: passwordController);
@@ -442,6 +456,9 @@ class _SignInState extends State<SignIn> {
   }
 
   void _signInWithGoogle(BuildContext context) async {
+    setState(() {
+      isLoaded = true;
+    });
     String? status = await AuthenticationService().signInWithGoogle(context);
     // print(status);
     if (status == null) {
