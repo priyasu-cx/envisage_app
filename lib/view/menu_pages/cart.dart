@@ -15,7 +15,6 @@ import 'package:envisage_app/view/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:iconly/iconly.dart';
-import 'package:lottie/lottie.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
