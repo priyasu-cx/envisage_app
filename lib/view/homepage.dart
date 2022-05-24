@@ -1,8 +1,16 @@
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
 import 'package:envisage_app/model/events_details.dart';
 import 'package:envisage_app/utils/colors.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:envisage_app/controller/pushnotification.dart';
+import 'package:overlay_support/overlay_support.dart';
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print("Handling a background message codewaa: ${message.messageId}");
+}
 
 class homepage extends StatefulWidget {
   const homepage({Key? key}) : super(key: key);
@@ -12,12 +20,110 @@ class homepage extends StatefulWidget {
 }
 
 class _homepageState extends State<homepage> {
+  FirebaseMessaging? _messaging;
+  int _totalNotifications = 0;
+  PushNotification? _notificationInfo;
+
+  void registerNotification() async {
+    await Firebase.initializeApp();
+    _messaging = FirebaseMessaging.instance;
+
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+    NotificationSettings settings = await _messaging!.requestPermission(
+      alert: true,
+      badge: true,
+      provisional: false,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+        print(
+          'Message title: ${message.notification?.title}, body: ${message.notification?.body}, data: ${message.data},',
+        );
+
+        // Parse the message received
+        PushNotification notification = PushNotification(
+          title: message.notification?.title,
+          body: message.notification?.body,
+          dataTitle: message.data['title'],
+          dataBody: message.data['body'],
+        );
+
+        setState(() {
+          _notificationInfo = notification;
+          _totalNotifications++;
+        });
+
+        if (_notificationInfo != null) {
+          // For displaying the notification as an overlay
+          showSimpleNotification(
+            Text(_notificationInfo!.title!),
+            subtitle: Text(_notificationInfo!.body!),
+            trailing: Image.asset("assets/envisageNotificationLogo.png"),
+            background: menu,
+            duration: Duration(seconds: 5),
+            autoDismiss: false,
+            slideDismissDirection: DismissDirection.horizontal,
+          );
+        }
+      });
+    } else {
+      print('User declined or has not accepted permission');
+    }
+  }
+
+// For handling notification when the app is in terminated state
+  checkForInitialMessage() async {
+    await Firebase.initializeApp();
+    RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+
+    if (initialMessage != null) {
+      PushNotification notification = PushNotification(
+        title: initialMessage.notification?.title,
+        body: initialMessage.notification?.body,
+        dataTitle: initialMessage.data['title'],
+        dataBody: initialMessage.data['body'],
+      );
+
+      setState(() {
+        _notificationInfo = notification;
+        _totalNotifications++;
+      });
+    }
+  }
+
+  // Main Code starts here --------------------------------------------------- <<
   int upcomingEventCount = 0;
   List<EventDetails> upcomingEvents = [];
   bool isLoaded = false;
 
   @override
   void initState() {
+    _totalNotifications = 0;
+    registerNotification();
+    checkForInitialMessage();
+
+    // For handling notification when the app is in background
+    // but not terminated
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      PushNotification notification = PushNotification(
+        title: message.notification?.title,
+        body: message.notification?.body,
+        dataTitle: message.data['title'],
+        dataBody: message.data['body'],
+      );
+
+      setState(() {
+        _notificationInfo = notification;
+        _totalNotifications++;
+      });
+    });
+
     getData();
 
     super.initState();

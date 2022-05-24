@@ -21,7 +21,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../model/user_details.dart';
 
-
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
 
@@ -30,7 +29,6 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-
   //Razorpay ---------------------------------------------
   final _razorpay = Razorpay();
   Order? orderDetails;
@@ -46,6 +44,7 @@ class _CartPageState extends State<CartPage> {
   void getOrderData() async {
     orderDetails = await OrderHandle().getOrder();
   }
+
   var userData;
 
   void getData() async {
@@ -63,6 +62,7 @@ class _CartPageState extends State<CartPage> {
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
+
   @override
   void dispose() {
     super.dispose();
@@ -75,7 +75,6 @@ class _CartPageState extends State<CartPage> {
       OrderStatus = true;
     });
     RegisterCall();
-
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -112,229 +111,235 @@ class _CartPageState extends State<CartPage> {
   }
 
   List<dynamic> GlobalCart = [];
-  void RegisterCall(){
+  void RegisterCall() {
     // print("-----------------------------------------------------------");
     // print(GlobalCart);
-    register(GlobalCart,RegTeams);
+    register(GlobalCart, RegTeams);
     RegTeams = [];
   }
-
 
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
 
-
     return Scaffold(
-      backgroundColor: primaryBackgroundColor,
-      appBar: PreferredSize(
-        child: SafeArea(
-            child: Container(
-                child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: Get.width * 0.03,
-                      vertical: Get.height * 0.01,
-                    ),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          IconButton(
-                            icon: Icon(IconlyLight.arrow_left,
-                                color: Colors.white),
-                            onPressed: () {
-                              setState(() {
-                                //print("Hello World");
-                                Get.back();
-                              });
-                            },
-                          ),
-                          Text(
-                            "Cart",
-                            style: TextStyle(
-                              color: Colors.white,
-                              letterSpacing: 3,
-                              fontSize: 24,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Get.to(() => NotificationPage());
-                            },
-                            icon: Icon(
-                              IconlyLight.notification,
-                              color: Colors.white,
-                            ),
-                          ),
-                          //IconButton(onPressed: (){},icon: Icon(IconlyBold.arrow_down_square,color: Colors.white,),),
-                        ])))),
-        preferredSize: Size.fromHeight(Get.height * 0.1),
-      ),
-//
-      body: Obx(()=>controller.events.length ==0 ?EmptyCart():
-      Container(
-        child: Stack(
-          children: [
-            Obx(()=>Column(
-              children: [
-                Container(
-                    height: Get.height * 0.6,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: Get.width * 0.077),
-                    child: ListView.builder(
-                      //padding: EdgeInsets.only(top:Get.height*0.02),
-                      itemCount: controller.events.length,
-                      //itemBuilder: (context, index) => CartEvents(index),
-                      itemBuilder: (BuildContext context, int index) {
-                        return CartEventCard(
-                          controller: controller,
-                          events: controller.events.keys.toList()[index],
-                          index: index,
-                        );
-                      },
-                    )),
-              ],
-            ),),
-            Align(
-              alignment: Alignment.bottomCenter,
+        backgroundColor: primaryBackgroundColor,
+        appBar: PreferredSize(
+          child: SafeArea(
               child: Container(
-                width: _width,
-                height: _height * 0.3,
-                child: SingleChildScrollView(
-                  child: Obx(()=>Column(
+                  child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: Get.width * 0.03,
+                        vertical: Get.height * 0.01,
+                      ),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            IconButton(
+                              icon: Icon(IconlyLight.arrow_left,
+                                  color: Colors.white),
+                              onPressed: () {
+                                setState(() {
+                                  //print("Hello World");
+                                  Get.back();
+                                });
+                              },
+                            ),
+                            Text(
+                              "Cart",
+                              style: TextStyle(
+                                color: Colors.white,
+                                letterSpacing: 3,
+                                fontSize: 24,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                Get.to(() => NotificationPage());
+                              },
+                              icon: Icon(
+                                IconlyLight.notification,
+                                color: Colors.white,
+                              ),
+                            ),
+                            //IconButton(onPressed: (){},icon: Icon(IconlyBold.arrow_down_square,color: Colors.white,),),
+                          ])))),
+          preferredSize: Size.fromHeight(Get.height * 0.1),
+        ),
+//
+        body: Obx(
+          () => controller.events.length == 0
+              ? EmptyCart()
+              : Container(
+                  child: Stack(
                     children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: _width * 0.077,
-                          vertical: _width * 0.02,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                      Obx(
+                        () => Column(
                           children: [
-                            Text(
-                              "Subtotal",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                            Expanded(child: Container()),
-                            controller.events.length > 0?
-                            Text(
-                              "₹ ${controller.total}",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ):Text(
-                              "₹ 0",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
+                            Container(
+                                height: Get.height * 0.6,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Get.width * 0.077),
+                                child: ListView.builder(
+                                  //padding: EdgeInsets.only(top:Get.height*0.02),
+                                  itemCount: controller.events.length,
+                                  //itemBuilder: (context, index) => CartEvents(index),
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return CartEventCard(
+                                      controller: controller,
+                                      events: controller.events.keys
+                                          .toList()[index],
+                                      index: index,
+                                    );
+                                  },
+                                )),
                           ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: _width * 0.077,
-                          vertical: _width * 0.02,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Transaction Charge",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                            Expanded(child: Container()),
-                            Text(
-                              "₹ ${controller.total*0.02}",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: _width * 0.077,
-                          vertical: _width * 0.02,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Total",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                            Expanded(child: Container()),
-                            Text(
-                              " ₹ ${controller.total + controller.total*0.02}",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Text(
-                        "By clicking “Purchase”, you accept the terms & conditions.",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.white,
                         ),
                       ),
                       Align(
                         alignment: Alignment.bottomCenter,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 15,
-                            horizontal: _width * 0.077,
-                          ),
-                          // child: UPIButton(
-                          //   _height,
-                          //   (controller.total + controller.total*0.02),
-                          //   Cart,
+                        child: Container(
+                          width: _width,
+                          height: _height * 0.3,
+                          child: SingleChildScrollView(
+                              child: Obx(
+                            () => Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: _width * 0.077,
+                                    vertical: _width * 0.02,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Subtotal",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      Expanded(child: Container()),
+                                      controller.events.length > 0
+                                          ? Text(
+                                              "₹ ${controller.total}",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                              ),
+                                            )
+                                          : Text(
+                                              "₹ 0",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: _width * 0.077,
+                                    vertical: _width * 0.02,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Transaction Charge",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      Expanded(child: Container()),
+                                      Text(
+                                        "₹ ${controller.total * 0.02}",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: _width * 0.077,
+                                    vertical: _width * 0.02,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Total",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      Expanded(child: Container()),
+                                      Text(
+                                        " ₹ ${controller.total + controller.total * 0.02}",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Text(
+                                  "By clicking “Purchase”, you accept the terms & conditions.",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 15,
+                                      horizontal: _width * 0.077,
+                                    ),
+                                    // child: UPIButton(
+                                    //   _height,
+                                    //   (controller.total + controller.total*0.02),
+                                    //   Cart,
 
-
-                          child: ATCButton(
-                            _height,
-                              (controller.total + controller.total*0.02),
-                            Cart,
-                          ),
+                                    child: ATCButton(
+                                      _height,
+                                      (controller.total +
+                                          controller.total * 0.02),
+                                      Cart,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )),
                         ),
                       ),
                     ],
-                  ),)
+                  ),
                 ),
-              ),
-            ),
-          ],
-        ),
-      ),)
-    );
+        ));
   }
 
-  Material UPIButton(double _height,double total, List eventid){
+  Material UPIButton(double _height, double total, List eventid) {
     return Material(
       color: primaryHighlightColor,
       borderRadius: BorderRadius.all(Radius.circular(8)),
       child: InkWell(
         splashColor: primaryHighlightColor,
         onTap: () {
-          Get.to(()=>UpiPay(amount: total,ID: eventid));
+          // Get.to(()=>UpiPay(amount: total,ID: eventid));
         },
         child: Container(
           height: 50,
@@ -407,25 +412,24 @@ class _CartPageState extends State<CartPage> {
         ),
       ),
     );
-
   }
 
-  void register(List eventid, List regteam){
-    int i=0;
-    eventid.forEach((element) async{
+  void register(List eventid, List regteam) {
+    int i = 0;
+    eventid.forEach((element) async {
       print(element);
-      EventDetails _event = await AuthenticationService().fetchEventbyID(element);
+      EventDetails _event =
+          await AuthenticationService().fetchEventbyID(element);
       String currentUser = userData.evgId;
-      if(_event.isTeamEvent){
+      if (_event.isTeamEvent) {
         CreateTeam(currentUser, _event, regteam[i]);
         i++;
-      }else{
-        String status =
-        await AuthenticationService().registerSoloEvent(_event);
+      } else {
+        String status = await AuthenticationService().registerSoloEvent(_event);
         if (status == "success") {
           Fluttertoast.showToast(msg: "Successfully registered for event");
           //Navigator.of(context).pop();
-          Get.to(()=>reg_events);
+          Get.to(() => reg_events);
           // Navigator.of(context).pushReplacement(
           //     MaterialPageRoute(builder: (context) => style()));
         } else {
@@ -472,7 +476,7 @@ class CartEventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String price = events.price.toString();
-    if(!Cart.contains(events.id)){
+    if (!Cart.contains(events.id)) {
       Cart.add(events.id);
     }
     print(Cart);
@@ -498,7 +502,7 @@ class CartEventCard extends StatelessWidget {
                         ),
                       ),
                       subtitle: Text(
-                        "₹ "+price,
+                        "₹ " + price,
                         style: TextStyle(
                           color: Colors.white54,
                           fontSize: 15,
