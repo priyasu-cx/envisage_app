@@ -1,4 +1,4 @@
-import 'package:envisage_app/Cart%20Project/screens/catalog_screen.dart';
+
 import 'package:envisage_app/controller/cart/cart_controller1.dart';
 import 'package:envisage_app/view/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -1,4 +1,4 @@
-import 'package:envisage_app/Cart%20Project/models/product_model.dart';
+
 import 'package:envisage_app/controller/cart/Temp_List.dart';
 import 'package:envisage_app/utils/event_model.dart';
 import 'package:envisage_app/view/nav_pages/events.dart';

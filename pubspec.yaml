@@ -55,6 +55,8 @@ dependencies:
   image_picker:
   permission_handler:
   firebase_storage:
+  cashfree_pg: 2.0.10+30
+
 
 dev_dependencies:
   flutter_launcher_icons: null
