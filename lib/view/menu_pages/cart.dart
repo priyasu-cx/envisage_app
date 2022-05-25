@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
@@ -7,8 +8,8 @@ import 'package:envisage_app/model/events_details.dart';
 import 'package:envisage_app/model/order.dart';
 import 'package:envisage_app/utils/CreateTeam.dart';
 import 'package:envisage_app/utils/event_model.dart';
+import 'package:envisage_app/utils/helper.dart';
 import 'package:envisage_app/utils/services.dart';
-import 'package:envisage_app/view/menu_pages/UpiPage.dart';
 import 'package:envisage_app/view/menu_pages/registered_events.dart';
 import 'package:envisage_app/view/notification.dart';
 import 'package:envisage_app/view/screen.dart';
@@ -18,8 +19,9 @@ import 'package:iconly/iconly.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:cashfree_pg/cashfree_pg.dart';
 import '../../model/user_details.dart';
+import 'package:http/http.dart' as http;
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -29,21 +31,8 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  //Razorpay ---------------------------------------------
-  final _razorpay = Razorpay();
-  Order? orderDetails;
-
-  bool OrderStatus = false;
 
   final CartController controller = Get.find();
-
-  int subTotal = 0;
-  double transactionCharge = 0;
-  double total = 0;
-
-  void getOrderData() async {
-    orderDetails = await OrderHandle().getOrder();
-  }
 
   var userData;
 
@@ -53,62 +42,163 @@ class _CartPageState extends State<CartPage> {
       userData = user;
     });
   }
-
   @override
   void initState() {
     super.initState();
     getData();
-    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _razorpay.clear();
-  }
+  void payClickHandle(num amount)async{
+    FocusScope.of(context).requestFocus(FocusNode());
+    //num orderId = Random().nextInt(10000);
+    String orderId = generateIdInt(8);
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    print('Success Response: $response');
-    setState(() {
-      OrderStatus = true;
+    await getAccessToken(amount, orderId).then((tokenData){
+      print(tokenData);
+      String stage = "TEST";
+      String customerName = userData.fullName;
+      String orderNote = "Order_Note";
+      String orderCurrency = "INR";
+      String appId = "169638c70d73f1b13774879aad836961";
+      String customerPhone = userData.phone;
+      String customerEmail = userData.email;
+      String notifyUrl = "https://test.gocashfree.com/notify";
+
+      Map<String, dynamic> _params = {
+        "orderId": '$orderId',
+        "orderAmount": amount,
+        "customerName": customerName,
+        "orderNote": orderNote,
+        "orderCurrency": orderCurrency,
+        "appId": appId,
+        "customerPhone": customerPhone,
+        "customerEmail": customerEmail,
+        "stage": stage,
+        "tokenData": tokenData,
+        "notifyUrl": notifyUrl
+      };
+      CashfreePGSDK.doPayment(_params).then((value) {
+        print(value);
+        if(value!=null){
+          if(value['txStatus'].toString() == 'SUCCESS'){
+            Cart = [];
+            controller.clearall();
+            RegisterCall();
+            Fluttertoast.showToast(msg: "Payment Successful");
+          }else{
+            Fluttertoast.showToast(msg: "Payment Failed");
+          }
+        }
+        //Do something with the result
+      });
+
+
     });
-    RegisterCall();
   }
 
-  void _handlePaymentError(PaymentFailureResponse response) {
-    // Do something when payment fails
-    print('Error Response: $response');
-  }
 
-  void _handleExternalWallet(ExternalWalletResponse response) {
-    // Do something when an external wallet is selected
-    print('External SDK Response: $response');
-  }
-
-  Future<bool> openCheckout(double amount, List eventid) async {
-    getOrderData();
-    int value = (amount * 100).toInt();
-    var options = {
-      'key': 'rzp_test_mWdZk20UX7IlbJ',
-      'amount': value, //in the smallest currency sub-unit.
-      'name': 'IIC TMSL',
-      'order_id': orderDetails?.id, // Generate order_id using Orders API
-      'description': "Registering in " + eventid.length.toString() + " events ",
-      'timeout': 600, // in seconds
-      'prefill': {
-        'email': await AuthenticationService().fetchEmail(),
+  Future<String> getAccessToken(num amount, String orderId)async{
+    var res = await http.post(
+      Uri.https("test.cashfree.com", "api/v2/cftoken/order"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'x-client-id' : '169638c70d73f1b13774879aad836961',
+        'x-client-secret': 'fcfa6ea21e7e4d0cca7e35a7bd1bfff1be5e2123',
       },
-    };
-
-    try {
-      _razorpay.open(options);
-    } catch (err) {
-      debugPrint('Error: $err');
+      body: jsonEncode(
+        {
+          "orderId": '$orderId',
+          "orderAmount": amount,
+          "orderCurrency": "INR",
+        },
+      )
+    );
+    print(res.statusCode);
+    print(res.body);
+    if(res.statusCode == 200){
+      var jsonResponse = jsonDecode(res.body);
+      if(jsonResponse['status'] == 'OK'){
+        print(jsonResponse['cftoken']);
+        return jsonResponse['cftoken'];
+      }
     }
-    return true;
+    return '';
   }
+
+  //
+  // //Razorpay ---------------------------------------------
+  // final _razorpay = Razorpay();
+  // Order? orderDetails;
+  //
+  // bool OrderStatus = false;
+  //
+
+  //
+  // int subTotal = 0;
+  // double transactionCharge = 0;
+  // double total = 0;
+  //
+  // void getOrderData() async {
+  //   orderDetails = await OrderHandle().getOrder();
+  // }
+  //
+
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getData();
+  //   _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+  //   _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+  //   _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  // }
+  //
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   _razorpay.clear();
+  // }
+  //
+  // void _handlePaymentSuccess(PaymentSuccessResponse response) {
+  //   print('Success Response: $response');
+  //   setState(() {
+  //     OrderStatus = true;
+  //   });
+  //   RegisterCall();
+  // }
+  //
+  // void _handlePaymentError(PaymentFailureResponse response) {
+  //   // Do something when payment fails
+  //   print('Error Response: $response');
+  // }
+  //
+  // void _handleExternalWallet(ExternalWalletResponse response) {
+  //   // Do something when an external wallet is selected
+  //   print('External SDK Response: $response');
+  // }
+  //
+  // Future<bool> openCheckout(double amount, List eventid) async {
+  //   getOrderData();
+  //   int value = (amount * 100).toInt();
+  //   var options = {
+  //     'key': 'rzp_test_mWdZk20UX7IlbJ',
+  //     'amount': value, //in the smallest currency sub-unit.
+  //     'name': 'IIC TMSL',
+  //     'order_id': orderDetails?.id, // Generate order_id using Orders API
+  //     'description': "Registering in " + eventid.length.toString() + " events ",
+  //     'timeout': 600, // in seconds
+  //     'prefill': {
+  //       'email': await AuthenticationService().fetchEmail(),
+  //     },
+  //   };
+  //
+  //   try {
+  //     _razorpay.open(options);
+  //   } catch (err) {
+  //     debugPrint('Error: $err');
+  //   }
+  //   return true;
+  // }
 
   List<dynamic> GlobalCart = [];
   void RegisterCall() {
@@ -182,7 +272,7 @@ class _CartPageState extends State<CartPage> {
                                 height: Get.height * 0.6,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: Get.width * 0.077),
-                                child: ListView.builder(
+                                child: Obx(()=>ListView.builder(
                                   //padding: EdgeInsets.only(top:Get.height*0.02),
                                   itemCount: controller.events.length,
                                   //itemBuilder: (context, index) => CartEvents(index),
@@ -195,7 +285,7 @@ class _CartPageState extends State<CartPage> {
                                       index: index,
                                     );
                                   },
-                                )),
+                                ))),
                           ],
                         ),
                       ),
@@ -308,11 +398,6 @@ class _CartPageState extends State<CartPage> {
                                       vertical: 15,
                                       horizontal: _width * 0.077,
                                     ),
-                                    // child: UPIButton(
-                                    //   _height,
-                                    //   (controller.total + controller.total*0.02),
-                                    //   Cart,
-
                                     child: ATCButton(
                                       _height,
                                       (controller.total +
@@ -332,42 +417,6 @@ class _CartPageState extends State<CartPage> {
         ));
   }
 
-  Material UPIButton(double _height, double total, List eventid) {
-    return Material(
-      color: primaryHighlightColor,
-      borderRadius: BorderRadius.all(Radius.circular(8)),
-      child: InkWell(
-        splashColor: primaryHighlightColor,
-        onTap: () {
-          // Get.to(()=>UpiPay(amount: total,ID: eventid));
-        },
-        child: Container(
-          height: 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                " PURCHASE ",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: Image.asset(
-                  "assets/icons/forward_arrow_circle.png",
-                  height: 30,
-                  width: 30,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Material ATCButton(double _height, double total, List eventid) {
     return Material(
       color: primaryHighlightColor,
@@ -380,11 +429,12 @@ class _CartPageState extends State<CartPage> {
           });
           // print("*********************************************************");
           // print(GlobalCart);
-          openCheckout(total, eventid);
+          //openCheckout(total, eventid);
+          payClickHandle(total);
           // print(OrderStatus);
           //register(eventid);
-          Cart = [];
-          controller.clearall();
+          // Cart = [];
+          // controller.clearall();
           // Get.to(()=>reg_events);
         },
         child: Container(
