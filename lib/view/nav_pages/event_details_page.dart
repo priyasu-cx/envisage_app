@@ -1,12 +1,18 @@
 import 'package:envisage_app/controller/authentication/authentication_service.dart';
+import 'package:envisage_app/controller/cart/Temp_List.dart';
+import 'package:envisage_app/controller/cart/cart_controller1.dart';
 import 'package:envisage_app/model/events_details.dart';
 import 'package:envisage_app/model/order.dart';
+import 'package:envisage_app/model/user_details.dart';
+import 'package:envisage_app/utils/CreateTeam.dart';
 import 'package:envisage_app/utils/colors.dart';
+import 'package:envisage_app/utils/event_model.dart';
 import 'package:envisage_app/utils/services.dart';
 import 'package:envisage_app/view/nav_pages/events.dart';
 import 'package:envisage_app/view/nav_pages/team_details_for_2.dart';
 import 'package:envisage_app/view/nav_pages/team_details_for_4.dart';
 import 'package:envisage_app/view/screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,7 +20,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:iconly/iconly.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:get/get.dart';
 
 class EventDetailsPage extends StatefulWidget {
   final bool isUpcoming;
@@ -47,14 +53,17 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
 
   EventDetails? event;
   bool isLoading = false;
+  var userData;
 
   void getData() async {
     List<EventDetails> upcoming =
         await AuthenticationService().fetchEventDetails(isUpcoming);
+    UserDetails user = await AuthenticationService().fetchUserDetails();
 
     setState(() {
       event = upcoming[eventIndex];
       isLoading = true;
+      userData = user;
     });
   }
 
@@ -294,10 +303,13 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                       vertical: 15,
                       horizontal: _width * 0.077,
                     ),
-                    child: ATCButton(
+                    child: CheckoutButton(
                       _height,
-                      event!.price,
                       event!,
+                      event!.price,
+                      event!.name,
+                      event!.id,
+
                     ),
                   ),
                 ),
@@ -306,141 +318,140 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
           );
   }
 
-  Future<dynamic> bottomSheet(BuildContext context, EventDetails _event) {
-    double subTotal = 0;
-    double transactionCharge = 0;
-    double total = 0;
+  // Future<dynamic> bottomSheet(BuildContext context, EventDetails _event) {
+  //   double subTotal = 0;
+  //   double transactionCharge = 0;
+  //   int total = 0;
+  //
+  //   subTotal = double.parse(_event.price.toString());
+  //   transactionCharge = 0.02 * subTotal;
+  //   total = (subTotal + transactionCharge).round();
+  //
+  //   final _width = MediaQuery.of(context).size.width;
+  //   final _height = MediaQuery.of(context).size.height;
+  //
+  //   return showModalBottomSheet(
+  //       backgroundColor: primaryBackgroundColor,
+  //       context: context,
+  //       builder: (context) {
+  //         return Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             Padding(
+  //               padding: EdgeInsets.symmetric(
+  //                 horizontal: _width * 0.077,
+  //                 vertical: _width * 0.02,
+  //               ),
+  //               child: Row(
+  //                 mainAxisAlignment: MainAxisAlignment.center,
+  //                 children: [
+  //                   Text(
+  //                     "Subtotal",
+  //                     style: TextStyle(
+  //                       color: Colors.white,
+  //                       fontSize: 16,
+  //                     ),
+  //                   ),
+  //                   Expanded(child: Container()),
+  //                   Text(
+  //                     "₹ $subTotal",
+  //                     style: TextStyle(
+  //                       color: Colors.white,
+  //                       fontSize: 16,
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //             Padding(
+  //               padding: EdgeInsets.symmetric(
+  //                 horizontal: _width * 0.077,
+  //                 vertical: _width * 0.02,
+  //               ),
+  //               child: Row(
+  //                 mainAxisAlignment: MainAxisAlignment.center,
+  //                 children: [
+  //                   Text(
+  //                     "Transaction Charge",
+  //                     style: TextStyle(
+  //                       color: Colors.white,
+  //                       fontSize: 16,
+  //                     ),
+  //                   ),
+  //                   Expanded(child: Container()),
+  //                   Text(
+  //                     "₹ $transactionCharge",
+  //                     style: TextStyle(
+  //                       color: Colors.white,
+  //                       fontSize: 16,
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //             Padding(
+  //               padding: EdgeInsets.symmetric(
+  //                 horizontal: _width * 0.077,
+  //                 vertical: _width * 0.02,
+  //               ),
+  //               child: Row(
+  //                 mainAxisAlignment: MainAxisAlignment.center,
+  //                 children: [
+  //                   Text(
+  //                     "Total",
+  //                     style: TextStyle(
+  //                       color: Colors.white,
+  //                       fontSize: 16,
+  //                     ),
+  //                   ),
+  //                   Expanded(child: Container()),
+  //                   Text(
+  //                     " ₹ $total",
+  //                     style: TextStyle(
+  //                       color: Colors.white,
+  //                       fontSize: 16,
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //             Text(
+  //               "By clicking “Purchase”, you accept the terms & conditions.",
+  //               style: TextStyle(
+  //                 fontSize: 12,
+  //                 color: Colors.white,
+  //               ),
+  //             ),
+  //             Align(
+  //               alignment: Alignment.bottomCenter,
+  //               child: Padding(
+  //                 padding: EdgeInsets.symmetric(
+  //                   vertical: 15,
+  //                   horizontal: _width * 0.077,
+  //                 ),
+  //                 child: CheckoutButton(
+  //                   _height,
+  //                   _event,
+  //                   total,
+  //                   _event.name,
+  //                   _event.id,
+  //                 ),
+  //               ),
+  //             ),
+  //           ],
+  //         );
+  //       });
+  // }
 
-    subTotal = double.parse(_event.price.toString());
-    transactionCharge = 0.02 * subTotal;
-    total = subTotal + transactionCharge;
-
-    final _width = MediaQuery.of(context).size.width;
-    final _height = MediaQuery.of(context).size.height;
-
-    return showModalBottomSheet(
-        backgroundColor: primaryBackgroundColor,
-        context: context,
-        builder: (context) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: _width * 0.077,
-                  vertical: _width * 0.02,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Subtotal",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                    Expanded(child: Container()),
-                    Text(
-                      "₹ $subTotal",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: _width * 0.077,
-                  vertical: _width * 0.02,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Transaction Charge",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                    Expanded(child: Container()),
-                    Text(
-                      "₹ $transactionCharge",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: _width * 0.077,
-                  vertical: _width * 0.02,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Total",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                    Expanded(child: Container()),
-                    Text(
-                      " ₹ $total",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Text(
-                "By clicking “Purchase”, you accept the terms & conditions.",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.white,
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 15,
-                    horizontal: _width * 0.077,
-                  ),
-                  child: CheckoutButton(
-                    _height,
-                    total,
-                    _event.name,
-                  ),
-                ),
-              ),
-            ],
-          );
-        });
-  }
-
-  Material CheckoutButton(double _height, double amount, String eventName) {
+  Material CheckoutButton(double _height, EventDetails event,int amount, String eventName, String? id) {
+    final cartController = Get.put(CartController());
     return Material(
       color: primaryHighlightColor,
       borderRadius: BorderRadius.all(Radius.circular(8)),
       child: InkWell(
         splashColor: Colors.white30,
         onTap: () async {
-          openCheckout(amount, eventName);
-          setState(() {
-            // OrderStatus = true;
-          });
-          Navigator.of(context).pop();
+          check(event,amount,eventName,id);
         },
         child: Container(
           height: _height * 0.0738,
@@ -448,7 +459,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                " PURCHASE ",
+                " REGISTER ",
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.white,
@@ -468,6 +479,55 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
       ),
     );
   }
+
+  void check(EventDetails _event,int amount, String eventName, String? id) async{
+
+    final cartController = Get.put(CartController());
+    bool check = await AuthenticationService().isRegistered(_event, null);
+    String currentUser = userData.evgId;
+
+    if (!check) {
+      if (_event.price>0) {
+        if (_event.maxTeamSize == 2) {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: ((context) => TeamDetailsPage2(event: _event))));
+        } else if (_event.maxTeamSize == 4) {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: ((context) => TeamDetailsPage4(event: _event))));
+        }else{
+          setState(() {
+            cartController.addProduct(Events(name: eventName, price: amount, id: id, event: _event));
+          });
+          //RegTeams.add(null);
+          Navigator.of(context).pop();
+        }
+      } else {
+        if(_event.isTeamEvent){
+          if (_event.maxTeamSize == 2) {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: ((context) => TeamDetailsPage2(event: _event))));
+          } else if (_event.maxTeamSize == 4) {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: ((context) => TeamDetailsPage4(event: _event))));
+          }
+          //CreateTeam(currentUser, _event);
+        }else{
+        String status =
+        await AuthenticationService().registerSoloEvent(_event);
+        if (status == "success") {
+          Fluttertoast.showToast(msg: "Successfully registered for event");
+          Navigator.of(context).pop();
+          // Navigator.of(context).pushReplacement(
+          //     MaterialPageRoute(builder: (context) => style()));
+        } else {
+          Fluttertoast.showToast(msg: status);
+        }
+      }}
+    } else {
+      Fluttertoast.showToast(msg: " Already registered for this event! ");
+    }
+  }
+
 
   Material ATCButton(double _height, int _price, EventDetails _event) {
     return Material(
@@ -538,48 +598,48 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
     );
   }
 
-  void ATC(EventDetails _event) async {
-    bool check = await AuthenticationService().isRegistered(_event, null);
-    if (!check) {
-      if (_event.isTeamEvent) {
-        if (_event.maxTeamSize == 2) {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: ((context) => TeamDetailsPage2(event: _event))));
-        } else if (_event.maxTeamSize == 4) {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: ((context) => TeamDetailsPage4(event: _event))));
-        }
-      } else {
-        //
-        //
-        // Add Payment gateway here !!!!!!
-        //
-        await bottomSheet(context, _event);
-        print(OrderStatus);
-        // Navigator.of(context).pop();
-        //
-        //
-        //
-        if (OrderStatus == true) {
-          String status =
-              await AuthenticationService().registerSoloEvent(_event);
-          if (status == "success") {
-            Fluttertoast.showToast(msg: "Successfully registered for event");
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => style()));
-          } else {
-            Fluttertoast.showToast(msg: status);
-          }
-        } else {
-          Fluttertoast.showToast(msg: "Payment Failed");
-          // Navigator.of(context).pushReplacement(
-          //     MaterialPageRoute(builder: (context) => style()));
-        }
-      }
-    } else {
-      Fluttertoast.showToast(msg: " Already registered for this event! ");
-    }
-  }
+  // void ATC(EventDetails _event) async {
+  //   bool check = await AuthenticationService().isRegistered(_event, null);
+  //   if (!check) {
+  //     if (_event.isTeamEvent) {
+  //       if (_event.maxTeamSize == 2) {
+  //         Navigator.of(context).push(MaterialPageRoute(
+  //             builder: ((context) => TeamDetailsPage2(event: _event))));
+  //       } else if (_event.maxTeamSize == 4) {
+  //         Navigator.of(context).push(MaterialPageRoute(
+  //             builder: ((context) => TeamDetailsPage4(event: _event))));
+  //       }
+  //     } else {
+  //       //
+  //       //
+  //       // Add Payment gateway here !!!!!!
+  //       //
+  //       await bottomSheet(context, _event);
+  //       print(OrderStatus);
+  //       // Navigator.of(context).pop();
+  //       //
+  //       //
+  //       //
+  //       if (OrderStatus == true) {
+  //         String status =
+  //             await AuthenticationService().registerSoloEvent(_event);
+  //         if (status == "success") {
+  //           Fluttertoast.showToast(msg: "Successfully registered for event");
+  //           Navigator.of(context).pushReplacement(
+  //               MaterialPageRoute(builder: (context) => style()));
+  //         } else {
+  //           Fluttertoast.showToast(msg: status);
+  //         }
+  //       } else {
+  //         Fluttertoast.showToast(msg: "Payment Failed");
+  //         // Navigator.of(context).pushReplacement(
+  //         //     MaterialPageRoute(builder: (context) => style()));
+  //       }
+  //     }
+  //   } else {
+  //     Fluttertoast.showToast(msg: " Already registered for this event! ");
+  //   }
+  // }
 
   Container OrganizerDetailWidget(
       double _width, String _image, String _name, String _number) {

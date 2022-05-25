@@ -141,33 +141,63 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             ),)
                           ],
                         ),
-                        // Column(
-                        //   children: [
-                        //     Padding(
-                        //       padding: EdgeInsets.only(
-                        //           left: Get.width * 0.01, bottom: Get.width * 0.01),
-                        //       child: Row(
-                        //         children: [
-                        //           Icon(IconlyLight.calendar,
-                        //               color: Colors.white, size: 30),
-                        //           SizedBox(
-                        //             width: 8,
-                        //           ),
-                        //           MaterialButton(
-                        //               child: Text("Registered Events",
-                        //                   style: TextStyle(
-                        //                     color: Colors.white,
-                        //                     fontWeight: FontWeight.w500,
-                        //                     fontSize: 18,
-                        //                   )),
-                        //               onPressed: () {
-                        //                 Get.to(() => reg_events());
-                        //               }),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: Get.width * 0.01, bottom: Get.width * 0.01),
+                              child: Row(
+                                children: [
+                                  Icon(IconlyLight.calendar,
+                                      color: Colors.white, size: 30),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  MaterialButton(
+                                      child: Text("Registered Events",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 18,
+                                          )),
+                                      onPressed: () {
+                                        Get.to(() => reg_events());
+                                      }),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: Get.width * 0,
+                                  bottom: Get.width * 0.01),
+                              child: GestureDetector(
+                                onTap: (){Get.to(() => CartPage());},
+                                child:Row(
+                                  children: [
+                                    Icon(IconlyLight.buy,
+                                        color: Colors.white, size: 30),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    MaterialButton(
+                                        child: Text("Cart",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 18,
+                                            )),
+                                        onPressed: () {
+                                          Get.to(() => CartPage());
+                                        }),
+                                  ],
+                                ),
+                              ),)
+                          ],
+                        ),
                         Column(
                           children: [
                             Padding(

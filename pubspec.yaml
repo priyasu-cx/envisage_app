@@ -54,6 +54,11 @@ dependencies:
   shared_preferences: ^2.0.13
   smooth_page_indicator: ^1.0.0+2
   url_launcher: null
+  image_picker:
+  permission_handler:
+  firebase_storage:
+  cashfree_pg: 2.0.10+30
+
 
 dev_dependencies:
   flutter_launcher_icons: null
@@ -87,6 +92,7 @@ flutter:
     - assets/icons/
     - assets/Events/
     - assets/Sponsors/
+    - assets/cart/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
