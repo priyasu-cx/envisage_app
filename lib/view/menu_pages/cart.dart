@@ -48,7 +48,7 @@ class _CartPageState extends State<CartPage> {
     getData();
   }
 
-  void payClickHandle(num amount)async{
+  void payClickHandle(num amount, List eventid)async{
     FocusScope.of(context).requestFocus(FocusNode());
     //num orderId = Random().nextInt(10000);
     String orderId = generateIdInt(8);
@@ -57,7 +57,7 @@ class _CartPageState extends State<CartPage> {
       print(tokenData);
       String stage = "TEST";
       String customerName = userData.fullName;
-      String orderNote = "Order_Note";
+      String orderNote = "Registered in " + eventid.length.toString() + " events" ;
       String orderCurrency = "INR";
       String appId = "169638c70d73f1b13774879aad836961";
       String customerPhone = userData.phone;
@@ -431,7 +431,7 @@ class _CartPageState extends State<CartPage> {
           // print("*********************************************************");
           // print(GlobalCart);
           //openCheckout(total, eventid);
-          payClickHandle(total);
+          payClickHandle(total, eventid);
           // print(OrderStatus);
           //register(eventid);
           // Cart = [];
@@ -579,6 +579,8 @@ class CartEventCard extends StatelessWidget {
                       ],
                     ))
               ],
-            )));
+            )
+        )
+    );
   }
 }
