@@ -589,7 +589,7 @@ class _DetailsPageState extends State<DetailsPage> {
         state: state!,
         refferalCode: refferalController.text,
         evgId: getId(),
-        photoUrl: null,
+        photoUrl: await AuthenticationService().fetchPhotoUrl(),
       );
 
       String? status =

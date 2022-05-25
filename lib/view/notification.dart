@@ -5,10 +5,10 @@ import 'package:iconly/iconly.dart';
 import 'package:envisage_app/utils/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-List<String> noti = [
-  'Due to some issues with our payment partner Razorpay, all registrations are redirected to UpStop.',
-  "Please hold tight and look out for updates. :D",
+List<String> noti =[
+  'Coming Soon...',
 ];
+
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class NotificationPage extends StatefulWidget {
 }
 
 class _NotificationState extends State<NotificationPage> {
-  int Notification_count = 2;
+  int Notification_count = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,11 +26,11 @@ class _NotificationState extends State<NotificationPage> {
       appBar: PreferredSize(
         child: SafeArea(
             child: Container(
-                alignment: Alignment.topLeft,
+              alignment: Alignment.topLeft,
                 child: Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: Get.width * 0.03,
-                      vertical: Get.height * 0.01,
+                        horizontal: Get.width * 0.03,
+                      vertical: Get.height*0.01,
                     ),
                     child: Row(
                         //mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -127,5 +127,7 @@ class _NotificationState extends State<NotificationPage> {
             ),
           )),
     );
+
   }
 }
+

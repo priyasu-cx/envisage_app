@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 
 class Gallery extends StatelessWidget {
   final List<String> images = [
+    "https://raw.githubusercontent.com/iictech/Assets/main/Gallery/pic5.jpg",
+    "https://raw.githubusercontent.com/iictech/Assets/main/Gallery/pic4.jpg",
     "https://envisage21.netlify.app/images/gallery/img7.jpg",
     "https://envisage21.netlify.app/images/gallery/img11.jpg",
     "https://envisage21.netlify.app/images/gallery/img8.jpg",
@@ -13,7 +15,9 @@ class Gallery extends StatelessWidget {
     "https://envisage21.netlify.app/images/gallery/img23.jpeg",
     "https://envisage21.netlify.app/images/gallery/img3.jpg",
     "https://envisage21.netlify.app/images/gallery/img5.jpg",
-    "https://envisage21.netlify.app/images/gallery/img25.jpeg"
+    "https://envisage21.netlify.app/images/gallery/img25.jpeg",
+    "https://raw.githubusercontent.com/iictech/Assets/main/Gallery/pic1.jpg",
+    "https://raw.githubusercontent.com/iictech/Assets/main/Gallery/pic2.jpg",
   ];
 
   @override

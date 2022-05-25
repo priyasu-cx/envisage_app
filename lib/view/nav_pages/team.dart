@@ -38,8 +38,7 @@ class _TeamState extends State<Team> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-
-                  avatar("image", "Tech\nWing"),
+                  avatar("image", "Technical\nWing"),
                   avatar("image", "Start-up\nWing"),
                   avatar("image", "Graphics\nWing"),
                   avatar("image", "Innovation\nWing"),
@@ -83,9 +82,7 @@ class _TeamState extends State<Team> {
                           )),
                       child: WingMembers(listname),
                     ), //WingMembers(),
-                  )
-              )
-          )
+                  )))
         ]),
       )),
       bottomNavigationBar: Container(
@@ -128,7 +125,7 @@ class _TeamState extends State<Team> {
   }
 
   Widget WingMembers(listname) {
-    print(listname.length);
+    // print(listname.length);
     return SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: SizedBox(
@@ -144,7 +141,6 @@ class _TeamState extends State<Team> {
   }
 
   Widget Member(index) {
-
     return Container(
       alignment: Alignment.centerLeft,
       padding: EdgeInsets.all(10),
@@ -152,11 +148,19 @@ class _TeamState extends State<Team> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.network(
-            Core[index]["photoUrl"],
-              width: Get.width*0.3,
-              height: 120, fit: BoxFit.fitHeight
-          ),
+          ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Container(
+                decoration: BoxDecoration(
+                    image: Core[index]["photoUrl"]==""?null:DecorationImage(
+                        image: AssetImage("assets/loading.jpg"))),
+                child: Image.network(
+                  Core[index]["photoUrl"],
+                  height: 120,
+                  width: Get.width * 0.3,
+                  fit: BoxFit.cover,
+                ),
+              )),
           SizedBox(
             width: 10,
           ),

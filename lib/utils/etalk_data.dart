@@ -10,7 +10,7 @@ List<String> images = [
   'https://images.indulgexpress.com/uploads/user/imagelibrary/2021/12/23/original/SayanChakraborty.jpeg?w=400&dpr=2.6',
   'https://miro.medium.com/fit/c/176/176/1*Fh5vwiERC5tOG4UMqoHGiA.jpeg',
   'https://i.ytimg.com/vi/tuXSCa9fvvs/maxresdefault.jpg',
-  'https://firebasestorage.googleapis.com/v0/b/envisage-22.appspot.com/o/E-talk%2FArijit%20hajra.png?alt=media&token=0d60ddfa-ea02-4cef-9877-142bbe80d5fd',
+  'https://raw.githubusercontent.com/iictech/Assets/main/etalk/Arijit%20hajra.png',
   'https://sourcinghardware.net/wp-content/uploads/2019/01/jacks-Pic-1-1024x643.jpg',
   'https://images.livemint.com/img/2019/07/14/600x338/beb1f748-a62c-11e9-975b-46f21599486e_1563125944432_1563126020785.jpg',
   'https://www.f6s.com/content-resource/profiles/2416849_original.jpg',
