@@ -84,6 +84,7 @@ class _CartPageState extends State<CartPage> {
             Cart = [];
             controller.clearall();
             RegisterCall();
+            Get.to(()=>reg_events());
             Fluttertoast.showToast(msg: "Payment Successful");
           }else{
             Fluttertoast.showToast(msg: "Payment Failed");
@@ -272,7 +273,7 @@ class _CartPageState extends State<CartPage> {
                                 height: Get.height * 0.6,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: Get.width * 0.077),
-                                child: Obx(()=>ListView.builder(
+                                child: ListView.builder(
                                   //padding: EdgeInsets.only(top:Get.height*0.02),
                                   itemCount: controller.events.length,
                                   //itemBuilder: (context, index) => CartEvents(index),
@@ -285,7 +286,7 @@ class _CartPageState extends State<CartPage> {
                                       index: index,
                                     );
                                   },
-                                ))),
+                                )),
                           ],
                         ),
                       ),
